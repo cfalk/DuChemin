@@ -1,0 +1,228 @@
+{% extends "base.html" %}
+
+{% block wrap %}
+<div class="row-fluid">
+    <div class="span12">
+        <div class="search-heading row-fluid">
+            <h1 class="search-title page-title span8">Advanced Search</h1>
+        </div>
+        <div class="row-fluid">
+            <div class="span8 search-container content-container">
+                <form class="form-search" action="">
+                    <input type="text" class="search-input">
+                    <button type="submit" class="btn btn-large">Search</button>
+                </form>
+                <div class="accordion" id="search-accordion">
+                    <h2>Limit by:</h2>
+                    <div class="accordion-group">
+                        <div class="accordion-heading">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#search-accordion" href="#book-section">
+                                <span>Book</span><i class="icon-minus"></i>
+                            </a>
+                        </div>
+                        <div id="book-section" class="accordion-body collapse in">
+                            <div class="accordion-inner">
+                                <label class="checkbox" for="bookany"><input type="checkbox" id="bookany" name="book" value="any" />Any</label>
+                                <label class="checkbox" for="book1"><input type="checkbox" id="book1" name="book" value="premier livre" /> Premier livre contenant XXV chansons nouvelles</label>
+                                <label class="checkbox" for="book2"><input type="checkbox" id="book2" name="book" value="second livre" /> Second livre contenant XXVI chansons nouvelles</label>
+                                <label class="checkbox" for="book3"><input type="checkbox" id="book3" name="book" value="tiers livre" /> Tiers livre contenant XXII chansons nouvelles</label>
+                                <label class="checkbox" for="book4"><input type="checkbox" id="book4" name="book" value="quart livre" /> Quart livre contenant XXIIII chansons nouvelles</label>
+                                <label class="checkbox" for="book5"><input type="checkbox" id="book5" name="book" value="cinquiesme livre" /> Cinquiesme livre contenant XXV chansons nouvelles</label>
+                                <label class="checkbox" for="book6"><input type="checkbox" id="book6" name="book" value="sixiesme livre" /> Sixiesme livre contenant XXV chansons nouvelles</label>
+                                <label class="checkbox" for="book7"><input type="checkbox" id="book7" name="book" value="septiesme livre" /> Septiesme livre contenant XXIX chansons nouvelles</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-group">
+                        <div class="accordion-heading">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#search-accordion" href="#composer-section">
+                                <span>Composer</span><i class="icon-plus"></i>
+                            </a>
+                        </div>
+                        <div id="composer-section" class="accordion-body collapse">
+                            <div class="accordion-inner">
+                                <label class="checkbox" id="composer_checkbox" for="composerany"><input type="checkbox" id="composerany" name="composer" value="Any" />Any</label>
+                                <label class="checkbox" id="composer_checkbox" for="composer1"><input type="checkbox" id="composer1" name="composer" value="Arcadelt, Jacques" />Arcadelt, Jacques</label>
+                                <label class="checkbox" id="composer_checkbox" for="composer2"><input type="checkbox" id="composer2" name="composer" value="Bastard, Jean" />Bastard, Jean</label>
+                                <label class="checkbox" id="composer_checkbox" for="composer3"><input type="checkbox" id="composer3" name="composer" value="Benoist, Ph." />Benoist, Ph.</label>
+                                <label class="checkbox" id="composer_checkbox" for="composer4"><input type="checkbox" id="composer4" name="composer" value="Bense,    M." />Bense,    M.</label>
+                                <label class="checkbox" id="composer_checkbox" id="composer_checkbox" for="composer5"><input type="checkbox" id="composer5" name="composer" value="Besancourt," />Besancourt,</label>
+                                <label class="checkbox" id="composer_checkbox" for="composer6"><input type="checkbox" id="composer6" name="composer" value="Bersoy, F." />Bersoy, F.</label>
+                                <label class="checkbox" id="composer_checkbox" for="composer7"><input type="checkbox" id="composer7" name="composer" value="Besse, P. de" />Besse, P. de</label>
+                                <label class="checkbox" id="composer_checkbox" for="composer8"><input type="checkbox" id="composer8" name="composer" value="Bisson, Loys" />Bisson, Loys</label>
+                                <label class="checkbox" id="composer_checkbox" for="composer9"><input type="checkbox" id="composer9" name="composer" value="Bonard, Laurent" />Bonard, Laurent</label>
+                                <label class="checkbox" id="composer_checkbox" for="composer10"><input type="checkbox" id="composer10" name="composer" value="Bonnefond , [Simon de]" />Bonnefond , [Simon de]</label>
+                                <label class="checkbox" id="composer_checkbox" for="composer11"><input type="checkbox" id="composer11" name="composer" value="Bourgeois, Loys" />Bourgeois, Loys</label>
+                                <label class="checkbox" id="composer_checkbox" for="composer12"><input type="checkbox" id="composer12" name="composer" value="Bracquet,Gilles" />Bracquet,Gilles</label>
+                                <label class="checkbox" id="composer_checkbox" for="composer13"><input type="checkbox" id="composer13" name="composer" value="Brigard" />Brigard</label>
+                                <label class="checkbox" id="composer_checkbox" for="composer14"><input type="checkbox" id="composer14" name="composer" value="Briault ,Ph." />Briault ,Ph.</label>
+                                <label class="checkbox" id="composer_checkbox" for="composer15"><input type="checkbox" id="composer15" name="composer" value="Caron" />Caron</label>
+                                <label class="checkbox" id="composer_checkbox" for="composer16"><input type="checkbox" id="composer16" name="composer" value="Cartier , Antoine" />Cartier    , Antoine</label>
+                                <label class="checkbox" id="composer_checkbox" for="composer17"><input type="checkbox" id="composer17" name="composer" value="Certon, Pierre" />Certon, Pierre</label>
+                                <label class="checkbox" id="composer_checkbox" for="composer18"><input type="checkbox" id="composer18" name="composer" value="Clemens non Papa, Jacobus " />Clemens non Papa, Jacobus </label>
+                                <label class="checkbox" id="composer_checkbox" for="composer19"><input type="checkbox" id="composer19" name="composer" value="Clereau, Pierre" />Clereau, Pierre</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-group">
+                        <div class="accordion-heading">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#search-accordion" href="#contributor-section">
+                                <span>Contributor</span><i class="icon-plus"></i>
+                            </a>
+                        </div>
+                        <div id="contributor-section" class="accordion-body collapse">
+                            <div class="accordion-inner">
+                                <label class="checkbox" id="contributor_checkbox" for="contributorany"><input type="checkbox" id="contributorany" name="contributor" value="Any" />Any</label>
+                                <label class="checkbox" id="contributor_checkbox" for="contributor1"><input type="checkbox" id="contributor1" name="contributor" value="Buchanan, Christopher" />Buchanan, Christopher</label>
+                                <label class="checkbox" id="contributor_checkbox" for="contributor2"><input type="checkbox" id="contributor2" name="contributor" value="Clement, Deanna" />Clement, Deanna</label>
+                                <label class="checkbox" id="contributor_checkbox" for="contributor3"><input type="checkbox" id="contributor3" name="contributor" value="Greenberg, Jamie" />Greenberg, Jamie</label>
+                                <label class="checkbox" id="contributor_checkbox" for="contributor4"><input type="checkbox" id="contributor4" name="contributor" value="Herdman, Jessica" />Herdman, Jessica</label>
+                                <label class="checkbox" id="contributor_checkbox" for="contributor5"><input type="checkbox" id="contributor5" name="contributor" value="Belkot, John " />Belkot, John </label>
+                                <label class="checkbox" id="contributor_checkbox" for="contributor6"><input type="checkbox" id="contributor6" name="contributor" value="Holscher, Joshua" />Holscher, Joshua</label>
+                                <label class="checkbox" id="contributor_checkbox" for="contributor7"><input type="checkbox" id="contributor7" name="contributor" value="Apgar, Jamie" />Apgar, Jamie</label>
+                                <label class="checkbox" id="contributor_checkbox" for="contributor8"><input type="checkbox" id="contributor8" name="contributor" value="Quinn, Patrick" />Quinn, Patrick</label>
+                                <label class="checkbox" id="contributor_checkbox" for="contributor9"><input type="checkbox" id="contributor9" name="contributor" value="Derycz, Pierre" />Derycz, Pierre</label>
+                                <label class="checkbox" id="contributor_checkbox" for="contributor10"><input type="checkbox" id="contributor10" name="contributor" value="Magruder, Katherine" />Magruder, Katherine</label>
+                                <label class="checkbox" id="contributor_checkbox" for="contributor11"><input type="checkbox" id="contributor11" name="contributor" value="Saunders, Zoe" />Saunders, Zoe</label>
+                                <label class="checkbox" id="contributor_checkbox" for="contributor12"><input type="checkbox" id="contributor12" name="contributor" value="Freedman, Richard" />Freedman, Richard</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-group">
+                        <div class="accordion-heading">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#search-accordion" href="#cadences-section">
+                                <span>Cadences</span><i class="icon-plus"></i>
+                            </a>
+                        </div>
+                        <div id="cadences-section" class="accordion-body collapse">
+                            <div class="accordion-inner">
+
+                                <div class="accordion" id="cadences-accordion">
+                                    <div class="accordion-group">
+                                        <div class="accordion-heading">
+                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#cadences-accordion" href="#finalTone-section"><span>Final Tone</span><i class="icon-plus"></i></a>
+                                        </div>
+                                        <div id="finalTone-section" class="accordion-body collapse">
+                                            <div class="accordion-inner">
+                                                <label class="checkbox" for="finalToneany"><input type="checkbox" id="finalToneany" name="finalTone" value="Any" />Any</label>
+                                                <label class="checkbox" for="finalTone1"><input type="checkbox" id="finalTone1" name="finalTone" value="C" />C</label>
+                                                <label class="checkbox" for="finalTone2"><input type="checkbox" id="finalTone2" name="finalTone" value="D" />D</label>
+                                                <label class="checkbox" for="finalTone3"><input type="checkbox" id="finalTone3" name="finalTone" value="E" />E</label>
+                                                <label class="checkbox" for="finalTone4"><input type="checkbox" id="finalTone4" name="finalTone" value="F" />F</label>
+                                                <label class="checkbox" for="finalTone5"><input type="checkbox" id="finalTone5" name="finalTone" value="G" />G</label>
+                                                <label class="checkbox" for="finalTone6"><input type="checkbox" id="finalTone6" name="finalTone" value="A" />A</label>
+                                                <label class="checkbox" for="finalTone7"><input type="checkbox" id="finalTone7" name="finalTone" value="B-flat" />B-flat</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-group">
+                                        <div class="accordion-heading">
+                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#cadences-accordion" href="#cadenceType-section"><span>Cadence Type</span><i class="icon-plus"></i></a>
+                                        </div>
+                                        <div id="cadenceType-section" class="accordion-body collapse">
+                                            <div class="accordion-inner">
+                                                <label class="checkbox" for="cadenceTypeany"><input type="checkbox" id="cadenceTypeany" name="cadenceType" value="Any" />Any</label>
+                                                <label class="checkbox" for="cadenceType1"><input type="checkbox" id="cadenceType1" name="cadenceType" value="Authentic" />Authentic</label>
+                                                <label class="checkbox" for="cadenceType2"><input type="checkbox" id="cadenceType2" name="cadenceType" value="Plagal" />Plagal</label>
+                                                <label class="checkbox" for="cadenceType3"><input type="checkbox" id="cadenceType3" name="cadenceType" value="Phrygian" />Phrygian</label>
+                                                <label class="checkbox" for="cadenceType4"><input type="checkbox" id="cadenceType4" name="cadenceType" value="CadInCad" />CadInCad</label>
+                                                <label class="checkbox" for="cadenceType5"><input type="checkbox" id="cadenceType5" name="cadenceType" value="CadenceNDLT" />CadenceNDLT</label>
+                                                <label class="checkbox" for="cadenceType6"><input type="checkbox" id="cadenceType6" name="cadenceType" value="NoCadence" />NoCadence</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-group">
+                                        <div class="accordion-heading">
+                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#cadences-accordion" href="#cadenceMods-section"><span>Cadence Modifiers</span><i class="icon-plus"></i></a>
+                                        </div>
+                                        <div id="cadenceMods-section" class="accordion-body collapse">
+                                            <div class="accordion-inner">
+                                                <label class="checkbox" for="cadenceModsany"><input type="checkbox" id="cadenceModsany" name="cadenceMods" value="Any" />Any</label>
+                                                <label class="checkbox" for="cadenceMods1"><input type="checkbox" id="cadenceMods1" name="cadenceMods" value="Displaced" />Displaced</label>
+                                                <label class="checkbox" for="cadenceMods2"><input type="checkbox" id="cadenceMods2" name="cadenceMods" value="Inverted" />Inverted</label>
+                                                <label class="checkbox" for="cadenceMods3"><input type="checkbox" id="cadenceMods3" name="cadenceMods" value="Incomplete" />Incomplete</label>
+                                                <label class="checkbox" for="cadenceMods4"><input type="checkbox" id="cadenceMods4" name="cadenceMods" value="Evaded" />Evaded</label>
+                                                <label class="checkbox" for="cadenceMods5"><input type="checkbox" id="cadenceMods5" name="cadenceMods" value="Doubtful" />Doubtful</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-group">
+                        <div class="accordion-heading">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#search-accordion" href="#texttone-section">
+                                <span>Text-Tone Relationships</span><i class="icon-plus"></i>
+                            </a>
+                        </div>
+                        <div id="texttone-section" class="accordion-body collapse">
+                            <div class="accordion-inner">
+                                <label class="checkbox" id="contributor_checkbox" for="texttoneany"><input type="checkbox" id="texttoneany" name="texttone" value="Any" />Any</label>
+                                <label class="checkbox" id="contributor_checkbox" for="texttone1"><input type="checkbox" id="texttone1" name="texttone" value="Text Representation" />Text Representation</label>
+                                <label class="checkbox" id="contributor_checkbox" for="texttone2"><input type="checkbox" id="texttone2" name="texttone" value="Text Declamation" />Text Declamation</label>
+                                <label class="checkbox" id="contributor_checkbox" for="texttone3"><input type="checkbox" id="texttone3" name="texttone" value="Text Overlap" />Text Overlap</label>
+                                <label class="checkbox" id="contributor_checkbox" for="texttone4"><input type="checkbox" id="texttone4" name="texttone" value="Text Paus" />Text Paus</label>
+                                <label class="checkbox" id="contributor_checkbox" for="texttone5"><input type="checkbox" id="texttone5" name="texttone" value="Text Enjambement" />Text Enjambement</label>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="accordion-group">
+                        <div class="accordion-heading">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#search-accordion" href="#form-section">
+                                <span>Musical and Literary Form</span><i class="icon-plus"></i>
+                            </a>
+                        </div>
+                        <div id="form-section" class="accordion-body collapse">
+                            <div class="accordion-inner">
+                                <label class="checkbox" id="contributor_checkbox" for="form1"><input type="checkbox" id="form1" name="form" value="Direct Repeat" />Direct Repeat</label>
+                                <label class="checkbox" id="contributor_checkbox" for="form2"><input type="checkbox" id="form2" name="form" value="Refrain" />Refrain</label>
+                                <label class="checkbox" id="contributor_checkbox" for="form3"><input type="checkbox" id="form3" name="form" value="Da Capo" />Da Capo</label>
+                                <label class="checkbox" id="contributor_checkbox" for="form4"><input type="checkbox" id="form4" name="form" value="Final Repeat" />Final Repeat</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-group">
+                        <div class="accordion-heading">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#search-accordion" href="#date-section">
+                                <span>Date</span><i class="icon-plus"></i>
+                            </a>
+                        </div>
+                        <div id="date-section" class="accordion-body collapse">
+                            <div class="accordion-inner">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Start date
+                                                <input type="text" class="span2" value="02/16/12" data-date-format="mm/dd/yy" id="dp2" >
+                                            </th>
+                                            <th>End date
+                                                <input type="text" class="span2" value="02/16/12" data-date-format="mm/dd/yy" id="dp2" >
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody><tr><td></td><td></td></tr></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="search-buttons">
+                    <button class="btn btn-large btn-inverse">Search</button>
+                    <button class="btn btn-large">Clear</button>
+                </div>
+            </div><!--/span-->
+            <div id="sidebar" class="span4">
+                <h3>Search Help</h3>
+                <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+                <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+            </div><!--/span-->
+        </div><!--/row-->
+    </div><!--/span-->
+</div><!--/row-->
+{% endblock %}

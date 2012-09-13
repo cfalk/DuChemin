@@ -1,0 +1,10 @@
+*.pyc
+*.sqlite3
+*.swp
+*.tif
+*.tiff
+gamera
+errors.log
+data/*
+duchemin_env/*
+.DS_Store

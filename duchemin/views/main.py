@@ -51,7 +51,6 @@ def pieces(request):
     return render(request, 'main/pieces.html', {'pieces': all_pieces})
 
 
-
 def piece(request, piece_id):
     try:
         piece = DCPiece.objects.get(piece_id=piece_id)
@@ -59,24 +58,11 @@ def piece(request, piece_id):
         raise Http404
 
     phrases = DCPhrase.objects.filter(piece_id=piece_id).order_by('phrase_num')
-
-    phrase_resp = []
-    for phrase in phrases:
-        r = {
-            'phrase_start': phrase.phrase_start,
-            'phrase_end': phrase.phrase_stop,
-            'phrase_text': phrase.phrase_text,
-            'rhyme': phrase.rhyme
-        }
-        phrase_resp.append(r)
-
-    analyses = DCAnalysis.objects.filter(composition_number=piece_id)
+    analyses = DCAnalysis.objects.filter(composition_number=piece_id).order_by('start_measure')
 
     data = {
-        'piece_title': piece.title,
-        'composer_surname': piece.composer_id.surname,
-        'piece_id': piece.piece_id,
-        'book_title': piece.book_id.title,
-        'phrases': phrase_resp
+        'piece': piece,
+        'phrases': phrases,
+        'analyses': analyses
     }
     return render(request, 'main/piece.html', data)

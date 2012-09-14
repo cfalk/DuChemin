@@ -10,6 +10,15 @@
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width">
 
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.7.2.min.js"><\/script>')</script>
+
+
+  <!-- scripts concatenated and minified via build script -->
+  <script src="{{ STATIC_URL }}js/bootstrap/bootstrap.min.js"></script>
+  <script src="{{ STATIC_URL }}js/plugins.js"></script>
+  <!-- <script src="{{ STATIC_URL }}js/main.js"></script> -->
+  <!-- end scripts -->
   <link href="{{ STATIC_URL }}css/bootstrap.min.css" rel="stylesheet">
   <link href="{{ STATIC_URL }}css/bootstrap-responsive.min.css" rel="stylesheet">
   <link rel="stylesheet" href="{{STATIC_URL}}css/style.css">
@@ -96,16 +105,5 @@
       </footer>
 
     </div><!--/.fluid-container-->
-
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-  <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.7.2.min.js"><\/script>')</script>
-
-
-  <!-- scripts concatenated and minified via build script -->
-  <script src="{{ STATIC_URL }}js/bootstrap/bootstrap.min.js"></script>
-  <script src="{{ STATIC_URL }}js/plugins.js"></script>
-  <script src="{{ STATIC_URL }}js/main.js"></script>
-  <!-- end scripts -->
-
 </body>
 </html>

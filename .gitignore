@@ -9,3 +9,4 @@ data/*
 duchemin_env/*
 fixtures/*
 .DS_Store
+/duchemin/fixtures

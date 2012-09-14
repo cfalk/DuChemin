@@ -160,3 +160,5 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.csrf",
     "django.contrib.messages.context_processors.messages",
 )
+
+SOLR_SERVER = "http://localhost:8080/duchemin-solr"

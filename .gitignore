@@ -7,4 +7,5 @@ gamera
 errors.log
 data/*
 duchemin_env/*
+fixtures/*
 .DS_Store

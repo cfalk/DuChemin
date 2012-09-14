@@ -6,14 +6,14 @@
         <div class="span12">
           <div class="show-heading row-fluid">
             <hgroup class="show-title page-title span8">
-              <h1>{{ piece_title }}</h1>
-              <h2>{{ composer_surname }}</h2>
-              <h3>{{ piece_id }}</h3>
+              <h1>{{ piece.title }}</h1>
+              <h2>{{ piece.composer_id.surname }}</h2>
+              <h3>{{ piece.piece_id }}</h3>
             </hgroup>
             <div class="well span4">
               <dl class="well-list account-info-list">
                 <dt>Source:</dt>
-                <dd><a href="#">{{ book_title }}</a></dd>
+                <dd><a href="#">{{ piece.book_id.title }}</a></dd>
                 <dt>View:</dt>
                 <dd><a href="#">Complete Modern Edition</a></dd>
                 <dd><a href="#">Translation</a></dd>
@@ -35,9 +35,9 @@
               <div class="item-display">
                 {% for phrase in phrases %}
                 <div class="line">
-                  <span class="measure span1">{{ phrase|lookup:'phrase_start' }}&ndash;{{ phrase|lookup:'phrase_stop' }}</span>
-                  <span class="rhyme span1">{{ phrase|lookup:'rhyme' }}</span>
-                  <span class="line-text span7">{{ phrase|lookup:'phrase_text' }}</span>
+                  <span class="measure span1">{{ phrase.phrase_start }}&ndash;{{ phrase.phrase_stop }}</span>
+                  <span class="rhyme span1">{{ phrase.rhyme }}</span>
+                  <span class="line-text span7">{{ phrase.phrase_text }}</span>
                   <div class="dropdown notation-dropdown">
                     <a class="btn btn-small notation" data-toggle="dropdown"><i class="icon-file"></i> Notation <b class="caret"></b></a>
                     <ul class="dropdown-menu">
@@ -58,6 +58,29 @@
               <h3>Notes</h3>
               <p>Notes go here.</p>
             </div><!--/span-->
+            <div class="span12">
+              <div class="analysis-display">
+                  <h3>Analyses</h3>
+                  <table class="table table-striped">
+                    <tr>
+                      <th>Analyst</th>
+                      <th>Phrase Number</th>
+                      <th>Start Measure</th>
+                      <th>Stop Measure</th>
+                      <th></th>
+                    </tr>
+                    {% for analysis in analyses %}
+                      <tr>
+                        <td>{{ analysis.analyst }}</td>
+                        <td>{{ analysis.phrase_number.phrase_num }}</td>
+                        <td>{{ analysis.start_measure }}</td>
+                        <td>{{ analysis.stop_measure }}</td>
+                        <td><a href="/render/">View</a></td>
+                      </tr>
+                    {% endfor %}
+                  </table>
+                </div>
+              </div>
           </div><!--/row-->
         </div><!--/span-->
       </div><!--/row-->

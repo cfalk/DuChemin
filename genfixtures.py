@@ -119,6 +119,13 @@ def find_person_id(people_csv, persname):
             return person['person_id']
     return None
 
+
+def record_cleanup(record):
+    for k, v in record.iteritems():
+        if v == "":
+            record[k] = None
+    return record
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("input_directory")
@@ -158,7 +165,7 @@ if __name__ == "__main__":
         r = {
             'pk': pk,
             'model': 'duchemin.dcperson',
-            'fields': record
+            'fields': record_cleanup(record)
         }
         people_json.append(r)
     fixtures.extend(people_json)
@@ -171,7 +178,7 @@ if __name__ == "__main__":
         r = {
             'pk': pk,
             'model': 'duchemin.dcphrase',
-            'fields': record
+            'fields': record_cleanup(record)
         }
         phrase_json.append(r)
     fixtures.extend(phrase_json)
@@ -183,7 +190,7 @@ if __name__ == "__main__":
         r = {
             'pk': pk,
             'model': 'duchemin.dcbook',
-            'fields': record
+            'fields': record_cleanup(record)
         }
         book_json.append(r)
     fixtures.extend(book_json)
@@ -194,13 +201,10 @@ if __name__ == "__main__":
             continue
         record['composer_id'] = find_person_id(people_csv, record['composer_id'])
 
-        if record['composer_id'] is None:
-            pdb.set_trace()
-
         r = {
             'pk': pk,
             'model': 'duchemin.dcpiece',
-            'fields': record
+            'fields': record_cleanup(record)
         }
         pieces_json.append(r)
     fixtures.extend(pieces_json)
@@ -216,7 +220,7 @@ if __name__ == "__main__":
         r = {
             'pk': pk,
             'model': 'duchemin.dcanalysis',
-            'fields': record
+            'fields': record_cleanup(record)
         }
         analyses_json.append(r)
     fixtures.extend(analyses_json)

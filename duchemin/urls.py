@@ -14,7 +14,12 @@ if 'django.contrib.admin' in settings.INSTALLED_APPS:
 
     urlpatterns += patterns('duchemin.views.main',
         url(r'^$', 'home', name='home'),
-        url(r'^piece/([0-9a-zA-Z]+)', 'piece')
+
+        url(r'^piece/(?P<piece_id>[0-9a-zA-Z]+)', 'piece'),
+        url(r'^pieces/$', 'pieces'),
+
+        url(r'^book/(?P<book_id>[0-9]+)', 'book'),
+        url(r'^books/$', 'books'),
     )
 
     urlpatterns += patterns('duchemin.views.search',

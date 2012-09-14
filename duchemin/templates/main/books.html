@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block wrap %}
+<table class="table table-striped">
+    {% for book in books %}
+    <tr>
+        <td><a href="/book/{{ book.book_id }}">{{ book.title }}</a></td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

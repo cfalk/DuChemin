@@ -23,7 +23,8 @@ if 'django.contrib.admin' in settings.INSTALLED_APPS:
     )
 
     urlpatterns += patterns('duchemin.views.search',
-        url(r'^search/$', 'search', name="search")
+        url(r'^search/$', 'search', name="search"),
+        url(r'^query', 'query', name="query")
     )
 
 

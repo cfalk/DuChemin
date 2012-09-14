@@ -14,13 +14,13 @@ class DCPiece(models.Model):
 
     piece_id = models.CharField(max_length=16, unique=True)
     book_id = models.ForeignKey(DCBook, to_field='book_id')
-    book_position = models.CharField(max_length=16, blank=True)
-    title = models.CharField(max_length=64, blank=True)
+    book_position = models.CharField(max_length=16, blank=True, null=True)
+    title = models.CharField(max_length=64, blank=True, null=True)
     composer_id = models.ForeignKey(DCPerson, to_field='person_id')
-    composer_src = models.CharField(max_length=64, blank=True)
-    forces = models.CharField(max_length=16, blank=True)
-    print_concordances = models.CharField(max_length=128, blank=True)
-    ms_concordances = models.CharField(max_length=128, blank=True)
+    composer_src = models.CharField(max_length=64, blank=True, null=True)
+    forces = models.CharField(max_length=16, blank=True, null=True)
+    print_concordances = models.CharField(max_length=128, blank=True, null=True)
+    ms_concordances = models.CharField(max_length=128, blank=True, null=True)
 
     def __unicode__(self):
         return u"{0}".format(self.title)

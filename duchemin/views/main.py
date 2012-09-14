@@ -8,3 +8,7 @@ def home(request):
     }
 
     return render(request, 'main/home.html', data)
+
+
+def piece(request, piece_id):
+    return render(request, 'main/piece.html')

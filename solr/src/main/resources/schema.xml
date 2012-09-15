@@ -1037,5 +1037,6 @@
    -->
  <uniqueKey>id</uniqueKey>
  <defaultSearchField>tg_piece_title</defaultSearchField>
+ <solrQueryParser defaultOperator="AND"/>
 
 </schema>

@@ -9,7 +9,7 @@
         <div class="row-fluid">
             <div class="span8 search-container content-container">
                 <form class="form-search" action="/query" method="get">
-                    <input type="text" name="searchbox" class="search-input">
+                    <input type="text" name="q" class="search-input">
                     <!-- <button type="submit" class="btn btn-large">Search</button> -->
                 <div class="accordion" id="search-accordion">
                     <h2>Limit by:</h2>
@@ -21,8 +21,8 @@
                         </div>
                         <div id="book-section" class="accordion-body collapse">
                             <div class="accordion-inner">
-                                {% for book in book_title %}
-                                <label class="checkbox" for="book{{ forloop.counter }}"><input type="checkbox" id="book{{ forloop.counter }}" name="book" value="book{{ forloop.counter }}" /> {{ book }}</label>
+                                {% for book in book_titles %}
+                                <label class="checkbox" for="book{{ forloop.counter }}"><input type="checkbox" id="book{{ forloop.counter }}" name="b" value="{{ book }}" /> {{ book }}</label>
                                 {% endfor %}
                             </div>
                         </div>
@@ -35,8 +35,8 @@
                         </div>
                         <div id="composer-section" class="accordion-body collapse">
                             <div class="accordion-inner">
-                                {% for c in composer %}
-                                <label class="checkbox composer_checkbox" for="composer{{ forloop.counter }}"><input type="checkbox" id="composer{{ forloop.counter }}" name="composer" value="Any" />{{ c }}</label>
+                                {% for composer in composers %}
+                                <label class="checkbox composer_checkbox" for="composer{{ forloop.counter }}"><input type="checkbox" id="composer{{ forloop.counter }}" name="p" value="{{ composer }}" />{{ composer }}</label>
                                 {% endfor %}
                             </div>
                         </div>
@@ -49,8 +49,8 @@
                         </div>
                         <div id="contributor-section" class="accordion-body collapse">
                             <div class="accordion-inner">
-                                {% for c in contributor %}
-                                <label class="checkbox contributor_checkbox" for="contributor{{ forloop.counter }}"><input type="checkbox" id="contributor{{ forloop.counter }}" name="contributor" value="Any" />{{ c }}</label>
+                                {% for contributor in contributors %}
+                                <label class="checkbox contributor_checkbox" for="contributor{{ forloop.counter }}"><input type="checkbox" id="contributor{{ forloop.counter }}" name="r" value="{{ contributor }}" />{{ contributor }}</label>
                                 {% endfor %}
                             </div>
                         </div>
@@ -72,8 +72,8 @@
                                         </div>
                                         <div id="finalTone-section" class="accordion-body collapse">
                                             <div class="accordion-inner">
-                                                {% for f in cadence_final_tone %}
-                                                <label class="checkbox" for="finaltone{{ forloop.counter }}"><input type="checkbox" id="finaltone{{ forloop.counter }}" name="finalTone" value="finaltone{{ forloop.counter }}" />{{ f }}</label>
+                                                {% for final_tone in cadence_final_tones %}
+                                                <label class="checkbox" for="finaltone{{ forloop.counter }}"><input type="checkbox" id="finaltone{{ forloop.counter }}" name="f" value="{{ final_tone }}" />{{ final_tone }}</label>
                                                 {% endfor %}
                                             </div>
                                         </div>
@@ -84,8 +84,8 @@
                                         </div>
                                         <div id="cadenceType-section" class="accordion-body collapse">
                                             <div class="accordion-inner">
-                                                {% for f in cadence_kind %}
-                                                <label class="checkbox" for="cadencetype{{ forloop.counter }}"><input type="checkbox" id="cadencetype{{ forloop.counter }}" name="cadenceType" value="cadencetype{{ forloop.counter}}" />{{ f }}</label>
+                                                {% for cadence_kind in cadence_kinds %}
+                                                <label class="checkbox" for="cadencetype{{ forloop.counter }}"><input type="checkbox" id="cadencetype{{ forloop.counter }}" name="k" value="{{ cadence_kind }}" />{{ cadence_kind }}</label>
                                                 {% endfor %}
                                             </div>
                                         </div>
@@ -96,8 +96,8 @@
                                         </div>
                                         <div id="cadenceMods-section" class="accordion-body collapse">
                                             <div class="accordion-inner">
-                                                {% for f in cadence_alter %}
-                                                <label class="checkbox" for="cadencealter{{ forloop.counter }}"><input type="checkbox" id="cadencealter{{ forloop.counter }}" name="cadenceMods" value="Any" />{{ f }}</label>
+                                                {% for alteration in cadence_alters %}
+                                                <label class="checkbox" for="cadencealter{{ forloop.counter }}"><input type="checkbox" id="cadencealter{{ forloop.counter }}" name="m" value="{{ alteration }}" />{{ alteration }}</label>
                                                 {% endfor %}
                                             </div>
                                         </div>
@@ -116,8 +116,8 @@
                         </div>
                         <div id="texttone-section" class="accordion-body collapse">
                             <div class="accordion-inner">
-                                {% for t in text_treatment %}
-                                <label class="checkbox contributor_checkbox" for="texttone{{ forloop.counter }}"><input type="checkbox" id="texttone{{ forloop.counter }}" name="texttone" value="Any" />{{ t }}</label>
+                                {% for treatment in text_treatments %}
+                                <label class="checkbox contributor_checkbox" for="texttone{{ forloop.counter }}"><input type="checkbox" id="texttone{{ forloop.counter }}" name="t" value="{{ treatment }}" />{{ treatment }}</label>
                                 {% endfor %}
                             </div>
                         </div>
@@ -132,8 +132,8 @@
                         </div>
                         <div id="form-section" class="accordion-body collapse">
                             <div class="accordion-inner">
-                                {% for r in repeat_kind %}
-                                <label class="checkbox contributor_checkbox" for="form{{ forloop.counter }}"><input type="checkbox" id="form{{ forloop.counter }}" name="form" value="Direct Repeat" />{{ r }}</label>
+                                {% for repeat in repeat_kinds %}
+                                <label class="checkbox contributor_checkbox" for="form{{ forloop.counter }}"><input type="checkbox" id="form{{ forloop.counter }}" name="lf" value="{{ repeat }}" />{{ repeat }}</label>
                                 {% endfor %}
                             </div>
                         </div>

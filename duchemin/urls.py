@@ -27,6 +27,10 @@ if 'django.contrib.admin' in settings.INSTALLED_APPS:
         url(r'^query', 'query', name="query")
     )
 
+    urlpatterns += patterns('duchemin.views.data',
+        url(r'^data/analysis/(?P<anid>[0-9]+)', 'analysis')
+    )
+
 
 # urlpatterns = patterns('',
 #     # Examples:

@@ -162,3 +162,4 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 SOLR_SERVER = "http://localhost:8080/duchemin-solr"
+VEXF_SERVER = "http://duchemin-dev.haverford.edu:8080/notation"

@@ -61,6 +61,7 @@ def piece(request, piece_id):
     analyses = DCAnalysis.objects.filter(composition_number=piece_id).order_by('start_measure')
 
     data = {
+        'is_piece': True,
         'piece': piece,
         'phrases': phrases,
         'analyses': analyses

@@ -4,15 +4,17 @@ function attachAnalysisClickEvents() {
     $('.view-analysis').on({
         'click': function(event) {
             ajaxRender($(this).attr('anid'));
+            return false; // prevent the page from jumping.
         }
     });
 }
 
 function ajaxRender(anid) {
     $.ajax({
-        url: 'http://localhost:8000/data/analysis/' + anid,
+        url: 'http://copland.music.mcgill.ca:8000/data/analysis/' + anid,
         dataType: 'json',
         success: function(data, status, xhr) {
+            $('#analysis-modal').remove();
             modal = $("<div />", {
                 "id": "analysis-modal"
             }).appendTo("body");
@@ -21,12 +23,12 @@ function ajaxRender(anid) {
                 "id": "analysis-modal-body"
             }).appendTo(modal);
 
-            $("#analyis-modal-body").append(data['music']);
+            $("#analysis-modal-body").append(data['music']);
 
             var MEI = $("#meiScore");
             var cv = $('div#music canvas')[0];
-            // render_notation(MEI, cv, data['dimensions'][0], data['dimensions'][1]);
-            $("analysis-modal").dialog({
+            render_notation(MEI, cv, data['dimensions'][0], data['dimensions'][1]);
+            $("#analysis-modal").dialog({
                 'height': 500,
                 'width': 920,
                 'modal': true,

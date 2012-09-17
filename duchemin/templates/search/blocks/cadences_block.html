@@ -1,0 +1,134 @@
+<div class="accordion-group">
+    <div class="accordion-heading">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#search-accordion" href="#cadences-section">
+            <span>Cadences</span><i class="icon-plus"></i>
+        </a>
+    </div>
+    <div id="cadences-section" class="accordion-body collapse">
+        <div class="accordion-inner">
+
+            <div class="accordion" id="cadences-accordion">
+                <div class="accordion-group">
+                    <div class="accordion-heading">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#cadences-accordion" href="#finalTone-section"><span>Final Tone</span><i class="icon-plus"></i></a>
+                    </div>
+                    <div id="finalTone-section" class="accordion-body collapse">
+                        <div class="accordion-inner">
+                            {% for final_tone in cadence_final_tones %}
+                            <label class="checkbox" for="finaltone{{ forloop.counter }}"><input type="checkbox" id="finaltone{{ forloop.counter }}" name="f" value="{{ final_tone }}" />{{ final_tone }}</label>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-group">
+                    <div class="accordion-heading">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#cadences-accordion" href="#cadenceType-section"><span>Cadence Type</span><i class="icon-plus"></i></a>
+                    </div>
+                    <div id="cadenceType-section" class="accordion-body collapse">
+                        <div class="accordion-inner">
+                            {% for cadence_kind in cadence_kinds %}
+                            <label class="checkbox" for="cadencetype{{ forloop.counter }}"><input type="checkbox" id="cadencetype{{ forloop.counter }}" name="k" value="{{ cadence_kind }}" />{{ cadence_kind }}</label>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-group">
+                    <div class="accordion-heading">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#cadences-accordion" href="#cadenceMods-section"><span>Cadence Modifiers</span><i class="icon-plus"></i></a>
+                    </div>
+                    <div id="cadenceMods-section" class="accordion-body collapse">
+                        <div class="accordion-inner">
+                            {% for alteration in cadence_alters %}
+                            <label class="checkbox" for="cadencealter{{ forloop.counter }}"><input type="checkbox" id="cadencealter{{ forloop.counter }}" name="m" value="{{ alteration }}" />{{ alteration }}</label>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-group">
+                    <div class="accordion-heading">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#cadences-accordion" href="#cadenceVoices-section"><span>Cadence Voices</span><i class="icon-plus"></i></a>
+                    </div>
+                    <div id="cadenceVoices-section" class="accordion-body collapse">
+                        <div class="accordion-inner">
+                            <div class="voice-grid-container">
+                                <dl class="voice-grid">
+                                    <dt>Cantizans</dt>
+                                    <dd>
+                                        <ul>
+                                            <li>
+                                                <label for="s_c">
+                                                    <span class="show-label">S</span>
+                                                </label>
+                                                <input type="radio" name="cadence_voice_c"/>
+                                            </li>
+                                            <li>
+                                                <label for="ct_c">
+                                                    <span class="show-label">Ct</span>
+                                                </label>
+                                                <input type="radio" name="cadence_voice_c"/>
+                                            </li>
+                                            <li>
+                                                <label for="t_c">
+                                                    <span class="show-label">T</span>
+                                                </label>
+                                                <input type="radio" name="cadence_voice_c"/>
+                                            </li>
+                                            <li>
+                                                <label for="b_c">
+                                                    <span class="show-label">B</span>
+                                                </label>
+                                                <input type="radio" name="cadence_voice_c"/>
+                                            </li>
+                                            <li>
+                                                <label for="n_c">
+                                                    <span class="show-label">None</span>
+                                                </label>
+                                                <input type="radio" name="cadence_voice_c" checked="checked"/>
+                                            </li>
+                                        </ul>
+                                    </dd>
+                                    <dt>Tenorizans</dt>
+                                    <dd>
+                                        <ul>
+                                            <li>
+                                                <label for="s_t">
+                                                    <span class="hide-label">S</span>
+                                                </label>
+                                                <input type="radio" name="cadence_voice_t" />
+                                            </li>
+                                            <li>
+                                                <label for="ct_t">
+                                                    <span class="hide-label">Ct</span>
+                                                </label>
+                                                <input type="radio" name="cadence_voice_t" />
+                                            </li>
+                                            <li>
+                                                <label for="t_t">
+                                                    <span class="hide-label">T</span>
+                                                </label>
+                                                <input type="radio" name="cadence_voice_t"/>
+                                            </li>
+                                            <li>
+                                                <label for="b_t">
+                                                    <span class="hide-label">B</span>
+                                                </label>
+                                                <input type="radio" name="cadence_voice_t"/>
+                                            </li>
+                                            <li>
+                                                <label for="n_t">
+                                                    <span class="hide-label">None</span>
+                                                </label>
+                                                <input type="radio" name="cadence_voice_t" checked="checked" />
+                                            </li>
+                                        </ul>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

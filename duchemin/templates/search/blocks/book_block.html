@@ -1,0 +1,14 @@
+<div class="accordion-group">
+    <div class="accordion-heading">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#search-accordion" href="#book-section">
+            <span>Book</span><i class="icon-plus"></i>
+        </a>
+    </div>
+    <div id="book-section" class="accordion-body collapse">
+        <div class="accordion-inner">
+            {% for book in book_titles %}
+            <label class="checkbox" for="book{{ forloop.counter }}"><input type="checkbox" id="book{{ forloop.counter }}" name="b" value="{{ book }}" /> {{ book }}</label>
+            {% endfor %}
+        </div>
+    </div>
+</div>

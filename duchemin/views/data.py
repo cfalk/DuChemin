@@ -16,7 +16,7 @@ def analysis(request, anid):
 
     req_url = "{0}/{1}/{2}/{3}".format(settings.VEXF_SERVER, location, start_meas, end_meas)
 
-    h = httplib2.Http(".cache")
+    h = httplib2.Http()
     resp, content = h.request(req_url, "GET")
 
     # print content

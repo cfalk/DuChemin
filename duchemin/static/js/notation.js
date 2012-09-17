@@ -4,7 +4,7 @@ function attachAnalysisClickEvents() {
     $('.view-analysis').on({
         'click': function(event) {
             ajaxRender($(this).attr('anid'));
-            return false; // prevent the page from jumping.
+            return false; // prevent the page from jumping when the link is clicked
         }
     });
 }

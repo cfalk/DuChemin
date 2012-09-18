@@ -4,10 +4,10 @@ import sys
 import solr
 import uuid
 
+
 def expand_voice(voice):
     if not voice:
         return None
-
     if voice.lower() == "t":
         return "Tenor"
     elif voice.lower() == "ct":
@@ -19,16 +19,33 @@ def expand_voice(voice):
     else:
         return voice
 
+
 if __name__ == "__main__":
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "duchemin.settings")
     from duchemin.models.analysis import DCAnalysis
     from duchemin.models.book import DCBook
     from duchemin.models.piece import DCPiece
+    from django.conf import settings
 
-    solrconn = solr.SolrConnection("http://localhost:8080/duchemin-solr")
+    print "Using: {0}".format(settings.SOLR_SERVER)
+    solrconn = solr.SolrConnection(settings.SOLR_SERVER)
+
+    books = DCBook.objects.all()
+    all_books = []
+    print "Adding books"
+    for book in books:
+        d = {
+            'type': 'duchemin_book',
+            'id': str(uuid.uuid4()),
+            'book_id': int(book.book_id),
+            'book_title': book.title,
+        }
+        all_books.append(d)
+    solrconn.add_many(all_books)
+    solrconn.commit()
+    print "Done adding books"
 
     pieces = DCPiece.objects.all()
-
     all_pieces = []
     for piece in pieces:
         # fix the composer name
@@ -43,6 +60,8 @@ if __name__ == "__main__":
             'id': str(uuid.uuid4()),
             'piece_id': piece.piece_id,
             'book_title': piece.book_id.title,
+            'book_id': int(piece.book_id.book_id),
+            'book_id_title': "{0}_{1}".format(piece.book_id.book_id, piece.book_id.title),
             'title': piece.title,
             'composer': composer_name
         }
@@ -54,6 +73,14 @@ if __name__ == "__main__":
 
     analyses = DCAnalysis.objects.all()
     for i, analysis in enumerate(analyses):
+        piece = analysis.composition_number
+        composer = analysis.composition_number.composer_id
+        composer_name = ""
+        if composer.given_name != "":
+            composer_name = u"{0}, {1}".format(composer.surname, composer.given_name)
+        else:
+            composer_name = u"{0}".format(composer.surname)
+
         contributor_name = ""
         if analysis.analyst.given_name != "":
             contributor_name = u"{0}, {1}".format(analysis.analyst.surname, analysis.analyst.given_name)
@@ -80,6 +107,10 @@ if __name__ == "__main__":
             'id': str(uuid.uuid4()),
             'contributor': contributor_name,
             'piece_id': analysis.composition_number.piece_id,
+            'title': analysis.composition_number.title,
+            'composer': composer_name,
+            'book_title': analysis.composition_number.book_id.title,
+            'book_id_title': "{0}_{1}".format(piece.book_id.book_id, piece.book_id.title),
             'phrase_number': analysis.phrase_number.phrase_num,
             'start_measure': analysis.start_measure,
             'stop_measure': analysis.stop_measure,
@@ -123,3 +154,5 @@ if __name__ == "__main__":
             solrconn.commit()
     solrconn.commit()
     print "Done adding analyses"
+
+    sys.exit()

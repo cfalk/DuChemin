@@ -163,3 +163,16 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 
 SOLR_SERVER = "http://localhost:8080/duchemin-solr"
 VEXF_SERVER = "http://duchemin-dev.haverford.edu:8080/notation"
+
+# The mapping between the search form parameters and the
+# Solr fields.
+SEARCH_PARAM_MAP = {
+    'b': 'book_title',
+    'p': 'composer',
+    'r': 'contributor',
+    'f': 'cadence_final_tone',
+    'k': 'cadence_kind',
+    'm': 'cadence_alter',
+    't': 'text_treatment',
+    'lf': 'repeat_kind'
+}

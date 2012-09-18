@@ -56,71 +56,17 @@
                                     <dt>Cantizans</dt>
                                     <dd>
                                         <ul>
-                                            <li>
-                                                <label for="s_c">
-                                                    <span class="show-label">S</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_c"/>
-                                            </li>
-                                            <li>
-                                                <label for="ct_c">
-                                                    <span class="show-label">Ct</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_c"/>
-                                            </li>
-                                            <li>
-                                                <label for="t_c">
-                                                    <span class="show-label">T</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_c"/>
-                                            </li>
-                                            <li>
-                                                <label for="b_c">
-                                                    <span class="show-label">B</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_c"/>
-                                            </li>
-                                            <li>
-                                                <label for="n_c">
-                                                    <span class="show-label">None</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_c" checked="checked"/>
-                                            </li>
+                                            {% for v in cad_voice_cantz %}
+                                                {% include "search/blocks/voice_list.html" with voice_id=v.id voice_name=v.voice hidden=v.hidden checked=v.checked voice_group=v.group %}
+                                            {% endfor %}
                                         </ul>
                                     </dd>
                                     <dt>Tenorizans</dt>
                                     <dd>
                                         <ul>
-                                            <li>
-                                                <label for="s_t">
-                                                    <span class="hide-label">S</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t" />
-                                            </li>
-                                            <li>
-                                                <label for="ct_t">
-                                                    <span class="hide-label">Ct</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t" />
-                                            </li>
-                                            <li>
-                                                <label for="t_t">
-                                                    <span class="hide-label">T</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t"/>
-                                            </li>
-                                            <li>
-                                                <label for="b_t">
-                                                    <span class="hide-label">B</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t"/>
-                                            </li>
-                                            <li>
-                                                <label for="n_t">
-                                                    <span class="hide-label">None</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t" checked="checked" />
-                                            </li>
+                                            {% for v in cad_voice_tenz %}
+                                                {% include "search/blocks/voice_list.html" with voice_id=v.id voice_name=v.voice hidden=v.hidden checked=v.checked voice_group=v.group %}
+                                            {% endfor %}
                                         </ul>
                                     </dd>
                                 </dl>

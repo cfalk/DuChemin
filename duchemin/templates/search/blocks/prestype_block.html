@@ -18,141 +18,33 @@
                                     <dt>Upper Voices 1</dt>
                                     <dd>
                                         <ul>
-                                            <li>
-                                                <label for="s_c">
-                                                    <span class="show-label">S</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_c"/>
-                                            </li>
-                                            <li>
-                                                <label for="ct_c">
-                                                    <span class="show-label">Ct</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_c"/>
-                                            </li>
-                                            <li>
-                                                <label for="t_c">
-                                                    <span class="show-label">T</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_c"/>
-                                            </li>
-                                            <li>
-                                                <label for="b_c">
-                                                    <span class="show-label">B</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_c"/>
-                                            </li>
-                                            <li>
-                                                <label for="n_c">
-                                                    <span class="show-label">None</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_c" checked="checked"/>
-                                            </li>
+                                            {% for v in prestype_nonim_up1 %}
+                                                {% include "search/blocks/voice_list.html" with voice_id=v.id voice_name=v.voice hidden=v.hidden checked=v.checked voice_group=v.group %}
+                                            {% endfor %}
                                         </ul>
                                     </dd>
                                     <dt>Lower Voices 1</dt>
                                     <dd>
                                         <ul>
-                                            <li>
-                                                <label for="s_t">
-                                                    <span class="hide-label">S</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t" />
-                                            </li>
-                                            <li>
-                                                <label for="ct_t">
-                                                    <span class="hide-label">Ct</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t" />
-                                            </li>
-                                            <li>
-                                                <label for="t_t">
-                                                    <span class="hide-label">T</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t"/>
-                                            </li>
-                                            <li>
-                                                <label for="b_t">
-                                                    <span class="hide-label">B</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t"/>
-                                            </li>
-                                            <li>
-                                                <label for="n_t">
-                                                    <span class="hide-label">None</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t" checked="checked" />
-                                            </li>
+                                            {% for v in prestype_nonim_lo1 %}
+                                                {% include "search/blocks/voice_list.html" with voice_id=v.id voice_name=v.voice hidden=v.hidden checked=v.checked voice_group=v.group %}
+                                            {% endfor %}
                                         </ul>
                                     </dd>
                                     <dt>Upper Voices 2</dt>
                                     <dd>
                                         <ul>
-                                            <li>
-                                                <label for="s_t">
-                                                    <span class="hide-label">S</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t" />
-                                            </li>
-                                            <li>
-                                                <label for="ct_t">
-                                                    <span class="hide-label">Ct</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t" />
-                                            </li>
-                                            <li>
-                                                <label for="t_t">
-                                                    <span class="hide-label">T</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t"/>
-                                            </li>
-                                            <li>
-                                                <label for="b_t">
-                                                    <span class="hide-label">B</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t"/>
-                                            </li>
-                                            <li>
-                                                <label for="n_t">
-                                                    <span class="hide-label">None</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t" checked="checked" />
-                                            </li>
+                                            {% for v in prestype_nonim_up2 %}
+                                                {% include "search/blocks/voice_list.html" with voice_id=v.id voice_name=v.voice hidden=v.hidden checked=v.checked voice_group=v.group %}
+                                            {% endfor %}
                                         </ul>
                                     </dd>
                                     <dt>Lower Voices 2</dt>
                                     <dd>
                                         <ul>
-                                            <li>
-                                                <label for="s_t">
-                                                    <span class="hide-label">S</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t" />
-                                            </li>
-                                            <li>
-                                                <label for="ct_t">
-                                                    <span class="hide-label">Ct</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t" />
-                                            </li>
-                                            <li>
-                                                <label for="t_t">
-                                                    <span class="hide-label">T</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t"/>
-                                            </li>
-                                            <li>
-                                                <label for="b_t">
-                                                    <span class="hide-label">B</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t"/>
-                                            </li>
-                                            <li>
-                                                <label for="n_t">
-                                                    <span class="hide-label">None</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t" checked="checked" />
-                                            </li>
+                                            {% for v in prestype_nonim_lo2 %}
+                                                {% include "search/blocks/voice_list.html" with voice_id=v.id voice_name=v.voice hidden=v.hidden checked=v.checked voice_group=v.group %}
+                                            {% endfor %}
                                         </ul>
                                     </dd>
                                 </dl>
@@ -172,88 +64,24 @@
                                     <dt>Dux</dt>
                                     <dd>
                                         <ul>
-                                            <li>
-                                                <label for="s_c">
-                                                    <span class="show-label">S</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_c"/>
-                                            </li>
-                                            <li>
-                                                <label for="ct_c">
-                                                    <span class="show-label">Ct</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_c"/>
-                                            </li>
-                                            <li>
-                                                <label for="t_c">
-                                                    <span class="show-label">T</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_c"/>
-                                            </li>
-                                            <li>
-                                                <label for="b_c">
-                                                    <span class="show-label">B</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_c"/>
-                                            </li>
-                                            <li>
-                                                <label for="n_c">
-                                                    <span class="show-label">None</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_c" checked="checked"/>
-                                            </li>
+                                            {% for v in prestype_free_dux %}
+                                                {% include "search/blocks/voice_list.html" with voice_id=v.id voice_name=v.voice hidden=v.hidden checked=v.checked voice_group=v.group %}
+                                            {% endfor %}
                                         </ul>
                                     </dd>
                                     <dt>Comes</dt>
                                     <dd>
                                         <ul>
-                                            <li>
-                                                <label for="s_t">
-                                                    <span class="hide-label">S</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t" />
-                                            </li>
-                                            <li>
-                                                <label for="ct_t">
-                                                    <span class="hide-label">Ct</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t" />
-                                            </li>
-                                            <li>
-                                                <label for="t_t">
-                                                    <span class="hide-label">T</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t"/>
-                                            </li>
-                                            <li>
-                                                <label for="b_t">
-                                                    <span class="hide-label">B</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t"/>
-                                            </li>
-                                            <li>
-                                                <label for="n_t">
-                                                    <span class="hide-label">None</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t" checked="checked" />
-                                            </li>
+                                            {% for v in prestype_free_comes %}
+                                                {% include "search/blocks/voice_list.html" with voice_id=v.id voice_name=v.voice hidden=v.hidden checked=v.checked voice_group=v.group %}
+                                            {% endfor %}
                                         </ul>
                                     </dd>
                                 </dl>
                             </div>
-                            <div id="subCheckboxes">
+                            <div>
                                 <p> Comes Voice Enters:</p>
-                                <label class="checkbox" id="search_checkbox" for="freeImitationCheck1">@1 or 8</label>
-                                <input type="checkbox" id="freeImitationCheck1" name="freeImitationCheck" value="@1 or 8" />
-
-                                <label class="checkbox" id="search_checkbox" for="freeImitationCheck2">@5</label>
-                                <input type="checkbox" id="freeImitationCheck2" name="freeImitationCheck" value="@5" />
-
-                                <label class="checkbox" id="search_checkbox" for="freeImitationCheck3">Above</label>
-                                <input type="checkbox" id="freeImitationCheck3" name="freeImitationCheck" value="Above" />
-
-                                <label class="checkbox" id="search_checkbox" for="freeImitationCheck4">Below</label>
-                                <input type="checkbox" id="freeImitationCheck4" name="freeImitationCheck" value="Below" />
+                                {% include "search/blocks/voice_filter.html" with filt_id="prestype_freeim_voice" %}
                             </div>
                         </div>
                     </div>
@@ -269,171 +97,43 @@
                                     <dt>Dux 1</dt>
                                     <dd>
                                         <ul>
-                                            <li>
-                                                <label for="s_c">
-                                                    <span class="show-label">S</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_c"/>
-                                            </li>
-                                            <li>
-                                                <label for="ct_c">
-                                                    <span class="show-label">Ct</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_c"/>
-                                            </li>
-                                            <li>
-                                                <label for="t_c">
-                                                    <span class="show-label">T</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_c"/>
-                                            </li>
-                                            <li>
-                                                <label for="b_c">
-                                                    <span class="show-label">B</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_c"/>
-                                            </li>
-                                            <li>
-                                                <label for="n_c">
-                                                    <span class="show-label">None</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_c" checked="checked"/>
-                                            </li>
+                                            {% for v in prestype_imduet_dux1 %}
+                                                {% include "search/blocks/voice_list.html" with voice_id=v.id voice_name=v.voice hidden=v.hidden checked=v.checked voice_group=v.group %}
+                                            {% endfor %}
                                         </ul>
                                     </dd>
                                     <dt>Comes 1</dt>
                                     <dd>
                                         <ul>
-                                            <li>
-                                                <label for="s_t">
-                                                    <span class="hide-label">S</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t" />
-                                            </li>
-                                            <li>
-                                                <label for="ct_t">
-                                                    <span class="hide-label">Ct</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t" />
-                                            </li>
-                                            <li>
-                                                <label for="t_t">
-                                                    <span class="hide-label">T</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t"/>
-                                            </li>
-                                            <li>
-                                                <label for="b_t">
-                                                    <span class="hide-label">B</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t"/>
-                                            </li>
-                                            <li>
-                                                <label for="n_t">
-                                                    <span class="hide-label">None</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t" checked="checked" />
-                                            </li>
+                                            {% for v in prestype_imduet_comes1 %}
+                                                {% include "search/blocks/voice_list.html" with voice_id=v.id voice_name=v.voice hidden=v.hidden checked=v.checked voice_group=v.group %}
+                                            {% endfor %}
                                         </ul>
                                     </dd>
                                     <dt>Dux 2</dt>
                                     <dd>
                                         <ul>
-                                            <li>
-                                                <label for="s_c">
-                                                    <span class="show-label">S</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_c"/>
-                                            </li>
-                                            <li>
-                                                <label for="ct_c">
-                                                    <span class="show-label">Ct</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_c"/>
-                                            </li>
-                                            <li>
-                                                <label for="t_c">
-                                                    <span class="show-label">T</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_c"/>
-                                            </li>
-                                            <li>
-                                                <label for="b_c">
-                                                    <span class="show-label">B</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_c"/>
-                                            </li>
-                                            <li>
-                                                <label for="n_c">
-                                                    <span class="show-label">None</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_c" checked="checked"/>
-                                            </li>
+                                            {% for v in prestype_imduet_dux2 %}
+                                                {% include "search/blocks/voice_list.html" with voice_id=v.id voice_name=v.voice hidden=v.hidden checked=v.checked voice_group=v.group %}
+                                            {% endfor %}
                                         </ul>
                                     </dd>
                                     <dt>Comes 2</dt>
                                     <dd>
                                         <ul>
-                                            <li>
-                                                <label for="s_t">
-                                                    <span class="hide-label">S</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t" />
-                                            </li>
-                                            <li>
-                                                <label for="ct_t">
-                                                    <span class="hide-label">Ct</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t" />
-                                            </li>
-                                            <li>
-                                                <label for="t_t">
-                                                    <span class="hide-label">T</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t"/>
-                                            </li>
-                                            <li>
-                                                <label for="b_t">
-                                                    <span class="hide-label">B</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t"/>
-                                            </li>
-                                            <li>
-                                                <label for="n_t">
-                                                    <span class="hide-label">None</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t" checked="checked" />
-                                            </li>
+                                            {% for v in prestype_imduet_comes2 %}
+                                                {% include "search/blocks/voice_list.html" with voice_id=v.id voice_name=v.voice hidden=v.hidden checked=v.checked voice_group=v.group %}
+                                            {% endfor %}
                                         </ul>
                                     </dd>
                                 </dl>
                             </div>
                             <div id="subCheckboxes">
                                 <p> Comes 1 or 2 Voice Enters:</p>
-                                <label class="checkbox" id="search_checkbox" for="freeImitationCheck1">@1 or 8</label>
-                                <input type="checkbox" id="freeImitationCheck1" name="freeImitationCheck" value="@1 or 8" />
-
-                                <label class="checkbox" id="search_checkbox" for="freeImitationCheck2">@5</label>
-                                <input type="checkbox" id="freeImitationCheck2" name="freeImitationCheck" value="@5" />
-
-                                <label class="checkbox" id="search_checkbox" for="freeImitationCheck3">Above</label>
-                                <input type="checkbox" id="freeImitationCheck3" name="freeImitationCheck" value="Above" />
-
-                                <label class="checkbox" id="search_checkbox" for="freeImitationCheck4">Below</label>
-                                <input type="checkbox" id="freeImitationCheck4" name="freeImitationCheck" value="Below" />
+                                {% include "search/blocks/voice_filter.html" with filt_id="prestype_imduet_voice_c1" %}
 
                                 <p> Dux 2 Voice Enters:</p>
-                                <label class="checkbox" id="search_checkbox" for="freeImitationCheck5">@1 or 8</label>
-                                <input type="checkbox" id="freeImitationCheck5" name="freeImitationCheck" value="@1 or 8" />
-
-                                <label class="checkbox" id="search_checkbox" for="freeImitationCheck6">@5</label>
-                                <input type="checkbox" id="freeImitationCheck6" name="freeImitationCheck" value="@5" />
-
-                                <label class="checkbox" id="search_checkbox" for="freeImitationCheck7">Above</label>
-                                <input type="checkbox" id="freeImitationCheck7" name="freeImitationCheck" value="Above" />
-
-                                <label class="checkbox" id="search_checkbox" for="freeImitationCheck8">Below</label>
-                                <input type="checkbox" id="freeImitationCheck8" name="freeImitationCheck" value="Below" />
+                                {% include "search/blocks/voice_filter.html" with filt_id="prestype_imduet_voice_d2" %}
 
                                 <p> Other Options:  </p>
                                 <label class="checkbox" id="search_checkbox" for="freeImitationCheck9">Stretto Fuga</label>
@@ -456,171 +156,43 @@
                                     <dt>Dux 1</dt>
                                     <dd>
                                         <ul>
-                                            <li>
-                                                <label for="s_c">
-                                                    <span class="show-label">S</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_c"/>
-                                            </li>
-                                            <li>
-                                                <label for="ct_c">
-                                                    <span class="show-label">Ct</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_c"/>
-                                            </li>
-                                            <li>
-                                                <label for="t_c">
-                                                    <span class="show-label">T</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_c"/>
-                                            </li>
-                                            <li>
-                                                <label for="b_c">
-                                                    <span class="show-label">B</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_c"/>
-                                            </li>
-                                            <li>
-                                                <label for="n_c">
-                                                    <span class="show-label">None</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_c" checked="checked"/>
-                                            </li>
+                                            {% for v in prestype_entry_dux1 %}
+                                                {% include "search/blocks/voice_list.html" with voice_id=v.id voice_name=v.voice hidden=v.hidden checked=v.checked voice_group=v.group %}
+                                            {% endfor %}
                                         </ul>
                                     </dd>
                                     <dt>Comes 1</dt>
                                     <dd>
                                         <ul>
-                                            <li>
-                                                <label for="s_t">
-                                                    <span class="hide-label">S</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t" />
-                                            </li>
-                                            <li>
-                                                <label for="ct_t">
-                                                    <span class="hide-label">Ct</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t" />
-                                            </li>
-                                            <li>
-                                                <label for="t_t">
-                                                    <span class="hide-label">T</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t"/>
-                                            </li>
-                                            <li>
-                                                <label for="b_t">
-                                                    <span class="hide-label">B</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t"/>
-                                            </li>
-                                            <li>
-                                                <label for="n_t">
-                                                    <span class="hide-label">None</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t" checked="checked" />
-                                            </li>
+                                            {% for v in prestype_entry_comes1 %}
+                                                {% include "search/blocks/voice_list.html" with voice_id=v.id voice_name=v.voice hidden=v.hidden checked=v.checked voice_group=v.group %}
+                                            {% endfor %}
                                         </ul>
                                     </dd>
                                     <dt>Dux 2</dt>
                                     <dd>
                                         <ul>
-                                            <li>
-                                                <label for="s_c">
-                                                    <span class="show-label">S</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_c"/>
-                                            </li>
-                                            <li>
-                                                <label for="ct_c">
-                                                    <span class="show-label">Ct</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_c"/>
-                                            </li>
-                                            <li>
-                                                <label for="t_c">
-                                                    <span class="show-label">T</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_c"/>
-                                            </li>
-                                            <li>
-                                                <label for="b_c">
-                                                    <span class="show-label">B</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_c"/>
-                                            </li>
-                                            <li>
-                                                <label for="n_c">
-                                                    <span class="show-label">None</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_c" checked="checked"/>
-                                            </li>
+                                            {% for v in prestype_entry_dux2 %}
+                                                {% include "search/blocks/voice_list.html" with voice_id=v.id voice_name=v.voice hidden=v.hidden checked=v.checked voice_group=v.group %}
+                                            {% endfor %}
                                         </ul>
                                     </dd>
                                     <dt>Comes 2</dt>
                                     <dd>
                                         <ul>
-                                            <li>
-                                                <label for="s_t">
-                                                    <span class="hide-label">S</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t" />
-                                            </li>
-                                            <li>
-                                                <label for="ct_t">
-                                                    <span class="hide-label">Ct</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t" />
-                                            </li>
-                                            <li>
-                                                <label for="t_t">
-                                                    <span class="hide-label">T</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t"/>
-                                            </li>
-                                            <li>
-                                                <label for="b_t">
-                                                    <span class="hide-label">B</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t"/>
-                                            </li>
-                                            <li>
-                                                <label for="n_t">
-                                                    <span class="hide-label">None</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t" checked="checked" />
-                                            </li>
+                                            {% for v in prestype_entry_comes2 %}
+                                                {% include "search/blocks/voice_list.html" with voice_id=v.id voice_name=v.voice hidden=v.hidden checked=v.checked voice_group=v.group %}
+                                            {% endfor %}
                                         </ul>
                                     </dd>
                                 </dl>
                             </div>
                             <div id="subCheckboxes">
                                 <p> Comes 1 or 2 Voice Enters:</p>
-                                <label class="checkbox" id="search_checkbox" for="periodicEntryCheck1">@1 or 8</label>
-                                <input type="checkbox" id="periodicEntryCheck1" name="periodicEntryCheck" value="@1 or 8" />
-
-                                <label class="checkbox" id="search_checkbox" for="periodicEntryCheck2">@5</label>
-                                <input type="checkbox" id="periodicEntryCheck2" name="periodicEntryCheck" value="@5" />
-
-                                <label class="checkbox" id="search_checkbox" for="periodicEntryCheck3">Above</label>
-                                <input type="checkbox" id="periodicEntryCheck3" name="periodicEntryCheck" value="Above" />
-
-                                <label class="checkbox" id="search_checkbox" for="periodicEntryCheck4">Below</label>
-                                <input type="checkbox" id="periodicEntryCheck4" name="periodicEntryCheck" value="Below" />
+                                {% include "search/blocks/voice_filter.html" with filt_id="prestype_perentry_voice_c1" %}
 
                                 <p> Dux 2 Voice Enters:</p>
-                                <label class="checkbox" id="search_checkbox" for="periodicEntryCheck5">@1 or 8</label>
-                                <input type="checkbox" id="periodicEntryCheck5" name="periodicEntryCheck" value="@1 or 8" />
-
-                                <label class="checkbox" id="search_checkbox" for="periodicEntryCheck6">@5</label>
-                                <input type="checkbox" id="periodicEntryCheck6" name="periodicEntryCheck" value="@5" />
-
-                                <label class="checkbox" id="search_checkbox" for="periodicEntryCheck7">Above</label>
-                                <input type="checkbox" id="periodicEntryCheck7" name="periodicEntryCheck" value="Above" />
-
-                                <label class="checkbox" id="search_checkbox" for="periodicEntryCheck8">Below</label>
-                                <input type="checkbox" id="periodicEntryCheck8" name="periodicEntryCheck" value="Below" />
+                                {% include "search/blocks/voice_filter.html" with filt_id="prestype_perentry_voice_d2" %}
 
                                 <p> Other Options:  </p>
                                 <label class="checkbox" id="search_checkbox" for="freeImitationCheck9">Stretto Fuga</label>
@@ -643,171 +215,43 @@
                                     <dt>Dux 1</dt>
                                     <dd>
                                         <ul>
-                                            <li>
-                                                <label for="s_c">
-                                                    <span class="show-label">S</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_c"/>
-                                            </li>
-                                            <li>
-                                                <label for="ct_c">
-                                                    <span class="show-label">Ct</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_c"/>
-                                            </li>
-                                            <li>
-                                                <label for="t_c">
-                                                    <span class="show-label">T</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_c"/>
-                                            </li>
-                                            <li>
-                                                <label for="b_c">
-                                                    <span class="show-label">B</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_c"/>
-                                            </li>
-                                            <li>
-                                                <label for="n_c">
-                                                    <span class="show-label">None</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_c" checked="checked"/>
-                                            </li>
+                                            {% for v in prestype_entry_t_dux1 %}
+                                                {% include "search/blocks/voice_list.html" with voice_id=v.id voice_name=v.voice hidden=v.hidden checked=v.checked voice_group=v.group %}
+                                            {% endfor %}
                                         </ul>
                                     </dd>
                                     <dt>Comes 1</dt>
                                     <dd>
                                         <ul>
-                                            <li>
-                                                <label for="s_t">
-                                                    <span class="hide-label">S</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t" />
-                                            </li>
-                                            <li>
-                                                <label for="ct_t">
-                                                    <span class="hide-label">Ct</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t" />
-                                            </li>
-                                            <li>
-                                                <label for="t_t">
-                                                    <span class="hide-label">T</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t"/>
-                                            </li>
-                                            <li>
-                                                <label for="b_t">
-                                                    <span class="hide-label">B</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t"/>
-                                            </li>
-                                            <li>
-                                                <label for="n_t">
-                                                    <span class="hide-label">None</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t" checked="checked" />
-                                            </li>
+                                            {% for v in prestype_entry_t_comes1 %}
+                                                {% include "search/blocks/voice_list.html" with voice_id=v.id voice_name=v.voice hidden=v.hidden checked=v.checked voice_group=v.group %}
+                                            {% endfor %}
                                         </ul>
                                     </dd>
                                     <dt>Dux 2</dt>
                                     <dd>
                                         <ul>
-                                            <li>
-                                                <label for="s_c">
-                                                    <span class="show-label">S</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_c"/>
-                                            </li>
-                                            <li>
-                                                <label for="ct_c">
-                                                    <span class="show-label">Ct</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_c"/>
-                                            </li>
-                                            <li>
-                                                <label for="t_c">
-                                                    <span class="show-label">T</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_c"/>
-                                            </li>
-                                            <li>
-                                                <label for="b_c">
-                                                    <span class="show-label">B</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_c"/>
-                                            </li>
-                                            <li>
-                                                <label for="n_c">
-                                                    <span class="show-label">None</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_c" checked="checked"/>
-                                            </li>
+                                            {% for v in prestype_entry_t_dux2 %}
+                                                {% include "search/blocks/voice_list.html" with voice_id=v.id voice_name=v.voice hidden=v.hidden checked=v.checked voice_group=v.group %}
+                                            {% endfor %}
                                         </ul>
                                     </dd>
                                     <dt>Comes 2</dt>
                                     <dd>
                                         <ul>
-                                            <li>
-                                                <label for="s_t">
-                                                    <span class="hide-label">S</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t" />
-                                            </li>
-                                            <li>
-                                                <label for="ct_t">
-                                                    <span class="hide-label">Ct</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t" />
-                                            </li>
-                                            <li>
-                                                <label for="t_t">
-                                                    <span class="hide-label">T</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t"/>
-                                            </li>
-                                            <li>
-                                                <label for="b_t">
-                                                    <span class="hide-label">B</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t"/>
-                                            </li>
-                                            <li>
-                                                <label for="n_t">
-                                                    <span class="hide-label">None</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t" checked="checked" />
-                                            </li>
+                                            {% for v in prestype_entry_t_comes2 %}
+                                                {% include "search/blocks/voice_list.html" with voice_id=v.id voice_name=v.voice hidden=v.hidden checked=v.checked voice_group=v.group %}
+                                            {% endfor %}
                                         </ul>
                                     </dd>
                                 </dl>
                             </div>
                             <div id="subCheckboxes">
                                 <p> Comes 1 or 2 Voice Enters:</p>
-                                <label class="checkbox" id="search_checkbox" for="periodicTonalCheck1">@1 or 8</label>
-                                <input type="checkbox" id="periodicTonalCheck1" name="periodicTonalCheck" value="@1 or 8" />
-
-                                <label class="checkbox" id="search_checkbox" for="periodicTonalCheck2">@5</label>
-                                <input type="checkbox" id="periodicTonalCheck2" name="periodicTonalCheck" value="@5" />
-
-                                <label class="checkbox" id="search_checkbox" for="periodicTonalCheck3">Above</label>
-                                <input type="checkbox" id="periodicTonalCheck3" name="periodicTonalCheck" value="Above" />
-
-                                <label class="checkbox" id="search_checkbox" for="periodicTonalCheck4">Below</label>
-                                <input type="checkbox" id="periodicTonalCheck4" name="periodicTonalCheck" value="Below" />
+                                {% include "search/blocks/voice_filter.html" with filt_id="prestype_perentry_t_voice_c1" %}
 
                                 <p> Dux 2 Voice Enters:  </p>
-                                <label class="checkbox" id="search_checkbox" for="periodicTonalCheck5">@1 or 8</label>
-                                <input type="checkbox" id="periodicTonalCheck5" name="periodicTonalCheck" value="@1 or 8" />
-
-                                <label class="checkbox" id="search_checkbox" for="periodicTonalCheck6">@5</label>
-                                <input type="checkbox" id="periodicTonalCheck6" name="periodicTonalCheck" value="@5" />
-
-                                <label class="checkbox" id="search_checkbox" for="periodicTonalCheck7">Above</label>
-                                <input type="checkbox" id="periodicTonalCheck7" name="periodicTonalCheck" value="Above" />
-
-                                <label class="checkbox" id="search_checkbox" for="periodicTonalCheck8">Below</label>
-                                <input type="checkbox" id="periodicTonalCheck8" name="periodicTonalCheck" value="Below" />
+                                {% include "search/blocks/voice_filter.html" with filt_id="prestype_perentry_t_voice_d2" %}
 
                                 <p> Other Options:</p>
                                 <label class="checkbox" id="search_checkbox" for="periodicTonalCheck9">Stretto Fuga</label>
@@ -830,171 +274,43 @@
                                     <dt>Dux 1</dt>
                                     <dd>
                                         <ul>
-                                            <li>
-                                                <label for="s_c">
-                                                    <span class="show-label">S</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_c"/>
-                                            </li>
-                                            <li>
-                                                <label for="ct_c">
-                                                    <span class="show-label">Ct</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_c"/>
-                                            </li>
-                                            <li>
-                                                <label for="t_c">
-                                                    <span class="show-label">T</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_c"/>
-                                            </li>
-                                            <li>
-                                                <label for="b_c">
-                                                    <span class="show-label">B</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_c"/>
-                                            </li>
-                                            <li>
-                                                <label for="n_c">
-                                                    <span class="show-label">None</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_c" checked="checked"/>
-                                            </li>
+                                            {% for v in prestype_entry_s_dux1 %}
+                                                {% include "search/blocks/voice_list.html" with voice_id=v.id voice_name=v.voice hidden=v.hidden checked=v.checked voice_group=v.group %}
+                                            {% endfor %}
                                         </ul>
                                     </dd>
                                     <dt>Comes 1</dt>
                                     <dd>
                                         <ul>
-                                            <li>
-                                                <label for="s_t">
-                                                    <span class="hide-label">S</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t" />
-                                            </li>
-                                            <li>
-                                                <label for="ct_t">
-                                                    <span class="hide-label">Ct</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t" />
-                                            </li>
-                                            <li>
-                                                <label for="t_t">
-                                                    <span class="hide-label">T</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t"/>
-                                            </li>
-                                            <li>
-                                                <label for="b_t">
-                                                    <span class="hide-label">B</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t"/>
-                                            </li>
-                                            <li>
-                                                <label for="n_t">
-                                                    <span class="hide-label">None</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t" checked="checked" />
-                                            </li>
+                                            {% for v in prestype_entry_s_comes1 %}
+                                                {% include "search/blocks/voice_list.html" with voice_id=v.id voice_name=v.voice hidden=v.hidden checked=v.checked voice_group=v.group %}
+                                            {% endfor %}
                                         </ul>
                                     </dd>
                                     <dt>Dux 2</dt>
                                     <dd>
                                         <ul>
-                                            <li>
-                                                <label for="s_c">
-                                                    <span class="show-label">S</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_c"/>
-                                            </li>
-                                            <li>
-                                                <label for="ct_c">
-                                                    <span class="show-label">Ct</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_c"/>
-                                            </li>
-                                            <li>
-                                                <label for="t_c">
-                                                    <span class="show-label">T</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_c"/>
-                                            </li>
-                                            <li>
-                                                <label for="b_c">
-                                                    <span class="show-label">B</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_c"/>
-                                            </li>
-                                            <li>
-                                                <label for="n_c">
-                                                    <span class="show-label">None</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_c" checked="checked"/>
-                                            </li>
+                                            {% for v in prestype_entry_s_dux2 %}
+                                                {% include "search/blocks/voice_list.html" with voice_id=v.id voice_name=v.voice hidden=v.hidden checked=v.checked voice_group=v.group %}
+                                            {% endfor %}
                                         </ul>
                                     </dd>
                                     <dt>Comes 2</dt>
                                     <dd>
                                         <ul>
-                                            <li>
-                                                <label for="s_t">
-                                                    <span class="hide-label">S</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t" />
-                                            </li>
-                                            <li>
-                                                <label for="ct_t">
-                                                    <span class="hide-label">Ct</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t" />
-                                            </li>
-                                            <li>
-                                                <label for="t_t">
-                                                    <span class="hide-label">T</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t"/>
-                                            </li>
-                                            <li>
-                                                <label for="b_t">
-                                                    <span class="hide-label">B</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t"/>
-                                            </li>
-                                            <li>
-                                                <label for="n_t">
-                                                    <span class="hide-label">None</span>
-                                                </label>
-                                                <input type="radio" name="cadence_voice_t" checked="checked" />
-                                            </li>
+                                            {% for v in prestype_entry_s_comes2 %}
+                                                {% include "search/blocks/voice_list.html" with voice_id=v.id voice_name=v.voice hidden=v.hidden checked=v.checked voice_group=v.group %}
+                                            {% endfor %}
                                         </ul>
                                     </dd>
                                 </dl>
                             </div>
                             <div id="subCheckboxes">
                                 <p> Comes 1 or 2 Voice Enters:</p>
-                                <label class="checkbox" id="search_checkbox" for="periodicStackedCheck1">@1 or 8</label>
-                                <input type="checkbox" id="periodicStackedCheck1" name="periodicStackedCheck" value="@1 or 8" />
-
-                                <label class="checkbox" id="search_checkbox" for="periodicStackedCheck2">@5</label>
-                                <input type="checkbox" id="periodicStackedCheck2" name="periodicStackedCheck" value="@5" />
-
-                                <label class="checkbox" id="search_checkbox" for="periodicStackedCheck3">Above</label>
-                                <input type="checkbox" id="periodicStackedCheck3" name="periodicStackedCheck" value="Above" />
-
-                                <label class="checkbox" id="search_checkbox" for="periodicStackedCheck4">Below</label>
-                                <input type="checkbox" id="periodicStackedCheck4" name="periodicStackedCheck" value="Below" />
+                                {% include "search/blocks/voice_filter.html" with filt_id="prestype_perentry_s_voice_c1" %}
 
                                 <p> Dux 2 Voice Enters:</p>
-                                <label class="checkbox" id="search_checkbox" for="periodicStackedCheck5">@1 or 8</label>
-                                <input type="checkbox" id="periodicStackedCheck5" name="periodicStackedCheck" value="@1 or 8" />
-
-                                <label class="checkbox" id="search_checkbox" for="periodicStackedCheck6">@5</label>
-                                <input type="checkbox" id="periodicStackedCheck6" name="periodicStackedCheck" value="@5" />
-
-                                <label class="checkbox" id="search_checkbox" for="periodicStackedCheck7">Above</label>
-                                <input type="checkbox" id="periodicStackedCheck7" name="periodicStackedCheck" value="Above" />
-
-                                <label class="checkbox" id="search_checkbox" for="periodicStackedCheck8">Below</label>
-                                <input type="checkbox" id="periodicStackedCheck8" name="periodicStackedCheck" value="Below" />
+                                {% include "search/blocks/voice_filter.html" with filt_id="prestype_perentry_s_voice_d2" %}
 
                                 <p> Other Options:</p>
                                 <label class="checkbox" id="search_checkbox" for="periodicStackedCheck9">Stretto Fuga</label>

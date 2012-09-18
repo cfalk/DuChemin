@@ -35,14 +35,14 @@ def search(request):
         cad_voice_cantz = [__construct_voice_facet(v, 'cadence_role_cantz', hidden=False) for v in VOICE_NAMES]
         cad_voice_tenz = [__construct_voice_facet(v, 'cadence_role_tenz') for v in VOICE_NAMES]
 
-        intpatt_up6_voice = [__construct_voice_facet(v, 'voices_p6_up', hidden=False) for v in VOICE_NAMES]
-        intpatt_lo6_voice = [__construct_voice_facet(v, 'voices_p6_lo') for v in VOICE_NAMES]
+        intpatt_up6_voice = [__construct_voice_facet(v, 'intpatt_p6_up', hidden=False) for v in VOICE_NAMES]
+        intpatt_lo6_voice = [__construct_voice_facet(v, 'intpatt_p6_lo') for v in VOICE_NAMES]
 
-        intpatt_up3_voice = [__construct_voice_facet(v, 'voices_p3_up', hidden=False) for v in VOICE_NAMES]
-        intpatt_lo3_voice = [__construct_voice_facet(v, 'voices_p3_lo') for v in VOICE_NAMES]
+        intpatt_up3_voice = [__construct_voice_facet(v, 'intpatt_p3_up', hidden=False) for v in VOICE_NAMES]
+        intpatt_lo3_voice = [__construct_voice_facet(v, 'intpatt_p3_lo') for v in VOICE_NAMES]
 
-        intpatt_up53_voice = [__construct_voice_facet(v, 'voices_53_up', hidden=False) for v in VOICE_NAMES]
-        intpatt_lo53_voice = [__construct_voice_facet(v, 'voices_53_lo') for v in VOICE_NAMES]
+        intpatt_up53_voice = [__construct_voice_facet(v, 'intpatt_53_up', hidden=False) for v in VOICE_NAMES]
+        intpatt_lo53_voice = [__construct_voice_facet(v, 'intpatt_53_lo') for v in VOICE_NAMES]
 
         prestype_nonim_up1 = [__construct_voice_facet(v, 'prestype_up1_nim', hidden=False) for v in VOICE_NAMES]
         prestype_nonim_lo1 = [__construct_voice_facet(v, 'prestype_lo1_nim') for v in VOICE_NAMES]
@@ -86,8 +86,8 @@ def search(request):
             'cad_voice_tenz': cad_voice_tenz,
             'intpatt_up6_voice': intpatt_up6_voice,
             'intpatt_lo6_voice': intpatt_lo6_voice,
-            'intpatt_up6_voice': intpatt_up3_voice,
-            'intpatt_lo6_voice': intpatt_lo3_voice,
+            'intpatt_up3_voice': intpatt_up3_voice,
+            'intpatt_lo3_voice': intpatt_lo3_voice,
             'intpatt_up53_voice': intpatt_up53_voice,
             'intpatt_lo53_voice': intpatt_lo53_voice,
             'prestype_nonim_up1': prestype_nonim_up1,

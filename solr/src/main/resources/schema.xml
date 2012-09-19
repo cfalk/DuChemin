@@ -898,11 +898,12 @@
     <field name="text" type="text_general" indexed="true" stored="false" multiValued="true"/>
 
     <!-- piece fields -->
-    <field name="piece_id" type="string" indexed="false" stored="true" />
+    <field name="piece_id" type="string" indexed="true" stored="true" />
     <field name="book_title" type="string" indexed="true" stored="true" />
+    <field name="book_id" type="int" indexed="true" stored="true" />
+    <field name="book_id_title" type="string" indexed="true" stored="false" />
     <field name="title" type="string" indexed="true" stored="true" />
     <field name="composer" type="string" indexed="true" stored="true" />
-
 
     <!-- analysis fields -->
     <field name="contributor" type="string" indexed="true" stored="true" />

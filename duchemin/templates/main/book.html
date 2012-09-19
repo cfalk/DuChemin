@@ -8,6 +8,19 @@
                 <h1>{{ book.title }}</h1>
             </hgroup>
         </div>
+        <div>
+            <h2>Pieces in this book</h2>
+            <table class="table table-striped">
+                <tr>
+                    <th>Piece Title</th>
+                </tr>
+                {% for piece in pieces %}
+                <tr>
+                    <td><a href="/piece/{{ piece.piece_id }}">{{ piece.title }}</a></td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
     </div>
 </div>
 

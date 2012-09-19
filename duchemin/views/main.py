@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import Http404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-# from django.contrib.auth import authenticate, login, logout, models
+from django.contrib.auth.decorators import login_required
 
 from duchemin.models.piece import DCPiece
 from duchemin.models.phrase import DCPhrase
@@ -10,15 +10,20 @@ from duchemin.models.book import DCBook
 
 
 def home(request):
-    return render(request, 'main/home.html')
+    data = {
+        'user': request.user
+    }
+    print dir(request.user)
+    return render(request, 'main/home.html', data)
 
 
 def book(request, book_id):
     try:
         book = DCBook.objects.get(book_id=book_id)
+        pieces = DCPiece.objects.filter(book_id=book_id)
     except DCBook.DoesNotExist:
         raise Http404
-    return render(request, 'main/book.html', {'book': book})
+    return render(request, 'main/book.html', {'book': book, 'pieces': pieces})
 
 
 def books(request):
@@ -67,3 +72,18 @@ def piece(request, piece_id):
         'analyses': analyses
     }
     return render(request, 'main/piece.html', data)
+
+
+@login_required(login_url="/login/")
+def profile(request):
+    profile = request.user.get_profile()
+    data = {
+        'user': request.user,
+        'profile': profile,
+        'favourited': profile.favourited.iterator()
+    }
+    return render(request, 'main/profile.html', data)
+
+
+def login(request):
+    return render(request, 'main/login.html')

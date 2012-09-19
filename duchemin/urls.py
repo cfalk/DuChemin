@@ -20,6 +20,8 @@ if 'django.contrib.admin' in settings.INSTALLED_APPS:
 
         url(r'^book/(?P<book_id>[0-9]+)', 'book'),
         url(r'^books/$', 'books'),
+
+        url(r'^profile/', 'profile')
     )
 
     urlpatterns += patterns('duchemin.views.search',
@@ -28,6 +30,11 @@ if 'django.contrib.admin' in settings.INSTALLED_APPS:
 
     urlpatterns += patterns('duchemin.views.data',
         url(r'^data/analysis/(?P<anid>[0-9]+)', 'analysis')
+    )
+
+    urlpatterns += patterns('',
+        url(r'^login/$', 'django.contrib.auth.views.login', {'extra_context': {'next': '/profile'}}),
+        url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}),
     )
 
 

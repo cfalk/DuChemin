@@ -20,6 +20,9 @@ DATABASES = {
     }
 }
 
+AUTH_PROFILE_MODULE = "duchemin.DCUserProfile"
+LOGIN_URL = '/login/'
+
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
@@ -174,5 +177,5 @@ SEARCH_PARAM_MAP = {
     'k': 'cadence_kind',
     'm': 'cadence_alter',
     't': 'text_treatment',
-    'lf': 'repeat_kind'
+    'lf': 'repeat_kind',
 }

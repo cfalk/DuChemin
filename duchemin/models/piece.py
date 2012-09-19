@@ -1,6 +1,4 @@
 from django.db import models
-from django.contrib.auth.models import User
-from django.conf import settings
 
 from duchemin.models.book import DCBook
 from duchemin.models.person import DCPerson

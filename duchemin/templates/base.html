@@ -58,7 +58,11 @@
     <div id="utility-nav" class="navbar">
       <div class="navbar-inner">
         <div class="container-fluid">
-          <p class="navbar-text pull-right"><a href="account.html"><i class="icon-user"></i> My Account</a></p>
+          {% if user.is_authenticated %}
+            <p class="navbar-text pull-right"><a href="/profile"><i class="icon-user"></i> My Account</a> | <a href="/logout">Logout</a></p>
+          {% else %}
+            <p class="navbar-text pull-right"><a href="/profile"><i class="icon-user"></i> Login</a></p>
+          {% endif %}
         </div>
       </div>
     </div>

@@ -309,7 +309,7 @@
 
          Perform a <commit/> automatically under certain conditions.
          Instead of enabling autoCommit, consider using "commitWithin"
-         when adding documents. 
+         when adding documents.
 
          http://wiki.apache.org/solr/UpdateXmlMessages
 
@@ -318,14 +318,14 @@
 
          maxTime - Maximum amount of time that is allowed to pass
                    since a document was added before automaticly
-                   triggering a new commit. 
+                   triggering a new commit.
       -->
-    <!--
-       <autoCommit> 
+
+       <autoCommit>
          <maxDocs>10000</maxDocs>
-         <maxTime>1000</maxTime> 
+         <maxTime>1000</maxTime>
        </autoCommit>
-      -->
+
 
     <!-- Update Related Event Listeners
          

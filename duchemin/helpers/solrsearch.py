@@ -33,9 +33,9 @@ class DCSolrSearch(object):
         #     self.qstring = "*:*"
         qdict = request.GET
         if 'q' in qdict.keys():
-            self.qstring = qdict['q']
+            self.qstring = u"{0}".format(qdict['q'])
         else:
-            self.qstring = "*:*"
+            self.qstring = u"*:*"
 
         if self.group:
             self.active_query['group'] = "true"
@@ -45,7 +45,7 @@ class DCSolrSearch(object):
         if self.filter:
             self.active_query['fq'] = self.filter
 
-        for key, item in qdict.items():
-            if item == "None":
-                continue
-            print key.strip(), ": ", item
+        # for key, item in qdict.items():
+        #     if item == "None":
+        #         continue
+        #     print key.strip(), ": ", item

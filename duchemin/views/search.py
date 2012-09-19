@@ -58,7 +58,7 @@ def search(request):
         prestype_imduet_comes2 = [__construct_voice_facet(v, 'prestype_imduet_comes2') for v in VOICE_NAMES]
 
         prestype_entry_dux1 = [__construct_voice_facet(v, 'prestype_entry_dux1', hidden=False) for v in VOICE_NAMES]
-        prestype_entry_comes1 = [__construct_voice_facet(v, 'prestype_entry_comes2') for v in VOICE_NAMES]
+        prestype_entry_comes1 = [__construct_voice_facet(v, 'prestype_entry_comes1') for v in VOICE_NAMES]
         prestype_entry_dux2 = [__construct_voice_facet(v, 'prestype_entry_dux2') for v in VOICE_NAMES]
         prestype_entry_comes2 = [__construct_voice_facet(v, 'prestype_entry_comes2') for v in VOICE_NAMES]
 
@@ -117,10 +117,12 @@ def search(request):
 
     else:
         s = DCSolrSearch()
-        s.map_query(request)
+        res = s.search(request, group=['title'], filter=['type:duchemin_analysis'])
+
+        print res.results
         data = {
             'query': "Foo",
-            'results': []
+            'results': res
         }
         return render(request, 'search/results.html', data)
 

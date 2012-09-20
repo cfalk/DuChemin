@@ -178,4 +178,6 @@ SEARCH_PARAM_MAP = {
     'm': 'cadence_alter',
     't': 'text_treatment',
     'lf': 'repeat_kind',
+    'cadence_role_cantz': 'cadence_role_cantz',
+    'cadence_role_tenz': 'cadence_role_tenz'
 }

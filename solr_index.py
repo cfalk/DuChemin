@@ -105,6 +105,7 @@ if __name__ == "__main__":
         d = {
             'type': 'duchemin_analysis',
             'id': str(uuid.uuid4()),
+            'analysis_id': analysis.id,
             'contributor': contributor_name,
             'piece_id': analysis.composition_number.piece_id,
             'title': analysis.composition_number.title,

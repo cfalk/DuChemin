@@ -906,6 +906,7 @@
     <field name="composer" type="string" indexed="true" stored="true" />
 
     <!-- analysis fields -->
+    <field name="analysis_id" type="int" indexed="true" stored="true" />
     <field name="contributor" type="string" indexed="true" stored="true" />
     <field name="phrase_number" type="string" indexed="true" stored="true" />
     <field name="start_measure" type="string" indexed="true" stored="true" />

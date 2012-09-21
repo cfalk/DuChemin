@@ -44,10 +44,10 @@ def search(request):
         intpatt_up53_voice = [__construct_voice_facet(v, 'intpatt_53_up', hidden=False) for v in VOICE_NAMES]
         intpatt_lo53_voice = [__construct_voice_facet(v, 'intpatt_53_lo') for v in VOICE_NAMES]
 
-        prestype_nonim_up1 = [__construct_voice_facet(v, 'prestype_up1_nim', hidden=False) for v in VOICE_NAMES]
-        prestype_nonim_lo1 = [__construct_voice_facet(v, 'prestype_lo1_nim') for v in VOICE_NAMES]
-        prestype_nonim_up2 = [__construct_voice_facet(v, 'prestype_up2_nim') for v in VOICE_NAMES]
-        prestype_nonim_lo2 = [__construct_voice_facet(v, 'prestype_lo2_nim') for v in VOICE_NAMES]
+        prestype_nonim_up1 = [__construct_voice_facet(v, 'prestype_nim_up1', hidden=False) for v in VOICE_NAMES]
+        prestype_nonim_lo1 = [__construct_voice_facet(v, 'prestype_nim_lo1') for v in VOICE_NAMES]
+        prestype_nonim_up2 = [__construct_voice_facet(v, 'prestype_nim_up2') for v in VOICE_NAMES]
+        prestype_nonim_lo2 = [__construct_voice_facet(v, 'prestype_nim_lo2') for v in VOICE_NAMES]
 
         prestype_free_dux = [__construct_voice_facet(v, 'prestype_free_dux', hidden=False) for v in VOICE_NAMES]
         prestype_free_comes = [__construct_voice_facet(v, 'prestype_free_comes') for v in VOICE_NAMES]
@@ -57,10 +57,10 @@ def search(request):
         prestype_imduet_dux2 = [__construct_voice_facet(v, 'prestype_imduet_dux2') for v in VOICE_NAMES]
         prestype_imduet_comes2 = [__construct_voice_facet(v, 'prestype_imduet_comes2') for v in VOICE_NAMES]
 
-        prestype_entry_dux1 = [__construct_voice_facet(v, 'prestype_entry_dux1', hidden=False) for v in VOICE_NAMES]
-        prestype_entry_comes1 = [__construct_voice_facet(v, 'prestype_entry_comes1') for v in VOICE_NAMES]
-        prestype_entry_dux2 = [__construct_voice_facet(v, 'prestype_entry_dux2') for v in VOICE_NAMES]
-        prestype_entry_comes2 = [__construct_voice_facet(v, 'prestype_entry_comes2') for v in VOICE_NAMES]
+        prestype_entry_dux1 = [__construct_voice_facet(v, 'prestype_entry_p_dux1', hidden=False) for v in VOICE_NAMES]
+        prestype_entry_comes1 = [__construct_voice_facet(v, 'prestype_entry_p_comes1') for v in VOICE_NAMES]
+        prestype_entry_dux2 = [__construct_voice_facet(v, 'prestype_entry_p_dux2') for v in VOICE_NAMES]
+        prestype_entry_comes2 = [__construct_voice_facet(v, 'prestype_entry_p_comes2') for v in VOICE_NAMES]
 
         prestype_entry_t_dux1 = [__construct_voice_facet(v, 'prestype_entry_t_dux1', hidden=False) for v in VOICE_NAMES]
         prestype_entry_t_comes1 = [__construct_voice_facet(v, 'prestype_entry_t_comes1') for v in VOICE_NAMES]
@@ -117,12 +117,25 @@ def search(request):
 
     else:
         s = DCSolrSearch()
-        res = s.search(request, group=['title'], filter=['type:duchemin_analysis'])
+        # fetch the number of results, but not the results themselves.
 
-        print res.results
+        num_res = s.num_results(request, group=['title'], filter=['type:duchemin_analysis'], rows=0)
+        work_res = s.search(request, group=['title'], filter=['type:duchemin_analysis'])
+        el_res = s.search(request, filter=['type:duchemin_analysis'])
+
+        print num_res.grouped
+
+        work_results = [SolrResponseObject(**s) for s in work_res.results]
+        element_results = [SolrResponseObject(**s) for s in el_res.results]
+        work_result_num = num_res.grouped['title']['ngroups']
+        element_result_num = num_res.grouped['title']['matches']
         data = {
             'query': "Foo",
-            'results': res
+            'work_results': work_results,
+            'element_results': element_results,
+            'work_result_num': work_result_num,
+            'element_result_num': element_result_num,
+            'render_notation': True
         }
         return render(request, 'search/results.html', data)
 

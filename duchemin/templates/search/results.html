@@ -17,14 +17,14 @@
             <div class="row-fluid">
                 <div class="span8 results-container content-container">
                     <ul id="results-tab" class="nav nav-tabs">
-                        <li class="active"><a href="#works" data-toggle="tab">Works <span class="results-count">(5)</span></a></li>
-                        <li class=""><a href="#commonplaces" data-toggle="tab">Elements <span class="results-count">(12)</span></a></li>
+                        <li class="active"><a href="#works" data-toggle="tab">Works <span class="results-count">({{ work_result_num }})</span></a></li>
+                        <li class=""><a href="#commonplaces" data-toggle="tab">Elements <span class="results-count">({{ element_result_num }})</span></a></li>
                         <li class=""><a href="#pages" data-toggle="tab">Pages <span class="results-count">(2)</span></a></li>
                     </ul>
                     <div class="tab-content" id="results-tab-content">
                         <div id="works" class="tab-pane fade active in">
                             <ol class="item-list results-list">
-                                {% for res in results %}
+                                {% for res in work_results %}
                                 <li class="result works-result">
                                     <h3><a href="/piece/{{ res.piece_id }}">{{ res.title }}</a></h3>
                                     <ul class="item-actions">
@@ -37,11 +37,7 @@
                             </ol>
                         </div>
                         <div id="commonplaces" class="tab-pane fade">
-                            <ol class="item-list results-list">
-                                <li class="result commonplaces-result">
-                                    <h3><a href="#">Commonplace 1</a></h3>
-                                </li>
-                            </ol>
+                            {% include "analysis/analysis_table.html" with analyses=element_results %}
                         </div>
                         <div id="pages" class="tab-pane fade">
                             <ol class="item-list results-list">

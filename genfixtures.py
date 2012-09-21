@@ -5,45 +5,45 @@ import csv
 import pdb
 
 analysis_fieldnames = [
-    'timestamp',
-    'analyst',
-    'composition_number',
-    'phrase_number',
-    'start_measure',
-    'stop_measure',
-    'cadence',
-    'cadence_kind',
-    'cadence_alter',
-    'cadence_role_cantz',
-    'cadence_role_tenz',
-    'cadence_final_tone',
-    'voices_p6_up',
-    'voices_p6_lo',
-    'voices_p3_up',
-    'voices_p3_lo',
-    'voices_53_up',
-    'voices_53_lo',
-    'other_formulas',
-    'other_pres_type',
-    'voice_role_up1_nim',
-    'voice_role_lo1_nim',
-    'voice_role_up2_nim',
-    'voice_role_lo2_nim',
-    'voice_role_dux1',
-    'voice_role_com1',
-    'voice_role_dux2',
-    'voice_role_com2',
-    'voice_role_un_oct',
-    'voice_role_fifth',
-    'voice_role_fourth',
-    'voice_role_above',
-    'voice_role_below',
-    'other_contrapuntal',
-    'text_treatment',
-    'repeat_kind',
-    'earlier_phrase',
-    'comment',
-    'repeat_exact_varied'
+    'timestamp',            # A
+    'analyst',              # B
+    'composition_number',   # C
+    'phrase_number',        # D
+    'start_measure',        # E
+    'stop_measure',         # F
+    'cadence',              # G
+    'cadence_kind',         # H
+    'cadence_alter',        # I
+    'cadence_role_cantz',   # J
+    'cadence_role_tenz',    # K
+    'cadence_final_tone',   # L
+    'voices_p6_up',         # M
+    'voices_p6_lo',         # N
+    'voices_p3_up',         # O
+    'voices_p3_lo',         # P
+    'voices_53_up',         # Q
+    'voices_53_lo',         # R
+    'other_formulas',       # S
+    'other_pres_type',      # T
+    'voice_role_up1_nim',   # U
+    'voice_role_lo1_nim',   # V
+    'voice_role_up2_nim',   # W
+    'voice_role_lo2_nim',   # X
+    'voice_role_dux1',      # Y
+    'voice_role_com1',      # Z
+    'voice_role_dux2',      # AA
+    'voice_role_com2',      # B
+    'voice_role_un_oct',    # C
+    'voice_role_fifth',     # D
+    'voice_role_fourth',    # E
+    'voice_role_above',     # F
+    'voice_role_below',     # G
+    'other_contrapuntal',   # H
+    'text_treatment',       # I
+    'repeat_kind',          # J
+    'earlier_phrase',       # K
+    'comment',              # L
+    'repeat_exact_varied'   # M
 ]
 
 person_fieldnames = [

@@ -13,7 +13,6 @@ def home(request):
     data = {
         'user': request.user
     }
-    print dir(request.user)
     return render(request, 'main/home.html', data)
 
 
@@ -66,7 +65,7 @@ def piece(request, piece_id):
     analyses = DCAnalysis.objects.filter(composition_number=piece_id).order_by('start_measure')
 
     data = {
-        'is_piece': True,
+        'render_notation': True,
         'piece': piece,
         'phrases': phrases,
         'analyses': analyses

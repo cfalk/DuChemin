@@ -1,0 +1,30 @@
+<table class="table table-striped">
+  <tr>
+    <th>Analyst</th>
+    <th>Phrase Number</th>
+    <th>Start Measure</th>
+    <th>Stop Measure</th>
+    <th>Is Cadence?</th>
+    <th>Cadence Kind</th>
+    <th>Cadence Alter</th>
+    <th></th>
+  </tr>
+  {% for analysis in analyses %}
+    <tr>
+      <td>{{ analysis.contributor }}</td>
+      <td>{{ analysis.phrase_number }}</td>
+      <td>{{ analysis.start_measure }}</td>
+      <td>{{ analysis.stop_measure }}</td>
+      <td>
+        {% if analysis.cadence == True %}
+          <i class="icon-ok"></i>
+        {% else %}
+          <i class="icon-remove"></i>
+        {% endif %}
+      </td>
+      <td>{{ analysis.cadence_kind }}</td>
+      <td>{{ analysis.cadence_alter }}</td>
+      <td><a href="#" class="view-analysis" anid="{{ analysis.analysis_id }}">View</a></td>
+    </tr>
+  {% endfor %}
+</table>

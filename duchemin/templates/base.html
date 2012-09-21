@@ -16,18 +16,17 @@
   <script src="{{ STATIC_URL }}js/bootstrap/bootstrap.min.js"></script>
   <script src="{{ STATIC_URL }}js/plugins.js"></script>
   <!-- <script src="{{ STATIC_URL }}js/main.js"></script> -->
-  {% if is_piece %}
+  {% if render_notation %}
   <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/themes/base/jquery-ui.css" rel="stylesheet"></link>
   <script src="{{ STATIC_URL }}js/notation.js"></script>
   <script type="text/javascript" src="http://vm-duchemin.haverford.edu:8080/assets/scripts/libs/vexflow-free.js"></script>
   <script type="text/javascript" src="http://vm-duchemin.haverford.edu:8080/assets/scripts/libs/meitovexflow.js"></script>
-
-  {% endif %}
   <script type="text/javascript">
     $(document).ready(function (){
         attachAnalysisClickEvents();
     });
   </script>
+  {% endif %}
   <!-- end scripts -->
   <link href="{{ STATIC_URL }}css/bootstrap.min.css" rel="stylesheet">
   <link href="{{ STATIC_URL }}css/bootstrap-responsive.min.css" rel="stylesheet">

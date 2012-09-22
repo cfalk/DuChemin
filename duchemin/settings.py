@@ -170,7 +170,7 @@ VEXF_SERVER = "http://duchemin-dev.haverford.edu:8080/notation"
 # The mapping between the search form parameters and the
 # Solr fields.
 SEARCH_PARAM_MAP = {
-    'b': 'book_title',
+    'b': 'book_id',
     'p': 'composer',
     'r': 'contributor',
     'f': 'cadence_final_tone',

@@ -91,9 +91,10 @@ class DCSolrSearch(object):
         group = 'book'
         self.active_query['q'][group] = []
         qfield = self.qdict.getlist('b')
-        q = " OR ".join(["{0}:{1}".format('book_id', q) for q in qfield])
-        self.active_query['q'][group].append(q)
-        # self._prep_q(fields, group)
+        if qfield:
+            q = " OR ".join(["{0}:{1}".format('book_id', q) for q in qfield])
+            self.active_query['q'][group].append(q)
+            # self._prep_q(fields, group)
 
     def _q_cadence(self):
         group = 'cadence'

@@ -111,6 +111,7 @@ if __name__ == "__main__":
             'title': analysis.composition_number.title,
             'composer': composer_name,
             'book_title': analysis.composition_number.book_id.title,
+            'book_id': piece.book_id.book_id,
             'book_id_title': "{0}_{1}".format(piece.book_id.book_id, piece.book_id.title),
             'phrase_number': analysis.phrase_number.phrase_num,
             'start_measure': analysis.start_measure,

@@ -62,6 +62,8 @@ class DCSolrSearch(object):
         #     self.active_query['q']['q'] = u"{0}".format(self.qdict.get('q'))
         # else:
         #     self.active_query['q']['q'] = u"*:*"
+        self._q_book()
+        self._q_composer()
         self._q_cadence()
         self._q_intpatt()
         self._q_prestype()
@@ -77,36 +79,26 @@ class DCSolrSearch(object):
         for grp, q in self.active_query['q'].iteritems():
             if not q:
                 continue
-            self.qstring = "{0} AND {1}".format(self.qstring, " AND ".join(q))
+            self.qstring = u"{0} AND {1}".format(self.qstring, " AND ".join(q))
 
-        # cadpat = None
-        # pattxt = None
-        # prstxt = None
-        # cadtxt = None
-        # if 'cadence' in self.active_query['q'].keys() and 'intpatt' in self.active_query['q'].keys():
-        #     cad = " AND ".join(self.active_query['q']['cadence'])
-        #     pat = " AND ".join(self.active_query['q']['intpatt'])
-        #     cadpat = "{0} AND {1}".format(cad, pat)
+    def _q_composer(self):
+        group = 'composer'
+        self.active_query['q'][group] = []
+        fields = ['p']
+        self._prep_q(fields, group)
 
-        # if 'intpatt' in self.active_query['q'].keys() and 'texttreat' in self.active_query['q'].keys():
-        #     pat = " AND ".join(self.active_query['q']['intpatt'])
-        #     txt = " AND ".join(self.active_query['q']['texttreat'])
-        #     pattxt = "{0} AND {1}".format(pat, txt)
-
-        # if 'prestyp' in self.active_query['q'].keys() and 'texttreat' in self.active_query['q'].keys():
-        #     prs = " AND ".join(self.active_query['q']['prestype'])
-        #     txt = " AND ".join(self.active_query['q']['texttreat'])
-        #     prstxt = "{0} AND {1}".format(prs, txt)
-
-        # if 'cadence' in self.active_query['q'].keys() and 'texttreat' in self.active_query['q'].keys():
-        #     cad = " AND ".join(self.active_query['q']['cadence'])
-        #     txt = " AND ".join(self.active_query['q']['texttreat'])
-        #     cadtxt = "{0} AND {1}".format(prs, txt)
+    def _q_book(self):
+        group = 'book'
+        self.active_query['q'][group] = []
+        qfield = self.qdict.getlist('b')
+        q = " OR ".join(["{0}:{1}".format('book_id', q) for q in qfield])
+        self.active_query['q'][group].append(q)
+        # self._prep_q(fields, group)
 
     def _q_cadence(self):
         group = 'cadence'
         self.active_query['q'][group] = []
-        self.active_query['q'][group].append("is_cadence:true")
+        # self.active_query['q'][group].append("is_cadence:true")
         fields = ['f', 'k', 'm', 'cadence_role_cantz', 'cadence_role_tenz']
         self._prep_q(fields, group)
 
@@ -140,46 +132,46 @@ class DCSolrSearch(object):
                 # non imitative
                 if 'nim' not in prestype.keys():
                     prestype['nim'] = []
-                    prestype['nim'].append('other_pres_type:\"NIM\"')
-                prestype['nim'].append("{0}:\"{1}\"".format(solr_field, qfield))
+                    prestype['nim'].append(u'other_pres_type:\"NIM\"')
+                prestype['nim'].append(u"{0}:\"{1}\"".format(solr_field, qfield))
 
             if "_free_" in field:
                 if 'free' not in prestype.keys():
                     prestype['free'] = []
-                    prestype['nim'].append('other_pres_type:\"FI\"')
-                prestype['free'].append("{0}:\"{1}\"".format(solr_field, qfield))
+                    prestype['nim'].append(u'other_pres_type:\"FI\"')
+                prestype['free'].append(u"{0}:\"{1}\"".format(solr_field, qfield))
 
             if "_imduet_" in field:
                 # imitative duet
                 if 'imduet' not in prestype.keys():
                     prestype['imduet'] = []
-                    prestype['imduet'].append('other_pres_type:\"ID\"')
-                prestype['imduet'].append("{0}:\"{1}\"".format(solr_field, qfield))
+                    prestype['imduet'].append(u'other_pres_type:\"ID\"')
+                prestype['imduet'].append(u"{0}:\"{1}\"".format(solr_field, qfield))
 
             if "_entry_p_" in field:
                 # periodic entry
                 if 'entry_p' not in prestype.keys():
                     prestype['entry_p'] = []
-                    prestype['entry_p'].append('other_pres_type:\"PEn\"')
-                prestype['entry_p'].append("{0}:\"{1}\"".format(solr_field, qfield))
+                    prestype['entry_p'].append(u'other_pres_type:\"PEn\"')
+                prestype['entry_p'].append(u"{0}:\"{1}\"".format(solr_field, qfield))
 
             if "_entry_t_" in field:
                 # tonal entry
                 if 'entry_t' not in prestype.keys():
                     prestype['entry_t'] = []
-                    prestype['entry_t'].append('other_pres_type:\"PEn Tonal\"')
-                prestype['entry_t'].append("{0}:\"{1}\"".format(solr_field, qfield))
+                    prestype['entry_t'].append(u'other_pres_type:\"PEn Tonal\"')
+                prestype['entry_t'].append(u"{0}:\"{1}\"".format(solr_field, qfield))
 
             if "_entry_s_" in field:
                 # stacked entry
                 if 'entry_s' not in prestype.keys():
                     prestype['entry_s'] = []
-                    prestype['entry_s'].append('other_pres_type:\"PEn Stacked\"')
-                prestype['entry_s'].append("{0}:\"{1}\"".format(solr_field, qfield))
+                    prestype['entry_s'].append(u'other_pres_type:\"PEn Stacked\"')
+                prestype['entry_s'].append(u"{0}:\"{1}\"".format(solr_field, qfield))
 
         for pt, pt_query in prestype.iteritems():
-            full_q = " AND ".join(pt_query)
-            full_q = "{0}".format(full_q)
+            full_q = u" AND ".join(pt_query)
+            full_q = u"{0}".format(full_q)
             self.active_query['q'][group].append(full_q)
 
         # self._prep_q(fields, group)
@@ -193,8 +185,8 @@ class DCSolrSearch(object):
                 continue
             solr_field = settings.SEARCH_PARAM_MAP[field]
             if len(qfield) > 1:
-                res = " AND ".join(["{0}:\"{1}\"".format(solr_field, f) for f in qfield])
-                res = "{0}".format(res)
+                res = u" AND ".join(["{0}:\"{1}\"".format(solr_field, f) for f in qfield])
+                res = u"{0}".format(res)
             else:
-                res = "{0}:\"{1}\"".format(solr_field, qfield[0])
+                res = u"{0}:\"{1}\"".format(solr_field, qfield[0])
             self.active_query['q'][group].append(res)

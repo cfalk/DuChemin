@@ -1,67 +1,55 @@
 from django.shortcuts import render
-# from django.contrib.auth import authenticate, login, logout, models
+from django.core.paginator import EmptyPage, PageNotAnInteger
 from django.conf import settings
 
 import solr
-import math
+from duchemin.helpers.solrpaginate import SolrPaginator, SolrGroupedPaginator
 from duchemin.helpers.solrsearch import DCSolrSearch
+
 
 VOICE_NAMES = ["S", "Ct", "T", "B", "None"]
 
+
 def search(request):
-    data = {}
     if 'q' not in request.GET:
         return _empty_search(request)
     else:
-        start = request.GET.get('start')
-        numResult = request.GET.get('numResult')
+        return _do_search(request)
 
-        print start
-        print numResult
 
-        s = DCSolrSearch()
-        # fetch the number of results, but not the results themselves.
-        num_res = s.num_results(request, group=['title'], filter=['type:duchemin_analysis'], rows=0)
-        work_res = s.search(request, group=['title'], filter=['type:duchemin_analysis'], start=start)
-        el_res = s.search(request, filter=['type:duchemin_analysis'], start=start)
+def _do_search(request):
+    s = DCSolrSearch()
 
-        print dir(num_res)
+    # fetch the number of results, but not the results themselves.
+    # num_res = s.num_results(request, group=['title'], filter=['type:duchemin_analysis'], rows=0)
+    work_res = s.search(request, group=['title'], filter=['type:duchemin_analysis'])
+    el_res = s.search(request, filter=['type:duchemin_analysis'])
 
-        work_results = [SolrResponseObject(**s) for s in work_res.results]
-        element_results = [SolrResponseObject(**s) for s in el_res.results]
-        work_result_num = num_res.grouped['title']['ngroups']
-        element_result_num = num_res.grouped['title']['matches']
+    work_paginate = SolrGroupedPaginator(work_res)
+    element_paginate = SolrPaginator(el_res)
 
-        work_paginate = False
-        element_paginate = False
-        num_work_pages = 0
-        num_element_pages = 0
+    page = request.GET.get('page')
+    try:
+        work_results = work_paginate.page(page)
+    except PageNotAnInteger:
+        work_results = work_paginate.page(1)
+    except EmptyPage:
+        work_results = work_paginate.page(work_paginate.num_pages)
 
-        if int(work_result_num) > 10:
-            work_paginate = True
-            num_work_pages = range(1, int(math.ceil(work_result_num / 10)) + 1)
+    try:
+        element_results = element_paginate.page(page)
+    except PageNotAnInteger:
+        element_results = element_paginate.page(1)
+    except EmptyPage:
+        element_results = element_paginate.page(work_paginate.num_pages)
 
-        if int(element_result_num) > 10:
-            element_paginate = True
-            num_element_pages = range(1, int(math.ceil(element_result_num / 10)) + 1)
+    data = {
+        'work_results': work_results,
+        'element_results': element_results,
+        'render_notation': True,
+    }
 
-        data = {
-            # 'work_res_query': work_res_query,
-            # 'el_res_query': el_res_query,
-            'work_results': work_results,
-            'element_results': element_results,
-            'work_result_num': work_result_num,
-            'element_result_num': element_result_num,
-            'render_notation': True,
-            'work_paginate': work_paginate,
-            'element_paginate': element_paginate,
-            'start': start,
-            'numResult': numResult,
-            'num_work_pages': num_work_pages,
-            'num_element_pages': num_element_pages
-        }
-
-        return render(request, 'search/results.html', data)
+    return render(request, 'search/results.html', data)
 
 
 def _empty_search(request):
@@ -165,8 +153,6 @@ def _empty_search(request):
         'prestype_entry_s_comes1': prestype_entry_s_comes1,
         'prestype_entry_s_dux2': prestype_entry_s_dux2,
         'prestype_entry_s_comes2': prestype_entry_s_comes2,
-        'start': 0,
-        'numResult': 10
     }
     return render(request, 'search/search.html', data)
 
@@ -183,12 +169,6 @@ def __construct_voice_facet(voice, group, hidden=True):
         d['checked'] = True
 
     return VoiceFacet(**d)
-
-
-class SolrResponseObject(object):
-    def __init__(self, **entries):
-        self.__dict__.update(entries)
-
 
 class VoiceFacet(object):
     def __init__(self, **entries):

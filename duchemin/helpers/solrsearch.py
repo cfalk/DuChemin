@@ -33,14 +33,7 @@ class DCSolrSearch(object):
         extra_params = {}
         if 'group' in kwargs.keys():
             extra_params['group'] = 'true'
-            # if we're only interested in fetching the number of results,
-            # we don't want to pass the group_main parameter (it won't return
-            # the number of groups) and we don't need to fetch the rows.
-            if fetch_num:
-                extra_params['group_ngroups'] = 'true'
-                extra_params['rows'] = 0
-            else:
-                extra_params['group_main'] = 'true'
+            extra_params['group_ngroups'] = 'true'
             extra_params['group_field'] = ",".join(kwargs['group']).strip(",")
         if 'filter' in kwargs.keys():
             extra_params['fq'] = ",".join(kwargs['filter']).strip(",")

@@ -25,10 +25,14 @@ class SolrPaginator(object):
 
     """
 
-    def __init__(self, result, default_page_size=10):
+    def __init__(self, result, default_page_size=10, allow_empty_first_page=True):
         self.params = result.header['params']
         self.result = result
         self.query = result._query
+        self.count = int(self.result.numFound)
+        self.allow_empty_first_page = allow_empty_first_page
+
+        print self.result.numFound
 
         if 'rows' in self.params:
             self.page_size = int(self.params['rows'])
@@ -45,9 +49,20 @@ class SolrPaginator(object):
         else:
             self.page_size = len(self.result.results)
 
-    @property
-    def count(self):
-        return int(self.result.numFound)
+    def validate_number(self, number):
+        try:
+            number = int(number)
+        except (TypeError, ValueError):
+            raise PageNotAnInteger("That page number is not an integer")
+
+        if number < 1:
+            raise EmptyPage("That page number is less than 1")
+        if number > self.num_pages:
+            if number == 1 and self.allow_empty_first_page:
+                pass
+            else:
+                raise EmptyPage('That page contains no results')
+        return number
 
     @property
     def num_pages(self):
@@ -113,14 +128,18 @@ class SolrGroupedPaginator(object):
 
     """
 
-    def __init__(self, result, default_page_size=10):
+    def __init__(self, result, default_page_size=10, allow_empty_first_page=True):
         self.params = result.header['params']
         self.result = result
         self.query = result._query
+        self.allow_empty_first_page = allow_empty_first_page
+        self._num_pages = self._count = None
 
         self.group_field = self.params['group.field']
         self.matches = self.result.grouped[self.group_field]['matches']
         self.ngroups = self.result.grouped[self.group_field]['ngroups']
+
+        self.count = self.ngroups
 
         if 'rows' in self.params:
             self.page_size = int(self.params['rows'])
@@ -138,10 +157,6 @@ class SolrGroupedPaginator(object):
             self.page_size = len(self.result.results)
 
     @property
-    def count(self):
-        return int(self.ngroups)
-
-    @property
     def num_pages(self):
         if self.count == 0:
             return 0
@@ -154,6 +169,21 @@ class SolrGroupedPaginator(object):
             return []
         # Add one because range is right-side exclusive
         return range(1, self.num_pages + 1)
+
+    def validate_number(self, number):
+        try:
+            number = int(number)
+        except (TypeError, ValueError):
+            raise PageNotAnInteger("That page number is not an integer")
+
+        if number < 1:
+            raise EmptyPage("That page number is less than 1")
+        if number > self.num_pages:
+            if number == 1 and self.allow_empty_first_page:
+                pass
+            else:
+                raise EmptyPage('That page contains no results')
+        return number
 
     def _fetch_page(self, start=0):
         """Retrieve a new result response from Solr."""
@@ -186,29 +216,57 @@ class SolrGroupedPaginator(object):
 class SolrPage(object):
     """A single Paginator-style page."""
 
-    def __init__(self, result, page_num, paginator):
+    def __init__(self, result, number, paginator):
         self.result = result
-        self.number = page_num
+        self.number = number
         self.paginator = paginator
+
+    def __repr__(self):
+        return '<Page %s of %s>' % (self.number, self.paginator.num_pages)
+
+    def __len__(self):
+        return len(self.object_list)
+
+    def __getitem__(self, index):
+        return list(self.object_list)[index]
+
+    def __iter__(self):
+        i = 0
+        try:
+            while True:
+                v = self[i]
+                yield v
+                i += 1
+        except IndexError:
+            return
+
+    def __contains__(self, value):
+        for v in self:
+            if v == value:
+                return True
+            return False
+
+    def index(self, value):
+        for i, v in enumerate(self):
+            if v == value:
+                return i
+        raise ValueError
+
+    def count(self, value):
+        return sum([1 for v in self if v == value])
 
     @property
     def object_list(self):
         return [SolrResponseObject(**s) for s in self.result]
 
     def has_next(self):
-        if self.number < self.paginator.num_pages:
-            return True
-        return False
+        return self.number < self.paginator.num_pages
 
     def has_previous(self):
-        if self.number > 1:
-            return True
-        return False
+        return self.number > 1
 
     def has_other_pages(self):
-        if self.paginator.num_pages > 1:
-            return True
-        return False
+        return self.has_previous() or self.has_next()
 
     def start_index(self):
         # off by one because self.number is 1-based w/django,
@@ -221,10 +279,10 @@ class SolrPage(object):
         return self.start_index() + len(self.result) - 1
 
     def next_page_number(self):
-        return self.number + 1
+        return self.paginator.validate_number(self.number + 1)
 
     def previous_page_number(self):
-        return self.number - 1
+        return self.paginator.validate_number(self.number - 1)
 
 
 class SolrResponseObject(object):

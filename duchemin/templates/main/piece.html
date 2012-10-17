@@ -1,6 +1,18 @@
 {% extends "base.html" %}
 {% load template_dict %}
 
+{% block header %}
+  <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/themes/base/jquery-ui.css" rel="stylesheet"></link>
+  <script src="{{ STATIC_URL }}js/notation.js"></script>
+  <script type="text/javascript" src="http://vm-duchemin.haverford.edu:8080/assets/scripts/libs/vexflow-free.js"></script>
+  <script type="text/javascript" src="http://vm-duchemin.haverford.edu:8080/assets/scripts/libs/meitovexflow.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function (){
+        attachAnalysisClickEvents();
+    });
+  </script>
+{% endblock %}
+
 {% block wrap %}
       <div class="row-fluid">
         <div class="span12">

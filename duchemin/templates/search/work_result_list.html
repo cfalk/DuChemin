@@ -1,0 +1,16 @@
+<ol class="item-list results-list">
+    {% for res in work_results.object_list %}
+    <li class="result works-result">
+        <h3><a href="/piece/{{ res.piece_id }}">{{ res.title }}</a></h3>
+        <ul class="item-actions">
+            <li><a href=""><i class="icon-file"></i> View Notation</a></li>
+            <li><a href=""><i class="icon-music"></i> Listen (MP3, 1:23)</a></li>
+            <li><a href=""><i class="icon-star"></i> Add to Favorites</a></li>
+        </ul>
+    </li>
+    {% endfor %}
+</ol>
+{% include "paginator.html" with paginator=work_results %}
+<script type="text/javascript">
+    worksPagerActions();
+</script>

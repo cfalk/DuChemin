@@ -25,7 +25,7 @@
                     <div class="tab-content" id="results-tab-content">
                         <div id="works" class="tab-pane fade active in">
                             <ol class="item-list results-list">
-                                {% for res in work_results.results %}
+                                {% for res in work_results.object_list %}
                                 <li class="result works-result">
                                     <h3><a href="/piece/{{ res.piece_id }}">{{ res.title }}</a></h3>
                                     <ul class="item-actions">
@@ -39,7 +39,7 @@
                             {% include "paginator.html" with paginator=work_results %}
                         </div>
                         <div id="commonplaces" class="tab-pane fade">
-                            {% include "analysis/analysis_table.html" with analyses=element_results.results %}
+                            {% include "analysis/analysis_table.html" with analyses=element_results.object_list %}
                             {% include "paginator.html" with paginator=element_results %}
                         </div>
                         <div id="pages" class="tab-pane fade">

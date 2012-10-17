@@ -4,11 +4,11 @@
 
   <ul>
     {% if paginator.has_previous %}
-    <li><a href="?page={{ paginator.previous_page_number }}">Prev</a></li>
+    <li><a href="#" class="{{ paginator.pager_id }}-prev" target="{{ paginator.previous_page_number }}">Prev</a></li>
     {% endif %}
 
     {% if paginator.has_next %}
-    <li><a href="?page={{ paginator.next_page_number }}">Next</a></li>
+    <li><a href="#" class="{{ paginator.pager_id }}-next" target="{{ paginator.next_page_number }}">Next</a></li>
     {% endif %}
   </ul>
 </div>

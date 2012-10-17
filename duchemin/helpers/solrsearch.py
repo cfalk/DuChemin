@@ -1,4 +1,5 @@
 from django.conf import settings
+from duchemin.helpers.solrpaginate import SolrPaginator, SolrGroupedPaginator
 import solr
 
 
@@ -22,9 +23,11 @@ class DCSolrSearch(object):
     """
     def __init__(self, **kwargs):
         self.server = solr.Solr(settings.SOLR_SERVER)
+        self.group_q = False
         self._initialize()
 
     def search(self, request, fetch_num=False, **kwargs):
+        # returns a paginator object for the search results.
         self.qdict = request.GET
         self._initialize()
         self._map_query(request)
@@ -32,6 +35,7 @@ class DCSolrSearch(object):
         # treat group & filter
         extra_params = {}
         if 'group' in kwargs.keys():
+            self.group_q = True
             extra_params['group'] = 'true'
             extra_params['group_ngroups'] = 'true'
             extra_params['group_field'] = ",".join(kwargs['group']).strip(",")
@@ -39,7 +43,11 @@ class DCSolrSearch(object):
             extra_params['fq'] = ",".join(kwargs['filter']).strip(",")
 
         results = self.server.select(self.qstring, **extra_params)
-        return results
+
+        if self.group_q:
+            return SolrGroupedPaginator(results)
+        else:
+            return SolrPaginator(results)
 
     def num_results(self, request, **kwargs):
         return self.search(request, fetch_num=True, **kwargs)

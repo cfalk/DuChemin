@@ -183,7 +183,7 @@ class SolrGroupedPaginator(object):
         return SolrPage(grouped_results, page_num, self)
 
 
-class SolrPage:
+class SolrPage(object):
     """A single Paginator-style page."""
 
     def __init__(self, result, page_num, paginator):
@@ -192,12 +192,8 @@ class SolrPage:
         self.paginator = paginator
 
     @property
-    def results(self):
-        return [SolrResponseObject(**s) for s in self.result]
-
-    @property
     def object_list(self):
-        return self.result
+        return [SolrResponseObject(**s) for s in self.result]
 
     def has_next(self):
         if self.number < self.paginator.num_pages:

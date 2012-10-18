@@ -7,7 +7,7 @@
     <div id="composer-section" class="accordion-body collapse">
         <div class="accordion-inner">
             {% for composer in composers %}
-            <label class="checkbox composer_checkbox" for="composer{{ forloop.counter }}"><input type="checkbox" id="composer{{ forloop.counter }}" name="p" value="{{ composer }}" />{{ composer }}</label>
+            <label class="checkbox" for="composer{{ forloop.counter }}"><input type="checkbox" id="composer{{ forloop.counter }}" name="p" value="{{ composer }}" />{{ composer }}</label>
             {% endfor %}
         </div>
     </div>

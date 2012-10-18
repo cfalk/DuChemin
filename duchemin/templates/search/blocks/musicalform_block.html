@@ -7,7 +7,7 @@
     <div id="form-section" class="accordion-body collapse">
         <div class="accordion-inner">
             {% for repeat in repeat_kinds %}
-            <label class="checkbox contributor_checkbox" for="form{{ forloop.counter }}"><input type="checkbox" id="form{{ forloop.counter }}" name="lf" value="{{ repeat }}" />{{ repeat }}</label>
+            <label class="checkbox" for="form{{ forloop.counter }}"><input type="checkbox" id="form{{ forloop.counter }}" name="lf" value="{{ repeat }}" />{{ repeat }}</label>
             {% endfor %}
         </div>
     </div>

@@ -7,7 +7,7 @@
     <div id="texttone-section" class="accordion-body collapse">
         <div class="accordion-inner">
             {% for treatment in text_treatments %}
-            <label class="checkbox contributor_checkbox" for="texttone{{ forloop.counter }}"><input type="checkbox" id="texttone{{ forloop.counter }}" name="t" value="{{ treatment }}" />{{ treatment }}</label>
+            <label class="checkbox" for="texttone{{ forloop.counter }}"><input type="checkbox" id="texttone{{ forloop.counter }}" name="t" value="{{ treatment }}" />{{ treatment }}</label>
             {% endfor %}
         </div>
     </div>

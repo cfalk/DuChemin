@@ -133,7 +133,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     people = os.path.join(args.input_directory, "People.csv")
-    analyses = os.path.join(args.input_directory, "Analyses.csv")
+    analyses = os.path.join(args.input_directory, "Analyses_revised.csv")
     pieces = os.path.join(args.input_directory, "Pieces.csv")
     books = os.path.join(args.input_directory, "Books.csv")
     phrases = os.path.join(args.input_directory, "Phrases.csv")
@@ -216,6 +216,8 @@ if __name__ == "__main__":
         # replace the last name with the id.
         record['analyst'] = find_person_id(people_csv, record['analyst'])
         record['phrase_number'] = find_phrase_id(phrase_csv, record['composition_number'], record['phrase_number'])
+        record['composition_number'] = record['composition_number'].upper()
+        record['cadence_final_tone'] = record['cadence_final_tone'].strip().upper()
 
         r = {
             'pk': pk,

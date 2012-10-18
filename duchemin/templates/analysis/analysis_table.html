@@ -1,6 +1,6 @@
 <table class="table table-striped">
   <tr>
-    <th>Analyst</th>
+    <th>Piece</th>
     <th>Phrase Number</th>
     <th>Start Measure</th>
     <th>Stop Measure</th>
@@ -11,7 +11,7 @@
   </tr>
   {% for analysis in analyses %}
     <tr>
-      <td>{{ analysis.contributor }}</td>
+      <td>{{ analysis.title }}</td>
       <td>{{ analysis.phrase_number }}</td>
       <td>{{ analysis.start_measure }}</td>
       <td>{{ analysis.stop_measure }}</td>

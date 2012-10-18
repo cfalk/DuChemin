@@ -9,17 +9,14 @@ var qs_map = function() {
 };
 
 var fetchWorkResults = function() {
-    console.log("Fetch work results");
     searchPageCallback('work', 1, '#works');
 };
 
 var fetchElementResults = function() {
-    console.log("Fetch element results");
     searchPageCallback('element', 1, '#elements');
 };
 
 var searchPageCallback = function(searchtype, page, target) {
-    console.log("Search callback for page " + page);
     qsm = qs_map();
     if (searchtype == 'work') {
         if (qsm['wpage'] === undefined) {
@@ -31,7 +28,6 @@ var searchPageCallback = function(searchtype, page, target) {
         }
     }
     qstr = jQuery.param(qsm);
-    console.log(qsm);
 
     $.ajax({
         url: '/search/results/' + searchtype,

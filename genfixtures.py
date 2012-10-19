@@ -217,7 +217,10 @@ if __name__ == "__main__":
         record['analyst'] = find_person_id(people_csv, record['analyst'])
         record['phrase_number'] = find_phrase_id(phrase_csv, record['composition_number'], record['phrase_number'])
         record['composition_number'] = record['composition_number'].upper()
-        record['cadence_final_tone'] = record['cadence_final_tone'].strip().upper()
+        if 'flat' in record['cadence_final_tone']:
+            record['cadence_final_tone'] = record['cadence_final_tone'].strip()
+        else:
+            record['cadence_final_tone'] = record['cadence_final_tone'].strip().upper()
 
         r = {
             'pk': pk,

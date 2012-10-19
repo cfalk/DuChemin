@@ -4,9 +4,6 @@
     <th>Phrase Number</th>
     <th>Start Measure</th>
     <th>Stop Measure</th>
-    <th>Is Cadence?</th>
-    <th>Cadence Kind</th>
-    <th>Cadence Alter</th>
     <th></th>
   </tr>
   {% for analysis in analyses %}
@@ -15,16 +12,24 @@
       <td>{{ analysis.phrase_number }}</td>
       <td>{{ analysis.start_measure }}</td>
       <td>{{ analysis.stop_measure }}</td>
-      <td>
-        {% if analysis.cadence == True %}
-          <i class="icon-ok"></i>
-        {% else %}
-          <i class="icon-remove"></i>
-        {% endif %}
-      </td>
-      <td>{{ analysis.cadence_kind }}</td>
-      <td>{{ analysis.cadence_alter }}</td>
-      <td><a href="#" class="view-analysis" anid="{{ analysis.analysis_id }}">View</a></td>
+      <td><a href="#" class="view-analysis" anid="{{ analysis.analysis_id }}">View</a> | <a href="#" class="analyses-info-expand" target="analyses-info-{{ forloop.counter }}">Expand</a></td>
+    </tr>
+    <tr id="analyses-info-{{ forloop.counter }}" class="analyses-info">
+      <td colspan="5">{% include "analysis/analysis_extended_info.html" %}</td>
     </tr>
   {% endfor %}
 </table>
+<script type="text/javascript">
+  $('.analyses-info').hide();
+  $('.analyses-info-expand').on({
+    'click': function(event) {
+      event.preventDefault();
+
+      tgt = "#" + $(this).attr('target');
+      $(tgt).toggle();
+      tag = $(this).text() == "Expand" ? "Collapse" : "Expand";
+      $(this).text(tag);
+      return false;
+    }
+  })
+</script>

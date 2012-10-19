@@ -4,7 +4,6 @@ from duchemin.helpers.solrsearch import DCSolrSearch
 
 
 def result_callback(request, restype):
-    print request.GET.lists()
     if restype == 'work':
         return _fetch_work_results(request)
     elif restype == 'element':
@@ -12,7 +11,6 @@ def result_callback(request, restype):
 
 
 def _fetch_work_results(request):
-    print request.GET.lists()
     s = DCSolrSearch(request)
     work_res = s.group_search(['title'], fq=['type:(duchemin_analysis OR duchemin_piece)'])
 

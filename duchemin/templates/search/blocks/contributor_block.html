@@ -6,9 +6,11 @@
     </div>
     <div id="contributor-section" class="accordion-body collapse">
         <div class="accordion-inner">
+            <ul class="column-checklist two-columns">
             {% for contributor in contributors %}
-            <label class="checkbox" for="contributor{{ forloop.counter }}"><input type="checkbox" id="contributor{{ forloop.counter }}" name="r" value="{{ contributor }}" />{{ contributor }}</label>
+            <li><label class="checkbox" for="contributor{{ forloop.counter }}"><input type="checkbox" id="contributor{{ forloop.counter }}" name="r" value="{{ contributor }}" />{{ contributor }}</label></li>
             {% endfor %}
+            </ul>
         </div>
     </div>
 </div>

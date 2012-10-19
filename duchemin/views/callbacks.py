@@ -3,9 +3,8 @@ from django.core.paginator import EmptyPage, InvalidPage
 from duchemin.helpers.solrsearch import DCSolrSearch
 
 
-
 def result_callback(request, restype):
-    print restype
+    print request.GET.lists()
     if restype == 'work':
         return _fetch_work_results(request)
     elif restype == 'element':
@@ -13,8 +12,12 @@ def result_callback(request, restype):
 
 
 def _fetch_work_results(request):
-    s = DCSolrSearch()
-    work_res = s.search(request, group=['title'], filter=['type:duchemin_analysis'])
+    print request.GET.lists()
+    s = DCSolrSearch(request)
+    work_res = s.group_search(['title'], fq=['type:(duchemin_analysis OR duchemin_piece)'])
+
+    if work_res.count == 0:
+        return render(request, 'search/no_results.html')
 
     try:
         wpage = int(request.GET.get('wpage', '1'))
@@ -34,8 +37,11 @@ def _fetch_work_results(request):
 
 
 def _fetch_element_results(request):
-    s = DCSolrSearch()
-    el_res = s.search(request, filter=['type:duchemin_analysis'])
+    s = DCSolrSearch(request)
+    el_res = s.search(fq=['type:duchemin_analysis'])
+
+    if el_res.count == 0:
+        return render(request, 'search/no_results.html')
 
     try:
         epage = int(request.GET.get('epage', '1'))

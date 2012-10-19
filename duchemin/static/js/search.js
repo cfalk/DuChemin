@@ -1,13 +1,3 @@
-var qs_map = function() {
-    qs_arr = window.location.search.replace("?", '').split("&");
-    qs_dict = {};
-    for (var i = qs_arr.length - 1; i >= 0; i--) {
-        x = qs_arr[i].split("=");
-        qs_dict[x[0]] = x[1];
-    }
-    return qs_dict;
-};
-
 var fetchWorkResults = function() {
     searchPageCallback('work', 1, '#works');
 };
@@ -17,17 +7,18 @@ var fetchElementResults = function() {
 };
 
 var searchPageCallback = function(searchtype, page, target) {
-    qsm = qs_map();
+    var qstr = window.location.search.replace("?", "");
     if (searchtype == 'work') {
-        if (qsm['wpage'] === undefined) {
-            qsm['wpage'] = page;
-        }
-    } else if (searchtype == 'element') {
-        if (qsm['epage'] === undefined) {
-            qsm['epage'] = page;
+        if (window.location.search.match(/wpage/g) === null) {
+            qstr = qstr + "&wpage=" + page;
         }
     }
-    qstr = jQuery.param(qsm);
+
+    if (searchtype == 'element') {
+        if (window.location.search.match(/epage/g) === null) {
+            qstr = qstr + "&epage=" + page;
+        }
+    }
 
     $.ajax({
         url: '/search/results/' + searchtype,

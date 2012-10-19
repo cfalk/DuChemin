@@ -169,6 +169,18 @@ VEXF_SERVER = "http://duchemin-dev.haverford.edu:8080/notation"
 
 SOLR_NUM_SEARCH_RESULTS = 10
 
+SOLR_FACET_FIELDS = [
+    'contributor',
+    'composer',
+    'is_cadence',
+    'cadence_final_tone',
+    'cadence_alter',
+    'cadence_kind',
+    'text_treatment',
+    'repeat_kind',
+    'book_id_title'
+]
+
 # The mapping between the search form parameters and the
 # Solr fields.
 SEARCH_PARAM_MAP = {
@@ -192,21 +204,24 @@ SEARCH_PARAM_MAP = {
     'prestype_nim_up1': 'voice_role_up1_nim',
     'prestype_nim_lo1': 'voice_role_lo1_nim',
     'prestype_nim_up2': 'voice_role_up2_nim',
-    'prestype_nim_lo2': 'voice_role_lo1_nim',
+    'prestype_nim_lo2': 'voice_role_lo2_nim',
     'prestype_free_dux': 'voice_role_dux1',
     'prestype_free_comes': 'voice_role_com1',
     'prestype_imduet_dux1': 'voice_role_dux1',
     'prestype_imduet_comes1': 'voice_role_com1',
     'prestype_imduet_dux2': 'voice_role_dux2',
     'prestype_imduet_comes2': 'voice_role_com2',
+
     'prestype_entry_p_dux1': 'voice_role_dux1',
     'prestype_entry_p_comes1': 'voice_role_com1',
     'prestype_entry_p_dux2': 'voice_role_dux2',
     'prestype_entry_p_comes2': 'voice_role_com2',
+
     'prestype_entry_t_dux1': 'voice_role_dux1',
     'prestype_entry_t_comes1': 'voice_role_com1',
     'prestype_entry_t_dux2': 'voice_role_dux2',
     'prestype_entry_t_comes2': 'voice_role_com2',
+
     'prestype_entry_s_dux1': 'voice_role_dux1',
     'prestype_entry_s_comes1': 'voice_role_com1',
     'prestype_entry_s_dux2': 'voice_role_dux2',

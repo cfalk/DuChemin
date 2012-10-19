@@ -40,22 +40,32 @@
                 <div id="show-filter" class="show-filter btn-group">
                   <button id="measure-btn" class="btn btn-small active">Measures</button>
                   <button id="rhyme-btn" class="btn btn-small active">Rhyme</button>
-                  <button id="commonplaces-btn" class="btn btn-small">Commonplaces</button>
-                  <button id="reconstructions-btn" class="btn btn-small">Reconstructions <span class="count">(2)</span></button>
+                  <button id="commonplaces-btn" class="btn btn-small">Analysis</button>
+                  <!-- <button id="reconstructions-btn" class="btn btn-small">Reconstructions <span class="count">(2)</span></button> -->
                 </div>
               </div>
               <div class="item-display">
                 {% for phrase in phrases %}
                 <div class="line">
-                  <span class="measure span1">{{ phrase.phrase_start }}&ndash;{{ phrase.phrase_stop }}</span>
-                  <span class="rhyme span1">{{ phrase.rhyme }}</span>
+                  <span class="measure span1">
+                    {% if phrase.phrase_start %}
+                      {{ phrase.phrase_start }}&ndash;{{ phrase.phrase_stop }}
+                    {% endif %}
+                    </span>
+                  <span class="rhyme span1">
+                    {% if phrase.rhyme %}
+                      {{ phrase.rhyme }}
+                    {% endif %}
+                    </span>
                   <span class="line-text span7">{{ phrase.phrase_text }}</span>
                   <div class="dropdown notation-dropdown">
+                  <!--
                     <a class="btn btn-small notation" data-toggle="dropdown"><i class="icon-file"></i> Notation <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                       <li><a href="#">File Type 1 (1.3 MB)</a></li>
                       <li><a href="#">File Type 2 (5.1 MB)</a></li>
-                    </ul>
+                    </ul>-->
+                    <a href="#">View</a>
                   </div>
                   <div class="commonplaces span12">
                     <ul>

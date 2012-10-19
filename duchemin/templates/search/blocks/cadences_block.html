@@ -14,9 +14,11 @@
                     </div>
                     <div id="finalTone-section" class="accordion-body collapse">
                         <div class="accordion-inner">
+                            <ul>
                             {% for final_tone in cadence_final_tones %}
-                            <label class="checkbox" for="finaltone{{ forloop.counter }}"><input type="checkbox" id="finaltone{{ forloop.counter }}" name="f" value="{{ final_tone }}" />{{ final_tone }}</label>
+                            <li><label class="checkbox" for="finaltone{{ forloop.counter }}"><input type="checkbox" id="finaltone{{ forloop.counter }}" name="f" value="{{ final_tone }}" />{{ final_tone }}</label></li>
                             {% endfor %}
+                            </ul>
                         </div>
                     </div>
                 </div>

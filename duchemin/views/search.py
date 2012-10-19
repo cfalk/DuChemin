@@ -69,12 +69,13 @@ def search(request):
 
 
 def _empty_search(request):
-    s = solr.Solr(settings.SOLR_SERVER)
-    ret = s.select("*:*", facet="true",
-        facet_field=['contributor', 'composer', 'is_cadence', 'cadence_final_tone',
-        'cadence_alter', 'cadence_kind', 'text_treatment', 'repeat_kind', 'book_id_title'],
-        fq=['duchemin_analysis'],
-        rows="0")
+    s = DCSolrSearch(request)
+    ret = s.facets(fq=['duchemin_analysis'], rows=0)
+    # s = solr.Solr(settings.SOLR_SERVER)
+    # ret = s.select("*:*", facet="true",
+    #     facet_field=settings.SOLR_FACET_FIELDS,
+    #     fq=['duchemin_analysis'],
+    #     rows="0")
 
     facets = ret.facet_counts['facet_fields']
     cadence_alter = sorted(facets['cadence_alter'])
@@ -185,6 +186,7 @@ def __construct_voice_facet(voice, group, hidden=True):
         d['checked'] = True
 
     return VoiceFacet(**d)
+
 
 class VoiceFacet(object):
     def __init__(self, **entries):

@@ -9,8 +9,8 @@ class DCReconstruction(models.Model):
         verbose_name = "Reconstruction"
         verbose_name_plural = "Reconstructions"
 
-    piece = models.ForeignKey(DCPiece)
-    reconstructor = models.ForeignKey(DCPerson)
+    piece = models.ForeignKey(DCPiece, to_field="piece_id")
+    reconstructor = models.ForeignKey(DCPerson, to_field="person_id")
 
     def __unicode__(self):
         return self.reconstruction_id

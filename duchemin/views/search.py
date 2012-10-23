@@ -1,11 +1,5 @@
 from django.shortcuts import render
-from django.core.paginator import EmptyPage, InvalidPage
-from django.conf import settings
-
-import solr
-from duchemin.helpers.solrpaginate import SolrPaginator, SolrGroupedPaginator
 from duchemin.helpers.solrsearch import DCSolrSearch
-
 
 VOICE_NAMES = ["S", "Ct", "T", "B", "None"]
 
@@ -17,65 +11,9 @@ def search(request):
         return render(request, 'search/results.html')
 
 
-# def _do_search(request):
-    # s = DCSolrSearch()
-
-    # # fetch the number of results, but not the results themselves.
-    # # num_res = s.num_results(request, group=['title'], filter=['type:duchemin_analysis'], rows=0)
-    # work_res = s.search(request, group=['title'], filter=['type:duchemin_analysis'])
-    # el_res = s.search(request, filter=['type:duchemin_analysis'])
-
-    # work_paginate = SolrGroupedPaginator(work_res)
-    # element_paginate = SolrPaginator(el_res)
-
-    # try:
-    #     wpage = int(request.GET.get('wpage', '1'))
-    # except ValueError:
-    #     wpage = 1
-
-    # try:
-    #     epage = int(request.GET.get('epage', '1'))
-    # except ValueError:
-    #     epage = 1
-
-    # # delete wpage and epage from the query string so we don't have it always re-added
-    # qdict = request.GET.copy()
-    # if 'epage' in qdict.keys():
-    #     del qdict['epage']
-    # if 'wpage' in qdict.keys():
-    #     del qdict['wpage']
-    # qd = qdict.urlencode()
-
-    # try:
-    #     work_results = work_paginate.page(wpage)
-    # except (EmptyPage, InvalidPage):
-    #     work_results = work_paginate.page(work_paginate.num_pages)
-    # work_results.paginate_var = 'wpage'
-
-    # try:
-    #     element_results = element_paginate.page(epage)
-    # except (EmptyPage, InvalidPage):
-    #     element_results = element_paginate.page(element_paginate.num_pages)
-    # element_results.paginate_var = 'epage'
-
-    # data = {
-    #     'work_results': work_results,
-    #     'element_results': element_results,
-    #     'render_notation': True,
-    #     'qstring': qd,
-    # }
-
-    # return render(request, 'search/results.html', data)
-
-
 def _empty_search(request):
     s = DCSolrSearch(request)
     ret = s.facets(fq=['duchemin_analysis'], rows=0)
-    # s = solr.Solr(settings.SOLR_SERVER)
-    # ret = s.select("*:*", facet="true",
-    #     facet_field=settings.SOLR_FACET_FIELDS,
-    #     fq=['duchemin_analysis'],
-    #     rows="0")
 
     facets = ret.facet_counts['facet_fields']
     cadence_alter = sorted(facets['cadence_alter'])

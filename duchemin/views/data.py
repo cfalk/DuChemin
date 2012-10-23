@@ -1,7 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import render
 from django.conf import settings
-from django.utils import simplejson
 
 import httplib2
 from duchemin.models.analysis import DCAnalysis
@@ -19,6 +17,4 @@ def analysis(request, anid):
     h = httplib2.Http()
     resp, content = h.request(req_url, "GET")
 
-    # print content
     return HttpResponse(content)
-    # return render(request, 'notation/notation.html', data)

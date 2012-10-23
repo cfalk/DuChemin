@@ -7,8 +7,8 @@ class DCPerson(models.Model):
         verbose_name = "Person"
         verbose_name_plural = "People"
 
-    person_id = models.CharField(max_length=16, unique=True, null=True)
-    surname = models.CharField(max_length=64, blank=True, null=True)
+    person_id = models.CharField(max_length=16, unique=True, null=True, db_index=True)
+    surname = models.CharField(max_length=64, blank=True, null=True, db_index=True)
     given_name = models.CharField(max_length=64, blank=True, null=True)
     birth_date = models.CharField(max_length=16, blank=True, null=True)
     death_date = models.CharField(max_length=16, blank=True, null=True)

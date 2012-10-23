@@ -7,8 +7,8 @@ class DCBook(models.Model):
         verbose_name = "Book"
         verbose_name_plural = "Books"
 
-    book_id = models.IntegerField(unique=True)
-    title = models.CharField(max_length=128, blank=True, null=True)
+    book_id = models.IntegerField(unique=True, db_index=True)
+    title = models.CharField(max_length=128, blank=True, null=True, db_index=True)
     complete_title = models.CharField(max_length=128, blank=True, null=True)
     publisher = models.CharField(max_length=64, blank=True, null=True)
     place_publication = models.CharField(max_length=64, blank=True, null=True)

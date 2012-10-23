@@ -10,7 +10,7 @@ class DCPiece(models.Model):
         verbose_name = "Piece"
         verbose_name_plural = "Pieces"
 
-    piece_id = models.CharField(max_length=16, unique=True)
+    piece_id = models.CharField(max_length=16, unique=True, db_index=True)
     book_id = models.ForeignKey(DCBook, to_field='book_id')
     book_position = models.CharField(max_length=16, blank=True, null=True)
     title = models.CharField(max_length=64, blank=True, null=True)

@@ -9,7 +9,7 @@ class DCPhrase(models.Model):
         verbose_name = "Phrase"
         verbose_name_plural = "Phrases"
 
-    phrase_id = models.CharField(max_length=16, unique=True)
+    phrase_id = models.CharField(max_length=16, unique=True, db_index=True)
     piece_id = models.ForeignKey(DCPiece, to_field='piece_id')
     phrase_num = models.CharField(max_length=4, blank=True, null=True)
     phrase_start = models.CharField(max_length=4, blank=True, null=True)

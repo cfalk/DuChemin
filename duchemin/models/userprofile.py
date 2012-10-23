@@ -10,6 +10,6 @@ class DCUserProfile(models.Model):
         app_label = "duchemin"
 
     user = models.OneToOneField(User)
-    favourited_piece = models.ManyToManyField(DCPiece)
-    favourited_analysis = models.ManyToManyField(DCAnalysis)
-    favourited_reconstruction = models.ManyToManyField(DCReconstruction)
+    favourited_piece = models.ManyToManyField(DCPiece, blank=True)
+    favourited_analysis = models.ManyToManyField(DCAnalysis, blank=True)
+    favourited_reconstruction = models.ManyToManyField(DCReconstruction, blank=True)

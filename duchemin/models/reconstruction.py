@@ -13,7 +13,7 @@ class DCReconstruction(models.Model):
     reconstructor = models.ForeignKey(DCPerson, to_field="person_id")
 
     def __unicode__(self):
-        return self.reconstruction_id
+        return self.recon_id
 
     @property
     def recon_id(self):

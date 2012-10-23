@@ -50,3 +50,6 @@ class DCAnalysis(models.Model):
     earlier_phrase = models.CharField(max_length=16, blank=True, null=True)
     comment = models.TextField(blank=True, null=True)
     repeat_exact_varied = models.CharField(max_length=16, blank=True, null=True)
+
+    def __unicode__(self):
+        return u"{0}, {1}, {2}".format(self.id, self.analyst.surname, self.composition_number.piece_id)

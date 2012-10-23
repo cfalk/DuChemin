@@ -184,6 +184,7 @@ SOLR_FACET_FIELDS = [
 # The mapping between the search form parameters and the
 # Solr fields.
 SEARCH_PARAM_MAP = {
+    'q': 'q',
     'b': 'book_id',
     'p': 'composer',
     'r': 'contributor',

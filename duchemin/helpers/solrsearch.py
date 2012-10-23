@@ -200,7 +200,10 @@ class DCSolrSearch(object):
             for k, v in self.parsed_request.iteritems():
                 if not v:
                     continue
-                arr.append(u"{0}:({1})".format(k, " OR ".join(["\"{0}\"".format(s) for s in v if v is not None])))
+                if k == 'q':
+                    arr.insert(0, u"{0}".format(v[0]))
+                else:
+                    arr.append(u"{0}:({1})".format(k, " OR ".join(["\"{0}\"".format(s) for s in v if v is not None])))
             self.prepared_query = u" AND ".join(arr)
         else:
             self.prepared_query = u"*:*"

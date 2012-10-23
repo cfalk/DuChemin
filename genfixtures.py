@@ -97,6 +97,15 @@ book_fieldnames = [
     'remarks'
 ]
 
+recon_fieldnames = [
+    'piece',
+    'reconstruction_id',
+    'person_id',
+    'time',
+    'filename',
+    'reconstructor'
+]
+
 
 def find_phrase_id(phrase_csv, piece_id, phrase_num):
     """ returns a phrase id given a piece and a phrase number """
@@ -115,7 +124,7 @@ def find_phrase_id(phrase_csv, piece_id, phrase_num):
 def find_person_id(people_csv, persname):
     """ returns a person id for a surname"""
     for person in people_csv:
-        if person['surname'] == persname:
+        if person['surname'].lower() == persname.lower():
             return person['person_id']
     return None
 
@@ -155,6 +164,9 @@ if __name__ == "__main__":
 
     phrase_csv = csv.DictReader(open(phrases, 'rb'), fieldnames=phrase_fieldnames)
     phrase_csv = list(phrase_csv)
+
+    recon_csv = csv.DictReader(open(reconstructions, 'rb'), fieldnames=recon_fieldnames)
+    recon_csv = list(recon_csv)
 
     people_json = []
     for pk, record in enumerate(people_csv):
@@ -208,6 +220,27 @@ if __name__ == "__main__":
         }
         pieces_json.append(r)
     fixtures.extend(pieces_json)
+
+    recon_json = []
+    for pk, record in enumerate(recon_csv):
+        if pk == 0:
+            continue
+        record['reconstructor'] = find_person_id(people_csv, record['reconstructor'])
+        record['piece'] = record['piece'].strip().upper()
+
+        # we don't need these fields
+        del record['time']
+        del record['person_id']
+        del record['filename']
+        del record['reconstruction_id']
+
+        r = {
+            'pk': pk,
+            'model': 'duchemin.dcreconstruction',
+            'fields': record_cleanup(record)
+        }
+        recon_json.append(r)
+    fixtures.extend(recon_json)
 
     analyses_json = []
     for pk, record in enumerate(analyses_csv):

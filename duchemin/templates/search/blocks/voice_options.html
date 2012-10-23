@@ -1,5 +1,11 @@
-<label class="vg-checkbox" for="{{ opt_id }}-stretto">Stretto Fuga</label>
-<input type="checkbox" id="{{ opt_id }}-stretto" name="{{ opt_id }}_stretto" value="stretto" />
+<fieldset class="voice-options">
+    <legend>{{ legend }}</legend>
+    <label class="checkbox">
+        <input type="checkbox" id="{{ opt_id }}-stretto" name="{{ opt_id }}_stretto" value="stretto" />
+        Stretto Fuga
+    </label>
 
-<label class="vg-checkbox" for="{{ opt_id }}-invertible">Invertible Counterpoint</label>
-<input type="checkbox" id="{{ opt_id }}-invertible" name="{{ opt_id }}_invertible" value="invertible" />
+    <label class="checkbox">
+        <input type="checkbox" id="{{ opt_id }}-invertible" name="{{ opt_id }}_invertible" value="invertible" />Invertible Counterpoint
+    </label>
+</fieldset>

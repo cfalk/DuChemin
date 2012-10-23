@@ -13,7 +13,7 @@
                     </div>
                     <div id="nonImitativeDuo-section" class="accordion-body collapse">
                         <div class="accordion-inner">
-                            <div class="voice-grid-container">
+                            <div class="voice-grid-container form-inline">
                                 <dl class="voice-grid">
                                     <dt>Upper Voices 1</dt>
                                     <dd>
@@ -59,7 +59,7 @@
                     </div>
                     <div id="freeImitation-section" class="accordion-body collapse">
                         <div class="accordion-inner">
-                            <div class="voice-grid-container">
+                            <div class="voice-grid-container form-inline">
                                 <dl class="voice-grid">
                                     <dt>Dux</dt>
                                     <dd>
@@ -79,9 +79,8 @@
                                     </dd>
                                 </dl>
                             </div>
-                            <div>
-                                <p> Comes Voice Enters:</p>
-                                {% include "search/blocks/voice_filter.html" with filt_id="prestype_freeim_voice" %}
+                            <div class="voice-options">
+                                {% include "search/blocks/voice_filter.html" with filt_id="prestype_free_comes1" legend="Comes Voice Enters" %}
                             </div>
                         </div>
                     </div>
@@ -92,7 +91,7 @@
                     </div>
                     <div id="imitativeDuet-section" class="accordion-body collapse">
                         <div class="accordion-inner">
-                            <div class="voice-grid-container">
+                            <div class="voice-grid-container form-inline">
                                 <dl class="voice-grid">
                                     <dt>Dux 1</dt>
                                     <dd>
@@ -128,15 +127,12 @@
                                     </dd>
                                 </dl>
                             </div>
-                            <div id="subCheckboxes">
-                                <p> Comes 1 or 2 Voice Enters:</p>
-                                {% include "search/blocks/voice_filter.html" with filt_id="prestype_imduet_voice_c1" %}
+                            <div class="voice-options">
+                                {% include "search/blocks/voice_filter.html" with filt_id="prestype_imduet_comes1" legend="Comes 1 or 2 Voice Enters" has_fourth="true" %}
 
-                                <p> Dux 2 Voice Enters:</p>
-                                {% include "search/blocks/voice_filter.html" with filt_id="prestype_imduet_voice_d2" %}
+                                {% include "search/blocks/voice_filter.html" with filt_id="prestype_imduet_dux2" legend="Dux 2 Voice Enters" has_fourth="true" %}
 
-                                <p> Other Options:  </p>
-                                {% include "search/blocks/voice_options.html" with opt_id="prestype_imduet_opts"%}
+                                {% include "search/blocks/voice_options.html" with opt_id="prestype_imduet_opts" legend="Other Options" %}
                             </div>
                         </div>
                     </div>
@@ -147,7 +143,7 @@
                     </div>
                     <div id="periodicEntry-section" class="accordion-body collapse">
                         <div class="accordion-inner">
-                            <div class="voice-grid-container">
+                            <div class="voice-grid-container form-inline">
                                 <dl class="voice-grid">
                                     <dt>Dux 1</dt>
                                     <dd>
@@ -183,15 +179,12 @@
                                     </dd>
                                 </dl>
                             </div>
-                            <div id="subCheckboxes">
-                                <p> Comes 1 or 2 Voice Enters:</p>
-                                {% include "search/blocks/voice_filter.html" with filt_id="prestype_perentry_voice_c1" %}
+                            <div class="voice-options">
+                                {% include "search/blocks/voice_filter.html" with filt_id="prestype_perentry_comes1" legend="Comes 1 or 2 Voice Enters" has_fourth="true" %}
 
-                                <p> Dux 2 Voice Enters:</p>
-                                {% include "search/blocks/voice_filter.html" with filt_id="prestype_perentry_voice_d2" %}
+                                {% include "search/blocks/voice_filter.html" with filt_id="prestype_perentry_dux2" legend="Dux 2 Voice Enters" has_fourth="true" %}
 
-                                <p> Other Options:  </p>
-                                {% include "search/blocks/voice_options.html" with opt_id="prestype_perentry_opts"%}
+                                {% include "search/blocks/voice_options.html" with opt_id="prestype_perentry_opts" legend="Other Options" %}
                             </div>
                         </div>
                     </div>
@@ -202,7 +195,7 @@
                     </div>
                     <div id="periodicTonal-section" class="accordion-body collapse">
                         <div class="accordion-inner">
-                            <div class="voice-grid-container">
+                            <div class="voice-grid-container form-inline">
                                 <dl class="voice-grid">
                                     <dt>Dux 1</dt>
                                     <dd>
@@ -238,15 +231,12 @@
                                     </dd>
                                 </dl>
                             </div>
-                            <div id="subCheckboxes">
-                                <p> Comes 1 or 2 Voice Enters:</p>
-                                {% include "search/blocks/voice_filter.html" with filt_id="prestype_perentry_t_voice_c1" %}
+                            <div class="voice-options">
+                                {% include "search/blocks/voice_filter.html" with filt_id="prestype_perentry_t_comes1" legend="Comes 1 or 2 Voice Enters" has_fourth="true" %}
 
-                                <p> Dux 2 Voice Enters:  </p>
-                                {% include "search/blocks/voice_filter.html" with filt_id="prestype_perentry_t_voice_d2" %}
+                                {% include "search/blocks/voice_filter.html" with filt_id="prestype_perentry_t_dux2" legend="Dux 2 Voice Enters" has_fourth="true" %}
 
-                                <p> Other Options:</p>
-                                {% include "search/blocks/voice_options.html" with opt_id="prestype_perentry_t_opts"%}
+                                {% include "search/blocks/voice_options.html" with opt_id="prestype_perentry_t_opts" legend="Other options" %}
                             </div>
                         </div>
                     </div>
@@ -257,7 +247,7 @@
                     </div>
                     <div id="periodicStacked-section" class="accordion-body collapse">
                         <div class="accordion-inner">
-                            <div class="voice-grid-container">
+                            <div class="voice-grid-container form-inline">
                                 <dl class="voice-grid">
                                     <dt>Dux 1</dt>
                                     <dd>
@@ -293,15 +283,12 @@
                                     </dd>
                                 </dl>
                             </div>
-                            <div id="subCheckboxes">
-                                <p> Comes 1 or 2 Voice Enters:</p>
-                                {% include "search/blocks/voice_filter.html" with filt_id="prestype_perentry_s_voice_c1" %}
+                            <div class="voice-options">
+                                {% include "search/blocks/voice_filter.html" with filt_id="prestype_perentry_s_comes1" legend="Comes 1 or 2 Voice Enters" has_fourth="true" %}
 
-                                <p> Dux 2 Voice Enters:</p>
-                                {% include "search/blocks/voice_filter.html" with filt_id="prestype_perentry_s_voice_d2" %}
+                                {% include "search/blocks/voice_filter.html" with filt_id="prestype_perentry_s_dux2" legend="Dux 2 Voice Enters" has_fourth="true" %}
 
-                                <p> Other Options:</p>
-                                {% include "search/blocks/voice_options.html" with opt_id="prestype_perentry_s_opts"%}
+                                {% include "search/blocks/voice_options.html" with opt_id="prestype_perentry_s_opts" legend="Other options" %}
                             </div>
                         </div>
                     </div>

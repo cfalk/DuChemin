@@ -1,11 +1,32 @@
-<label class="vg-checkbox" for="{{ filt_id }}_un_oct">@1 or 8</label>
-<input type="checkbox" id="{{ filt_id }}_un_oct" name="{{ filt_id }}_un_oct" value="un_oct" />
+<fieldset class="voice-filter">
+    <legend>{{ legend }}</legend>
+    <div class="voice-entry-interval">
+        <label class="radio">
+            <input type="radio" id="{{ filt_id }}_un_oct" name="{{ filt_id }}_entry" value="un_oct" />
+            @1 or 8
+        </label>
 
-<label class="vg-checkbox" for="{{ filt_id }}_fifth">@5</label>
-<input type="checkbox" id="{{ filt_id }}_fifth" name="{{ filt_id}}_fifth" value="fifth" />
+        <label class="radio">
+            <input type="radio" id="{{ filt_id }}_fifth" name="{{ filt_id}}_entry" value="fifth" />
+            @5
+        </label>
 
-<label class="vg-checkbox" for="{{ filt_id }}_above">Above</label>
-<input type="checkbox" id="{{ filt_id }}_above" name="{{ filt_id }}_above" value="above" />
+        {% if has_fourth == "true" %}
+        <label class="radio">
+            <input type="radio" id="{{ filt_id }}_fourth" name="{{ filt_id}}_entry" value="fourth" />
+            @4
+        </label>
+        {% endif %}
+    </div>
+    <div class="voice-entry-position">
+        <label class="radio">
+            <input type="radio" id="{{ filt_id }}_above" name="{{ filt_id }}_position" value="above" />
+            Above
+        </label>
 
-<label class="vg-checkbox" for="{{ filt_id }}_below">Below</label>
-<input type="checkbox" id="{{ filt_id }}_below" name="{{ filt_id }}_below" value="below" />
+        <label class="radio">
+            <input type="radio" id="{{ filt_id }}_below" name="{{ filt_id }}_position" value="below" />
+            Below
+        </label>
+    </div>
+</fieldset>

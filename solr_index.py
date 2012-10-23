@@ -5,21 +5,6 @@ import solr
 import uuid
 
 
-def expand_voice(voice):
-    if not voice:
-        return None
-    if voice.lower() == "t":
-        return "Tenor"
-    elif voice.lower() == "ct":
-        return "Contratenor"
-    elif voice.lower() == "s":
-        return "Superius"
-    elif voice.lower() == "b":
-        return "Bassus"
-    else:
-        return voice
-
-
 if __name__ == "__main__":
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "duchemin.settings")
     from duchemin.models.analysis import DCAnalysis

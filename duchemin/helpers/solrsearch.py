@@ -1,54 +1,6 @@
 from django.conf import settings
-from django.utils.html import urllib
 from duchemin.helpers.solrpaginate import SolrPaginator, SolrGroupedPaginator
 import solr
-
-import pdb
-
-
-CADENCE_FIELDS = ['f', 'k', 'm', 'cadence_role_cantz', 'cadence_role_tenz']
-
-INTPATT_FIELDS = ['intpatt_p6_up', 'intpatt_p6_lo', 'intpatt_p3_up', 'intpatt_p3_lo',
-                    'intpatt_53_up', 'intpatt_53_lo', 'intpatt_other']
-
-PRESTYP_FIELDS = ['prestype_nim_up1', 'prestype_nim_lo1', 'prestype_nim_up2', 'prestype_nim_lo2',
-                    'prestype_free_dux', 'prestype_free_comes', 'prestype_imduet_dux1', 'prestype_imduet_comes1',
-                    'prestype_imduet_dux2', 'prestype_imduet_comes2', 'prestype_entry_p_dux1', 'prestype_entry_p_comes1',
-                    'prestype_entry_p_dux2', 'prestype_entry_p_comes2', 'prestype_entry_t_dux1', 'prestype_entry_t_comes1',
-                    'prestype_entry_t_dux2', 'prestype_entry_t_comes2', 'prestype_entry_s_dux1', 'prestype_entry_s_comes1',
-                    'prestype_entry_s_dux2', 'prestype_entry_s_comes2']
-
-
-def translate_voice_filter_to_solr(request):
-    qdict = request.GET
-    resdict = {}
-    if 'prestype_perentry_s_voice_c1_un_oct' in qdict.keys():
-        com1 = qdict.getlist('prestype_entry_s_comes1')
-        com2 = qdict.getlist('prestype_entry_s_comes2')
-        resdict['voice_role_un_oct'] = "({0} OR {1})".format(com1, com2)
-
-    if 'prestype_perentry_s_voice_c1_fifth' in qdict.keys():
-        pass
-
-    if 'prestype_perentry_s_voice_c1_above' in qdict.keys():
-        pass
-
-    if 'prestype_perentry_s_voice_c1_below' in qdict.keys():
-        pass
-
-    if 'prestype_perentry_s_voice_d2_un_oct' in qdict.keys():
-        pass
-    if 'prestype_perentry_s_voice_d2_fifth' in qdict.keys():
-        pass
-    if 'prestype_perentry_s_voice_d2_above' in qdict.keys():
-        pass
-    if 'prestype_perentry_s_voice_d2_below' in qdict.keys():
-        pass
-
-    if 'prestype_perentry_s_opts_stretto' in qdict.keys():
-        pass
-    if 'prestype_perentry_s_opts_invertible' in qdict.keys():
-        pass
 
 
 class DCSolrSearch(object):
@@ -92,19 +44,163 @@ class DCSolrSearch(object):
     def _do_query(self):
         return self.server.select(self.prepared_query, **self.solr_params)
 
+    def _parse_prestypes(self):
+        prestype = []
+        qdict = self.request.GET
+        for k, v in qdict.lists():
+            if 'prestype_nim' in k and 'NIM' not in prestype:
+                prestype.append('NIM')
+            elif 'prestype_free' in k and 'FI' not in prestype:
+                prestype.append('FI')
+            elif 'prestype_imduet' in k and 'ID' not in prestype:
+                prestype.append('ID')
+            elif 'prestype_entry_p' in k and 'PEn' not in prestype:
+                prestype.append('PEn')
+            elif 'prestype_entry_t' in k and 'PEn Tonal' not in prestype:
+                prestype.append('PEn Tonal')
+            elif 'prestype_entry_s' in k and 'PEn Stacked' not in prestype:
+                prestype.append('PEn Stacked')
+        self.parsed_request['other_pres_type'] = prestype
+
+    def _parse_voice_filter(self):
+        """ Parses the voice filter grid to construct an appropriate query.
+            The format of this is *very* picky -- it's tied to the entry form
+            that was used to generate the data, which is somewhat counter-intuitive
+            for parsing.
+
+            "The '@' and 'direction' are relative to the previous entry". This means
+            that an entry for:
+            Dux1:Ct, Comes1:B, Dux2:T, Comes2:S, @1 or 8:S, @5:B, Above:S, Below:B
+
+            Translates to "Comes 1 (Bass) enters at a fifth below (the CounterTenor),
+            and Comes 2 (Soprano) enters at an octave/unison above (the Tenor)."
+
+            Here's an ASCII version of the entry form. At the intersection of each row/column
+            there is a radio button for selection.
+
+                                        S       Ct      T       B
+            Upper Voice 1 (NIM)     |
+            Lower Voice 1 (NIM)     |
+            Upper Voice 2 (NIM)     |
+            Lower Voice 2 (NIM)     |
+            Dux 1 (FI ID or PEn)    |
+            Comes 1 (FI ID or PEn)  |
+            Dux 2 (FI ID or PEn)    |
+            Comes 2 (FI ID or PEn)  |
+                        @1 or 8     |
+                            @5      |
+                            @4      |
+                            Above   |
+                            Below   |
+
+        """
+        qdict = self.request.GET
+        self.parsed_request['voice_role_un_oct'] = []
+        self.parsed_request['voice_role_fifth'] = []
+        self.parsed_request['voice_role_fourth'] = []
+        self.parsed_request['voice_role_above'] = []
+        self.parsed_request['voice_role_below'] = []
+
+        def __get_voice_value(voice):
+            ret = None
+            for k, v in qdict.lists():
+                if voice == k.split("_")[-1]:
+                    ret = v[0]
+                    break
+            if ret in ("S", "T", "Ct", "B"):
+                return ret
+            else:
+                return None
+
+        def __parse_entry(entry, values):
+            checked = [v for v in values if v is not None]
+
+            if len(checked) > 1:
+                q = [checked[0], checked[1]]
+            elif len(checked) == 1:
+                q = [checked[0]]
+            else:
+                return
+
+            if entry == 'un_oct':
+                # d1 = __get_voice_value('dux1')
+                self.parsed_request['voice_role_un_oct'].extend(q)
+            elif entry == 'fifth':
+                self.parsed_request['voice_role_fifth'].extend(q)
+            elif entry == 'fourth':
+                self.parsed_request['voice_role_fourth'].extend(q)
+            else:
+                # wildcard for this field
+                pass
+
+        def __parse_position(entry, values):
+            checked = [v for v in values if v is not None]
+
+            if len(checked) > 1:
+                q = [checked[0], checked[1]]
+            elif len(checked) == 1:
+                q = [checked[0]]
+            else:
+                return
+
+            if entry == 'above':
+                self.parsed_request['voice_role_above'].extend(q)
+            elif entry == 'below':
+                self.parsed_request['voice_role_below'].extend(q)
+            else:
+                # wildcard
+                pass
+
+        for k, v in qdict.lists():
+            if '_comes1_entry' in k:
+                c1 = __get_voice_value('comes1')
+                c2 = __get_voice_value('comes2')
+                __parse_entry(v[0], [c1, c2])
+
+            if '_dux2_entry' in k:
+                d2 = __get_voice_value('dux2')
+                __parse_entry(v[0], [d2])
+
+            if '_comes1_position' in k:
+                c1 = __get_voice_value('comes1')
+                c2 = __get_voice_value('comes2')
+                __parse_position(v[0], [c1, c2])
+
+            if '_dux2_position' in k:
+                d2 = __get_voice_value('dux2')
+                __parse_position(v[0], [d2])
+
+            if "_stretto" in k:
+                if 'other_contrapuntal' in self.parsed_request.keys():
+                    self.parsed_request['other_contrapuntal'].append('Stretto Fuga')
+                else:
+                    self.parsed_request['other_contrapuntal'] = []
+                    self.parsed_request['other_contrapuntal'].append('Stretto Fuga')
+
+            if "_invertible" in k:
+                if 'other_contrapuntal' in self.parsed_request.keys():
+                    self.parsed_request['other_contrapuntal'].append('Invertible Counterpoint')
+                else:
+                    self.parsed_request['other_contrapuntal'] = []
+                    self.parsed_request['other_contrapuntal'].append('Invertible Counterpoint')
+
     def _parse_request(self):
+        self._parse_voice_filter()
+        self._parse_prestypes()
+
         qdict = self.request.GET
         for k, v in qdict.lists():
             if k not in settings.SEARCH_PARAM_MAP.keys():
                 continue
             self.parsed_request[settings.SEARCH_PARAM_MAP[k]] = v
-        # pdb.set_trace()
 
     def _prep_q(self):
         if self.parsed_request:
             arr = []
             for k, v in self.parsed_request.iteritems():
-                arr.append(u"{0}:({1})".format(k, " OR ".join(["\"{0}\"".format(s) for s in v])))
+                if not v:
+                    continue
+                arr.append(u"{0}:({1})".format(k, " OR ".join(["\"{0}\"".format(s) for s in v if v is not None])))
             self.prepared_query = u" AND ".join(arr)
         else:
             self.prepared_query = u"*:*"

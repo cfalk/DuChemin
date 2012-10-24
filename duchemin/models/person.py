@@ -18,3 +18,10 @@ class DCPerson(models.Model):
 
     def __unicode__(self):
         return u"{0}, {1}".format(self.surname, self.given_name)
+
+    @property
+    def full_name(self):
+        if self.given_name:
+            return u"{0}, {1}".format(self.surname, self.given_name)
+        else:
+            return u"{0}".format(self.surname)

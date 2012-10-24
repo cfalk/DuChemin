@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block wrap %}
+<table class="table table-striped">
+    <tr>
+        <th>Reconstruction Title</th>
+        <th>Reconstructor</th>
+    </tr>
+    {% for recon in reconstructions %}
+    <tr>
+        <td><a href="/reconstruction/{{ recon.id }}">{{ recon.piece.title }}</a></td>
+        <td><a href="/person/{{ recon.id }}">{{ recon.reconstructor.surname }}</a></td>
+    </tr>
+    {% endfor %}
+</table>
+{% include "browse-paginator.html" with paginator=reconstructions %}
+{% endblock %}

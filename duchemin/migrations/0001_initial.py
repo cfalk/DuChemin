@@ -11,8 +11,8 @@ class Migration(SchemaMigration):
         # Adding model 'DCPerson'
         db.create_table('duchemin_dcperson', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('person_id', self.gf('django.db.models.fields.CharField')(max_length=16, unique=True, null=True)),
-            ('surname', self.gf('django.db.models.fields.CharField')(max_length=64, null=True, blank=True)),
+            ('person_id', self.gf('django.db.models.fields.CharField')(max_length=16, unique=True, null=True, db_index=True)),
+            ('surname', self.gf('django.db.models.fields.CharField')(db_index=True, max_length=64, null=True, blank=True)),
             ('given_name', self.gf('django.db.models.fields.CharField')(max_length=64, null=True, blank=True)),
             ('birth_date', self.gf('django.db.models.fields.CharField')(max_length=16, null=True, blank=True)),
             ('death_date', self.gf('django.db.models.fields.CharField')(max_length=16, null=True, blank=True)),
@@ -25,8 +25,8 @@ class Migration(SchemaMigration):
         # Adding model 'DCBook'
         db.create_table('duchemin_dcbook', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('book_id', self.gf('django.db.models.fields.IntegerField')(unique=True)),
-            ('title', self.gf('django.db.models.fields.CharField')(max_length=128, null=True, blank=True)),
+            ('book_id', self.gf('django.db.models.fields.IntegerField')(unique=True, db_index=True)),
+            ('title', self.gf('django.db.models.fields.CharField')(db_index=True, max_length=128, null=True, blank=True)),
             ('complete_title', self.gf('django.db.models.fields.CharField')(max_length=128, null=True, blank=True)),
             ('publisher', self.gf('django.db.models.fields.CharField')(max_length=64, null=True, blank=True)),
             ('place_publication', self.gf('django.db.models.fields.CharField')(max_length=64, null=True, blank=True)),
@@ -43,12 +43,20 @@ class Migration(SchemaMigration):
         ))
         db.send_create_signal('duchemin', ['DCBook'])
 
+        # Adding model 'DCFile'
+        db.create_table('duchemin_dcfile', (
+            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('description', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
+            ('attachment', self.gf('django.db.models.fields.files.FileField')(max_length=100)),
+        ))
+        db.send_create_signal('duchemin', ['DCFile'])
+
         # Adding model 'DCPiece'
         db.create_table('duchemin_dcpiece', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('piece_id', self.gf('django.db.models.fields.CharField')(unique=True, max_length=16)),
+            ('piece_id', self.gf('django.db.models.fields.CharField')(unique=True, max_length=16, db_index=True)),
             ('book_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['duchemin.DCBook'], to_field='book_id')),
-            ('book_position', self.gf('django.db.models.fields.CharField')(max_length=16, null=True, blank=True)),
+            ('book_position', self.gf('django.db.models.fields.IntegerField')(max_length=16, null=True, blank=True)),
             ('title', self.gf('django.db.models.fields.CharField')(max_length=64, null=True, blank=True)),
             ('composer_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['duchemin.DCPerson'], to_field='person_id')),
             ('composer_src', self.gf('django.db.models.fields.CharField')(max_length=64, null=True, blank=True)),
@@ -58,10 +66,18 @@ class Migration(SchemaMigration):
         ))
         db.send_create_signal('duchemin', ['DCPiece'])
 
+        # Adding M2M table for field attachments on 'DCPiece'
+        db.create_table('duchemin_dcpiece_attachments', (
+            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
+            ('dcpiece', models.ForeignKey(orm['duchemin.dcpiece'], null=False)),
+            ('dcfile', models.ForeignKey(orm['duchemin.dcfile'], null=False))
+        ))
+        db.create_unique('duchemin_dcpiece_attachments', ['dcpiece_id', 'dcfile_id'])
+
         # Adding model 'DCPhrase'
         db.create_table('duchemin_dcphrase', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('phrase_id', self.gf('django.db.models.fields.CharField')(unique=True, max_length=16)),
+            ('phrase_id', self.gf('django.db.models.fields.CharField')(unique=True, max_length=16, db_index=True)),
             ('piece_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['duchemin.DCPiece'], to_field='piece_id')),
             ('phrase_num', self.gf('django.db.models.fields.CharField')(max_length=4, null=True, blank=True)),
             ('phrase_start', self.gf('django.db.models.fields.CharField')(max_length=4, null=True, blank=True)),
@@ -124,10 +140,19 @@ class Migration(SchemaMigration):
         ))
         db.send_create_signal('duchemin', ['DCReconstruction'])
 
+        # Adding M2M table for field attachments on 'DCReconstruction'
+        db.create_table('duchemin_dcreconstruction_attachments', (
+            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
+            ('dcreconstruction', models.ForeignKey(orm['duchemin.dcreconstruction'], null=False)),
+            ('dcfile', models.ForeignKey(orm['duchemin.dcfile'], null=False))
+        ))
+        db.create_unique('duchemin_dcreconstruction_attachments', ['dcreconstruction_id', 'dcfile_id'])
+
         # Adding model 'DCUserProfile'
         db.create_table('duchemin_dcuserprofile', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('user', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['auth.User'], unique=True)),
+            ('person', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['duchemin.DCPerson'], null=True, blank=True)),
         ))
         db.send_create_signal('duchemin', ['DCUserProfile'])
 
@@ -163,8 +188,14 @@ class Migration(SchemaMigration):
         # Deleting model 'DCBook'
         db.delete_table('duchemin_dcbook')
 
+        # Deleting model 'DCFile'
+        db.delete_table('duchemin_dcfile')
+
         # Deleting model 'DCPiece'
         db.delete_table('duchemin_dcpiece')
+
+        # Removing M2M table for field attachments on 'DCPiece'
+        db.delete_table('duchemin_dcpiece_attachments')
 
         # Deleting model 'DCPhrase'
         db.delete_table('duchemin_dcphrase')
@@ -174,6 +205,9 @@ class Migration(SchemaMigration):
 
         # Deleting model 'DCReconstruction'
         db.delete_table('duchemin_dcreconstruction')
+
+        # Removing M2M table for field attachments on 'DCReconstruction'
+        db.delete_table('duchemin_dcreconstruction_attachments')
 
         # Deleting model 'DCUserProfile'
         db.delete_table('duchemin_dcuserprofile')
@@ -270,7 +304,7 @@ class Migration(SchemaMigration):
         },
         'duchemin.dcbook': {
             'Meta': {'object_name': 'DCBook'},
-            'book_id': ('django.db.models.fields.IntegerField', [], {'unique': 'True'}),
+            'book_id': ('django.db.models.fields.IntegerField', [], {'unique': 'True', 'db_index': 'True'}),
             'cesr': ('django.db.models.fields.CharField', [], {'max_length': '16', 'null': 'True', 'blank': 'True'}),
             'complete_title': ('django.db.models.fields.CharField', [], {'max_length': '128', 'null': 'True', 'blank': 'True'}),
             'date': ('django.db.models.fields.CharField', [], {'max_length': '64', 'null': 'True', 'blank': 'True'}),
@@ -284,8 +318,14 @@ class Migration(SchemaMigration):
             'publisher': ('django.db.models.fields.CharField', [], {'max_length': '64', 'null': 'True', 'blank': 'True'}),
             'remarks': ('django.db.models.fields.CharField', [], {'max_length': '128', 'null': 'True', 'blank': 'True'}),
             'rism': ('django.db.models.fields.CharField', [], {'max_length': '16', 'null': 'True', 'blank': 'True'}),
-            'title': ('django.db.models.fields.CharField', [], {'max_length': '128', 'null': 'True', 'blank': 'True'}),
+            'title': ('django.db.models.fields.CharField', [], {'db_index': 'True', 'max_length': '128', 'null': 'True', 'blank': 'True'}),
             'volumes': ('django.db.models.fields.CharField', [], {'max_length': '64', 'null': 'True', 'blank': 'True'})
+        },
+        'duchemin.dcfile': {
+            'Meta': {'object_name': 'DCFile'},
+            'attachment': ('django.db.models.fields.files.FileField', [], {'max_length': '100'}),
+            'description': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'})
         },
         'duchemin.dcperson': {
             'Meta': {'object_name': 'DCPerson'},
@@ -295,14 +335,14 @@ class Migration(SchemaMigration):
             'death_date': ('django.db.models.fields.CharField', [], {'max_length': '16', 'null': 'True', 'blank': 'True'}),
             'given_name': ('django.db.models.fields.CharField', [], {'max_length': '64', 'null': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'person_id': ('django.db.models.fields.CharField', [], {'max_length': '16', 'unique': 'True', 'null': 'True'}),
+            'person_id': ('django.db.models.fields.CharField', [], {'max_length': '16', 'unique': 'True', 'null': 'True', 'db_index': 'True'}),
             'remarks': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
-            'surname': ('django.db.models.fields.CharField', [], {'max_length': '64', 'null': 'True', 'blank': 'True'})
+            'surname': ('django.db.models.fields.CharField', [], {'db_index': 'True', 'max_length': '64', 'null': 'True', 'blank': 'True'})
         },
         'duchemin.dcphrase': {
             'Meta': {'object_name': 'DCPhrase'},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'phrase_id': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '16'}),
+            'phrase_id': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '16', 'db_index': 'True'}),
             'phrase_num': ('django.db.models.fields.CharField', [], {'max_length': '4', 'null': 'True', 'blank': 'True'}),
             'phrase_start': ('django.db.models.fields.CharField', [], {'max_length': '4', 'null': 'True', 'blank': 'True'}),
             'phrase_stop': ('django.db.models.fields.CharField', [], {'max_length': '4', 'null': 'True', 'blank': 'True'}),
@@ -312,29 +352,32 @@ class Migration(SchemaMigration):
         },
         'duchemin.dcpiece': {
             'Meta': {'object_name': 'DCPiece'},
+            'attachments': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': "orm['duchemin.DCFile']", 'null': 'True', 'blank': 'True'}),
             'book_id': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['duchemin.DCBook']", 'to_field': "'book_id'"}),
-            'book_position': ('django.db.models.fields.CharField', [], {'max_length': '16', 'null': 'True', 'blank': 'True'}),
+            'book_position': ('django.db.models.fields.IntegerField', [], {'max_length': '16', 'null': 'True', 'blank': 'True'}),
             'composer_id': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['duchemin.DCPerson']", 'to_field': "'person_id'"}),
             'composer_src': ('django.db.models.fields.CharField', [], {'max_length': '64', 'null': 'True', 'blank': 'True'}),
             'forces': ('django.db.models.fields.CharField', [], {'max_length': '16', 'null': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'ms_concordances': ('django.db.models.fields.CharField', [], {'max_length': '128', 'null': 'True', 'blank': 'True'}),
-            'piece_id': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '16'}),
+            'piece_id': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '16', 'db_index': 'True'}),
             'print_concordances': ('django.db.models.fields.CharField', [], {'max_length': '128', 'null': 'True', 'blank': 'True'}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '64', 'null': 'True', 'blank': 'True'})
         },
         'duchemin.dcreconstruction': {
             'Meta': {'object_name': 'DCReconstruction'},
+            'attachments': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['duchemin.DCFile']", 'symmetrical': 'False'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'piece': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['duchemin.DCPiece']", 'to_field': "'piece_id'"}),
             'reconstructor': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['duchemin.DCPerson']", 'to_field': "'person_id'"})
         },
         'duchemin.dcuserprofile': {
             'Meta': {'object_name': 'DCUserProfile'},
-            'favourited_analysis': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['duchemin.DCAnalysis']", 'symmetrical': 'False'}),
-            'favourited_piece': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['duchemin.DCPiece']", 'symmetrical': 'False'}),
-            'favourited_reconstruction': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['duchemin.DCReconstruction']", 'symmetrical': 'False'}),
+            'favourited_analysis': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['duchemin.DCAnalysis']", 'symmetrical': 'False', 'blank': 'True'}),
+            'favourited_piece': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['duchemin.DCPiece']", 'symmetrical': 'False', 'blank': 'True'}),
+            'favourited_reconstruction': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['duchemin.DCReconstruction']", 'symmetrical': 'False', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'person': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['duchemin.DCPerson']", 'null': 'True', 'blank': 'True'}),
             'user': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['auth.User']", 'unique': 'True'})
         }
     }

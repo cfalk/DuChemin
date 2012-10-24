@@ -212,6 +212,7 @@ if __name__ == "__main__":
         if pk == 0:
             continue
         record['composer_id'] = find_person_id(people_csv, record['composer_id'])
+        record['book_position'] = int(record['book_position'].strip())
 
         r = {
             'pk': pk,

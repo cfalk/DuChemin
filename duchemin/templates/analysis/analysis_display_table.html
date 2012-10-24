@@ -1,0 +1,35 @@
+<table class="table table-striped">
+  <tr>
+    <th>Piece</th>
+    <th>Phrase Number</th>
+    <th>Start Measure</th>
+    <th>Stop Measure</th>
+    <th></th>
+  </tr>
+  {% for analysis in analyses %}
+    <tr>
+      <td>{{ analysis.composition_number.title }}</td>
+      <td>{{ analysis.phrase_number.phrase_num }}</td>
+      <td>{{ analysis.start_measure }}</td>
+      <td>{{ analysis.stop_measure }}</td>
+      <td><a href="#" class="view-analysis" anid="{{ analysis.analysis_id }}">View</a> | <a href="#" class="analyses-info-expand" target="analyses-info-{{ forloop.counter }}">Expand</a></td>
+    </tr>
+    <tr id="analyses-info-{{ forloop.counter }}" class="analyses-info">
+      <td colspan="5">{% include "analysis/analysis_extended_display_info.html" %}</td>
+    </tr>
+  {% endfor %}
+</table>
+<script type="text/javascript">
+  $('.analyses-info').hide();
+  $('.analyses-info-expand').on({
+    'click': function(event) {
+      event.preventDefault();
+
+      tgt = "#" + $(this).attr('target');
+      $(tgt).toggle();
+      tag = $(this).text() == "Expand" ? "Collapse" : "Expand";
+      $(this).text(tag);
+      return false;
+    }
+  })
+</script>

@@ -2,10 +2,14 @@
 
 {% block wrap %}
 <table class="table table-striped">
+    <tr>
+        <th>Book Title</th>
+    </tr>
     {% for book in books %}
     <tr>
         <td><a href="/book/{{ book.book_id }}">{{ book.title }}</a></td>
     </tr>
     {% endfor %}
 </table>
+{% include "browse-paginator.html" with paginator=books %}
 {% endblock %}

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block wrap %}
+<table class="table table-striped">
+    <tr>
+        <th>Person</th>
+        <th>Birth Date</th>
+        <th>Death Date</th>
+        <th>Active Date</th>
+        <th>Alternate Names</th>
+    </tr>
+    {% for person in people %}
+    <tr>
+        <td><a href="/person/{{ person.person_id }}">{{ person.full_name }}</a></td>
+        <td>{{ person.birth_date }}</td>
+        <td>{{ person.death_date }}</td>
+        <td>{{ person.active_date}}</td>
+        <td>{{ person.alt_spelling }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% include "browse-paginator.html" with paginator=people %}
+{% endblock %}

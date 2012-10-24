@@ -2,26 +2,16 @@
 
 {% block wrap %}
 <table class="table table-striped">
+    <tr>
+        <th>Title</th>
+        <th>Composer</th>
+    </tr>
     {% for piece in pieces %}
     <tr>
         <td><a href="/piece/{{ piece.piece_id }}">{{ piece.title }}</a></td>
+        <td>{{ piece.composer_id }}</td>
     </tr>
     {% endfor %}
 </table>
-
-<div class="pagination">
-     <span class="step-links">
-        {% if pieces.has_previous %}
-            <a href="?page={{ pieces.previous_page_number }}">previous</a>
-        {% endif %}
-
-        <span class="current">
-            Page {{ pieces.number }} of {{ pieces.paginator.num_pages }}.
-        </span>
-
-        {% if pieces.has_next %}
-            <a href="?page={{ pieces.next_page_number }}">next</a>
-        {% endif %}
-    </span>
-</div>
+{% include "browse-paginator.html" with paginator=pieces %}
 {% endblock %}

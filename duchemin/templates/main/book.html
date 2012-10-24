@@ -9,14 +9,57 @@
             </hgroup>
         </div>
         <div>
+            <dl>
+                <dt>Complete Title</dt>
+                <dd>{{ book.complete_title }}</dd>
+                <dt>Publisher</dt>
+                <dd>{{ book.publisher }}</dd>
+                <dt>Place of Publication</dt>
+                <dd>{{ book.place_publication }}</dd>
+                <dt>Date of Publication</dt>
+                <dd>{{ book.date }}</dd>
+                <dt>Volumes</dt>
+                <dd>{{ book.volumes }}</dd>
+                <dt>Partbook S-T</dt>
+                <dd>{{ book.part_st_id }}</dd>
+                <dt>Partbook S-B</dt>
+                <dd>{{ book.part_sb_id }}</dd>
+                <dt>Number of Compositions</dt>
+                <dd>{{ book.num_compositions }}</dd>
+                <dt>Number of Pages</dt>
+                <dd>{{ book.num_pages }}</dd>
+                <dt>Location</dt>
+                <dd>{{ book.location }}</dd>
+                <dt>RISM #</dt>
+                <dd>{{ book.rism }}</dd>
+                <dt>CESR Facsimile</dt>
+                <dd>{{ book.cesr }}</dd>
+            </dl>
+            {% if book.remarks %}
+            <p>{{ book.remarks }}</p>
+            {% endif %}
+        </div>
+        <div>
             <h2>Pieces in this book</h2>
             <table class="table table-striped">
                 <tr>
+                    <th>Book Position</th>
                     <th>Piece Title</th>
+                    <th>Composer</th>
+                    <th>Composer in Source</th>
+                    <th>Performing Force</th>
+                    <th>Print Concordances</th>
+                    <th>MSS Concordances</th>
                 </tr>
                 {% for piece in pieces %}
                 <tr>
+                    <td>{{ piece.book_position }}</td>
                     <td><a href="/piece/{{ piece.piece_id }}">{{ piece.title }}</a></td>
+                    <td>{{ piece.composer_id.full_name }}</td>
+                    <td>{{ piece.composer_src }}</td>
+                    <td>{{ piece.forces }}</td>
+                    <td>{{ piece.print_concordances }}</td>
+                    <td>{{ piece.ms_concordances }}</td>
                 </tr>
                 {% endfor %}
             </table>

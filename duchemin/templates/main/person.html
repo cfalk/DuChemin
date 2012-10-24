@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block wrap %}
+<h1>{{ person.full_name }}
+{% if person.alt_spelling %}
+<em>({{ person.alt_spelling }})</em>
+{% endif %}
+</h1>
+<h2>
+{% if person.birth_date %}
+    b. {{ person.birth_date }}
+{% else %}
+    b. ????
+{% endif %}
+&ndash;
+{% if person.death_date %}
+    d. {{ person.death_date }}
+{% else %}
+    d. ????
+{% endif %}
+{% if person.active_date %}
+    (c. {{ person.active_date }})
+{% endif %}
+</h2>
+
+{% if person.remarks %}
+<p>{{ person.remarks}}</p>
+{% endif %}
+
+{% if pieces %}
+<h2>Pieces</h2>
+<table class="table table-striped">
+<tr>
+    <th>Piece Name</th>
+    <th>Book</th>
+</tr>
+{% for piece in pieces %}
+<tr>
+    <td><a href="/piece/{{ piece.piece_id }}">{{ piece.title }}</a></td>
+    <td><a href="/book/{{ piece.book_id.book_id }}">{{ piece.book_id.title }}</a></td>
+</tr>
+{% endfor %}
+</table>
+{% endif %}
+{% endblock %}

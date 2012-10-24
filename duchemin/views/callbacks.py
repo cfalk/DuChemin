@@ -1,6 +1,53 @@
 from django.shortcuts import render
+from django.http import HttpResponse
+from django.utils import simplejson
+from django.core import serializers
 from django.core.paginator import EmptyPage, InvalidPage
+from django.contrib.auth.decorators import login_required
 from duchemin.helpers.solrsearch import DCSolrSearch
+
+from duchemin.models.piece import DCPiece
+from duchemin.models.analysis import DCAnalysis
+from duchemin.models.reconstruction import DCReconstruction
+
+class JsonResponse(HttpResponse):
+    def __init__(self, content, mimetype='application/json', status=None, content_type=None):
+        json_serializer = serializers.get_serializer("json")()
+        super(JsonResponse, self).__init__(
+            content=simplejson.dumps(content),
+            mimetype=mimetype,
+            status=status,
+            content_type=content_type
+        )
+
+@login_required
+def favourite_callback(request, ftype, fid):
+    user_profile = request.user.get_profile()
+    success = False
+    if ftype == 'piece':
+        # favourite a piece
+        piece = DCPiece.objects.get(pk=fid)
+        user_profile.favourited_piece.add(piece)
+        success = True
+
+    elif ftype == 'analysis':
+        # favourite an analysis
+        an = DCAnalysis.objects.get(pk=fid)
+        user_profile.favourited_analysis.add(an)
+        success = True
+
+    elif ftype == 'reconstruction':
+        recon = DCReconstruction.objects.get(pk=fid)
+        user_profile.favourited_reconstruction.add(recon)
+        success = True
+
+    else:
+        pass
+
+    data = {
+        'success': success
+    }
+    return JsonResponse(data)
 
 
 def result_callback(request, restype):

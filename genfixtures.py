@@ -88,7 +88,7 @@ book_fieldnames = [
     'date',
     'volumes',
     'part_st_id',
-    'part_tb_id',
+    'part_sb_id',
     'num_compositions',
     'num_pages',
     'location',

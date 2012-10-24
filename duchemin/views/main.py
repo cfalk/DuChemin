@@ -10,11 +10,17 @@ from duchemin.models.analysis import DCAnalysis
 from duchemin.models.book import DCBook
 from duchemin.models.person import DCPerson
 from duchemin.models.reconstruction import DCReconstruction
+from duchemin.models.content_block import DCContentBlock
 
 
 def home(request):
+    front_page_blocks = DCContentBlock.objects.filter(published=True, content_type="block").order_by('position')
+    front_page_blocks = front_page_blocks[0:3]
+    news_blocks = DCContentBlock.objects.filter(published=True, content_type="news").order_by('position')
     data = {
-        'user': request.user
+        'user': request.user,
+        'front_page_blocks': front_page_blocks,
+        'news_blocks': news_blocks
     }
     return render(request, 'main/home.html', data)
 
@@ -44,7 +50,7 @@ def books(request):
 
 
 def pieces(request):
-    pieces = DCPiece.objects.all().order_by('title')
+    pieces = DCPiece.objects.all().order_by('book_id__id', 'book_position')
     paginator = Paginator(pieces, 25)
 
     page = request.GET.get('page')

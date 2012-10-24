@@ -17,24 +17,14 @@
             <p><a class="btn btn-large"><i class="icon-search"></i> View Reconstruction</a><a class="btn btn-large"><i class="icon-music"></i> Listen <span class="audio-details">(MP3 &ndash; 0:53)</span></a><a class="btn btn-large">Browse Reconstructions <i class="icon-chevron-right"></i></a></p>
           </div>
           <div class="row-fluid">
-            <div class="span4">
-              <h2>About <em>Lost Voices</em></h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn" href="#">Learn more &raquo;</a></p>
-            </div><!--/span-->
-            <div class="span4">
-              <h2>Our Editorial Process</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn" href="#">Learn more &raquo;</a></p>
-            </div><!--/span-->
+            {% for block in front_page_blocks %}
+              {% include "main/blocks/blocks.html" with block=block %}
+            {% endfor %}
             <div class="span4">
               <h2>Project News</h2>
-              <h3><a href="#">News Item 1</a></h3>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a href="#">Continue reading &raquo;</a></p>
-              <h3><a href="#">News Item 2</a></h3>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a href="#">Continue reading &raquo;</a></p>
+              {% for block in news_blocks %}
+                {% include "main/blocks/news.html" with block=block %}
+              {% endfor %}
             </div><!--/span-->
           </div><!--/row-->
         </div><!--/span-->

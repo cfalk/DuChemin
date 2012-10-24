@@ -2,6 +2,7 @@ from django.db import models
 
 from duchemin.models.book import DCBook
 from duchemin.models.person import DCPerson
+from duchemin.models.file import DCFile
 
 
 class DCPiece(models.Model):
@@ -19,6 +20,7 @@ class DCPiece(models.Model):
     forces = models.CharField(max_length=16, blank=True, null=True)
     print_concordances = models.CharField(max_length=128, blank=True, null=True)
     ms_concordances = models.CharField(max_length=128, blank=True, null=True)
+    attachments = models.ManyToManyField(DCFile, blank=True, null=True)
 
     def __unicode__(self):
         return u"{0}".format(self.title)

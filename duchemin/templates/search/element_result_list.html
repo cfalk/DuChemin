@@ -1,5 +1,5 @@
 {% include "analysis/analysis_table.html" with analyses=element_results.object_list %}
-{% include "paginator.html" with paginator=element_results %}
+{% include "search-paginator.html" with paginator=element_results %}
 <script type="text/javascript">
     elementsPagerActions();
     attachAnalysisClickEvents();

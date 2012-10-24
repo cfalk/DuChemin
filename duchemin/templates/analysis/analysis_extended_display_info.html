@@ -1,0 +1,194 @@
+{% load expandvoice %}
+<div>
+    <dl>
+        {% if analysis.analyst %}
+        <dt>Analyst</dt>
+        <dd>{{ analysis.analyst }}</dd>
+        {% endif %}
+
+        {% if analysis.composition_number.book_id.title %}
+        <dt>Book Title</dt>
+        <dd>{{ analysis.composition_number.book_id.title }}</dd>
+        {% endif %}
+
+        {% if analysis.composition_number.composer %}
+        <dt>Composer</dt>
+        <dd>{{ analysis.composition_number.composer }}</dd>
+        {% endif %}
+
+        <dt>Is Cadence?</dt>
+        {% if analysis.cadence %}
+        <dd>Yes</dd>
+        {% else %}
+        <dd>No</dd>
+        {% endif %}
+
+        {# Cadence Info #}
+        {% if analysis.cadence = "Yes" %}
+        <dt>Cadence Kind</dt>
+        <dd>{{ analysis.cadence_kind }}</dd>
+
+        <dt>Cadence Final Tone</dt>
+        <dd>{{ analysis.cadence_final_tone }}</dd>
+
+        <dt>Cadence Role (Cantizans)</dt>
+        <dd>{{ analysis.cadence_role_cantz|expandvoice }}</dd>
+
+        <dt>Cadence Role (Tenorizans)</dt>
+        <dd>{{ analysis.cadence_role_tenz|expandvoice }}</dd>
+
+        {% if analysis.cadence_alter %}
+        <dt>Cadence Altered</dt>
+        <dd>
+            <ul>
+            {% for an in analysis.cadence_alter %}
+            <li>{{ an }}</li>
+            {% endfor %}
+            </ul>
+        </dd>
+        {% endif %}
+
+        {% endif %}
+        {# End Cadence Info #}
+
+        {% if analysis.other_pres_type %}
+        <dt>Other Presentation Type</dt>
+        <dd>{{ analysis.other_pres_type}}</dd>
+        {% endif %}
+
+        {% if analysis.voice_role_p6_up %}
+        <dt>Voice Role (Parallel 6 Upper)</dt>
+        <dd>{{ analysis.voice_role_p6_up }}<dd>
+        {% endif %}
+
+        {% if analysis.voice_role_p6_lo %}
+        <dt>Voice Role (Parallel 6 Lower)</dt>
+        <dd>{{ analysis.voice_role_p6_lo }}</dd>
+        {% endif %}
+
+        {% if analysis.voice_role_p3_up %}
+        <dt>Voice Role (Parallel 3 Upper)</dt>
+        <dd>{{ analysis.voice_role_p3_up }}</dd>
+        {% endif %}
+
+        {% if analysis.voice_role_p3_lo %}
+        <dt>Voice Role (Parallel 3 Lower)</dt>
+        <dd>{{ analysis.voice_role_p3_lo }}</dd>
+        {% endif %}
+
+        {% if analysis.voice_role_53_up %}
+        <dt>Voice Role (5/3 Upper)</dt>
+        <dd>{{ analysis.voice_role_53_up }}</dd>
+        {% endif %}
+
+        {% if analysis.voice_role_53_lo %}
+        <dt>Voice Role (5/3 Lower)</dt>
+        <dd>{{ analysis.voice_role_53_lo }}</dd>
+        {% endif %}
+
+        {% if analysis.voice_role_up1_nim %}
+        <dt>Voice Role (Upper Voice 1 NIM)</dt>
+        <dd>{{ analysis.voice_role_up1_nim|expandvoice }}</dd>
+        {% endif %}
+
+        {% if analysis.voice_role_lo1_nim %}
+        <dt>Voice Role (Lower Voice 1 NIM)</dt>
+        <dd>{{ analysis.voice_role_lo1_nim|expandvoice }}</dd>
+        {% endif %}
+
+        {% if analysis.voice_role_up2_nim %}
+        <dt>Voice Role (Upper Voice 2 NIM)</dt>
+        <dd>{{ analysis.voice_role_up2_nim|expandvoice }}</dd>
+        {% endif %}
+
+        {% if analysis.voice_role_lo2_nim %}
+        <dt>Voice Role (Lower Voice 2 NIM)</dt>
+        <dd>{{ analysis.voice_role_lo2_nim|expandvoice }}</dd>
+        {% endif %}
+
+        {% if analysis.voice_role_dux1 %}
+        <dt>Voice Role (Dux 1)</dt>
+        <dd>{{ analysis.voice_role_dux1|expandvoice }}</dd>
+        {% endif %}
+
+        {% if analysis.voice_role_com1 %}
+        <dt>Voice Role (Comes 1)</dt>
+        <dd>{{ analysis.voice_role_com1|expandvoice }}</dd>
+        {% endif %}
+
+        {% if analysis.voice_role_dux2 %}
+        <dt>Voice Role (Dux 2)</dt>
+        <dd>{{ analysis.voice_role_dux2|expandvoice }}</dd>
+        {% endif %}
+
+        {% if analysis.voice_role_com2 %}
+        <dt>Voice Role (Comes 2)</dt>
+        <dd>{{ analysis.voice_role_com2|expandvoice }}</dd>
+        {% endif %}
+
+        {% if analysis.voice_role_un_oct %}
+        <dt>Voice Role (@1 or @8)</dt>
+        <dd>{{ analysis.voice_role_un_oct|expandvoice }}</dd>
+        {% endif %}
+
+        {% if analysis.voice_role_fifth %}
+        <dt>Voice Role (@5)</dt>
+        <dd>{{ analysis.voice_role_fifth|expandvoice }}</dd>
+        {% endif %}
+
+        {% if analysis.voice_role_fourth %}
+        <dt>Voice Role (@4)</dt>
+        <dd>{{ analysis.voice_role_fourth|expandvoice }}</dd>
+        {% endif %}
+
+        {% if analysis.voice_role_above %}
+        <dt>Voice Role (Above)</dt>
+        <dd>{{ analysis.voice_role_above|expandvoice }}</dd>
+        {% endif %}
+
+        {% if analysis.voice_role_below %}
+        <dt>Voice Role (@Below)</dt>
+        <dd>{{ analysis.voice_role_below|expandvoice }}</dd>
+        {% endif %}
+
+        {% if analysis.other_formulas %}
+        <dt>Other Formulas</dt>
+        <dd>{{ analysis.other_formulas }}</dd>
+        {% endif %}
+
+        {% if analysis.other_contrapuntal %}
+        <dt>Other Counterpoint</dt>
+        <dd>
+            <ul>
+            {% for cp in analysis.other_contrapuntal %}
+                <li>{{ cp }}</li>
+            {% endfor %}
+            </ul>
+        </dd>
+        {% endif %}
+
+        {% if analysis.text_treatment %}
+        <dt>Text Treatment</dt>
+        <dd>{{ analysis.text_treatment }}</dd>
+        {% endif %}
+
+        {% if analysis.repeat_kind %}
+        <dt>Repeat Kind</dt>
+        <dd>{{ analysis.repeat_kind }}</dd>
+        {% endif %}
+
+        {% if analysis.earlier_phrase %}
+        <dt>Earlier Phrase</dt>
+        <dd>{{ analysis.earlier_phrase }}</dd>
+        {% endif %}
+
+        {% if analysis.repeat_exact_varied %}
+        <dt>Repeat, Exact or Varied?</dt>
+        <dd>{{ analysis.repeate_exact_varied }}</dd>
+        {% endif %}
+    </dl>
+    {% if analysis.comment %}
+    <h4>Comments</h4>
+    <p>{{ analysis.comment }}</p>
+    {% endif %}
+</div>

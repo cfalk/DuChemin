@@ -5,11 +5,15 @@
     <tr>
         <th>Title</th>
         <th>Composer</th>
+        <th>Book</th>
+        <th>Position in Book</th>
     </tr>
     {% for piece in pieces %}
     <tr>
         <td><a href="/piece/{{ piece.piece_id }}">{{ piece.title }}</a></td>
         <td>{{ piece.composer_id }}</td>
+        <td>{{ piece.book_id.title }}</td>
+        <td>{{ piece.book_position }}</td>
     </tr>
     {% endfor %}
 </table>

@@ -4,10 +4,32 @@
 <table class="table table-striped">
     <tr>
         <th>Book Title</th>
+        <th>Publisher</th>
+        <th>Place of Publication</th>
+        <th>Date of Publication</th>
+        <th>Volumes</th>
+        <th>Part S-T ID</th>
+        <th>Part S-B ID</th>
+        <th>Compositions</th>
+        <th>Pages</th>
+        <th>Location</th>
+        <th>RISM #</th>
+        <th>CESR #</th>
     </tr>
     {% for book in books %}
     <tr>
         <td><a href="/book/{{ book.book_id }}">{{ book.title }}</a></td>
+        <td>{{ book.publisher }}</td>
+        <td>{{ book.place_publication }}</td>
+        <td>{{ book.date }}</td>
+        <td>{{ book.volumes }}</td>
+        <td>{{ book.part_st_id }}</td>
+        <td>{{ book.part_sb_id }}</td>
+        <td>{{ book.num_compositions }}</td>
+        <td>{{ book.num_pages }}</td>
+        <td>{{ book.location }}</td>
+        <td>{{ book.rism }}</td>
+        <td>{{ book.cesr }}</td>
     </tr>
     {% endfor %}
 </table>

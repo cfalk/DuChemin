@@ -5,3 +5,5 @@ from duchemin.models.phrase import *
 from duchemin.models.piece import *
 from duchemin.models.reconstruction import *
 from duchemin.models.userprofile import *
+from duchemin.models.file import *
+from duchemin.models.content_block import *

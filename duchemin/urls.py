@@ -48,6 +48,9 @@ if 'django.contrib.admin' in settings.INSTALLED_APPS:
         url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}),
     )
 
+    urlpatterns += patterns('django.contrib.flatpages.views',
+        url(r'^about/$', 'flatpage', {'url': '/about/'}, name="about")
+    )
 
 # urlpatterns = patterns('',
 #     # Examples:

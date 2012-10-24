@@ -79,9 +79,15 @@
           </a>
           <div class="nav-collapse">
             <ul class="nav">
-              <li class=""><a href="#">Browse Works</a></li>
-              <li><a href="#about">Reconstructions</a></li>
-              <li><a href="#contact">About the Project</a></li>
+              <li class="dropdown top-level"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Browse <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="/books">Books</a></li>
+                  <li><a href="/pieces">Pieces</a></li>
+                  <li><a href="/people">People</a></li>
+                </ul>
+              </li>
+              <li class="top-level"><a href="/reconstructions">Reconstructions</a></li>
+              <li class="top-level"><a href="/about">About the Project</a></li>
             </ul>
             <form class="navbar-search pull-right" action="/search" method="get">
               <input type="text" class="nav-search-query span2" placeholder="Search" name="q">

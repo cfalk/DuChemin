@@ -15,7 +15,7 @@ class DCBook(models.Model):
     date = models.CharField(max_length=64, blank=True, null=True)
     volumes = models.CharField(max_length=64, blank=True, null=True)
     part_st_id = models.CharField(max_length=16, blank=True, null=True)
-    part_tb_id = models.CharField(max_length=16, blank=True, null=True)
+    part_sb_id = models.CharField(max_length=16, blank=True, null=True)
     num_compositions = models.CharField(max_length=16, blank=True, null=True)
     num_pages = models.CharField(max_length=16, blank=True, null=True)
     location = models.CharField(max_length=16, blank=True, null=True)

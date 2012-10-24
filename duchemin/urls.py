@@ -21,7 +21,13 @@ if 'django.contrib.admin' in settings.INSTALLED_APPS:
         url(r'^book/(?P<book_id>[0-9]+)', 'book'),
         url(r'^books/$', 'books'),
 
-        url(r'^profile/', 'profile')
+        url(r'^profile/', 'profile'),
+
+        url(r'^reconstructions/$', 'reconstructions'),
+        url(r'^reconstruction/(?P<reconstruction_id>[0-9]+)', 'reconstruction'),
+
+        url(r'^people/$', 'people'),
+        url(r'^person/(?P<person_id>[a-zA-Z0-9]+)', 'person')
     )
 
     urlpatterns += patterns('duchemin.views.search',
@@ -33,7 +39,8 @@ if 'django.contrib.admin' in settings.INSTALLED_APPS:
     )
 
     urlpatterns += patterns('duchemin.views.callbacks',
-        url(r'^search/results/(?P<restype>[0-9a-zA-Z]+)/$', 'result_callback')
+        url(r'^search/results/(?P<restype>[0-9a-zA-Z]+)/$', 'result_callback'),
+        url(r'^favourite/(?P<ftype>[a-zA-Z]+)/(?P<fid>[0-9]+)/$', 'favourite_callback')
     )
 
     urlpatterns += patterns('',

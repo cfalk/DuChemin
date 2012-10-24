@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from duchemin.models.piece import DCPiece
 from duchemin.models.analysis import DCAnalysis
 from duchemin.models.reconstruction import DCReconstruction
+from duchemin.models.person import DCPerson
 
 
 class DCUserProfile(models.Model):
@@ -13,3 +14,4 @@ class DCUserProfile(models.Model):
     favourited_piece = models.ManyToManyField(DCPiece, blank=True)
     favourited_analysis = models.ManyToManyField(DCAnalysis, blank=True)
     favourited_reconstruction = models.ManyToManyField(DCReconstruction, blank=True)
+    person = models.ForeignKey(DCPerson, blank=True, null=True, help_text="Link this account with a DuChemin User")

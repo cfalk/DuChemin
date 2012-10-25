@@ -22,6 +22,9 @@ class DCPersonAdmin(admin.ModelAdmin):
     list_display = ['full_name', 'birth_date', 'death_date', 'active_date', 'alt_spelling']
     search_fields = ['surname', 'given_name', 'alt_spelling']
 
+class DCBookAdmin(admin.ModelAdmin):
+    list_display = ['title', 'publisher', 'place_publication', 'date', 'volumes', 'num_compositions', 'num_pages', 'location']
+    search_fields = ['title']
 
 class DCFilePieceInline(admin.TabularInline):
     model = DCPiece.attachments.through
@@ -35,7 +38,8 @@ class DCPieceAdmin(admin.ModelAdmin):
         DCFilePieceInline,
     )
     search_fields = ('book_id__title', 'title', 'print_concordances', 'ms_concordances')
-
+    list_display = ('title','book_id', 'book_position', 'composer_id', 'composer_src', 'forces', 'print_concordances', 'ms_concordances')
+    ordering = ('book_id__id', 'book_position')
 
 class DCFileReconstructionInline(admin.TabularInline):
     model = DCReconstruction.attachments.through
@@ -68,7 +72,7 @@ admin.site.register(User, UserAdmin)
 
 admin.site.register(DCUserProfile)
 admin.site.register(DCAnalysis, DCAnalysisAdmin)
-admin.site.register(DCBook)
+admin.site.register(DCBook, DCBookAdmin)
 admin.site.register(DCPerson, DCPersonAdmin)
 admin.site.register(DCPhrase, DCPhraseAdmin)
 admin.site.register(DCPiece, DCPieceAdmin)

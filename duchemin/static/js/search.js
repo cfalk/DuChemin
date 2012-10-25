@@ -1,12 +1,12 @@
 var fetchWorkResults = function() {
-    searchPageCallback('work', 1, '#works');
+    fetchInitialResults('work', 1, '#works');
 };
 
 var fetchElementResults = function() {
-    searchPageCallback('element', 1, '#elements');
+    fetchInitialResults('element', 1, '#elements');
 };
 
-var searchPageCallback = function(searchtype, page, target) {
+var fetchInitialResults = function(searchtype, page, target) {
     var qstr = window.location.search.replace("?", "");
     if (searchtype == 'work') {
         if (window.location.search.match(/wpage/g) === null) {
@@ -28,21 +28,39 @@ var searchPageCallback = function(searchtype, page, target) {
             $(target).append(data);
         }
     });
-};
+}
 
-var worksPagerActions = function() {
-    $('.works-next, .works-prev').on({
-        'click': function(event) {
-            searchPageCallback('work', $(this).attr('target'), '#works');
-            return false;
+var searchPageCallback = function(href) {
+    var searchtype;
+    var target;
+    if (href.match('epage')) {
+        searchtype = "element";
+        target = "#elements";
+    } else if (href.match('wpage')) {
+        searchtype = "work";
+        target = "#works";
+    } else {
+        // first time caller?
+        // href = href + "&epage=1&wpage=1";
+    }
+
+    href = href.replace("?", "");
+
+    $.ajax({
+        url:'/search/results/' + searchtype,
+        data: decodeURIComponent(href),
+        success: function(data) {
+            $(target).empty();
+            $(target).append(data);
         }
     });
-};
+    // return false;
+}
 
-var elementsPagerActions = function() {
-    $('.elements-next, .elements-prev').on({
+var attachPagerActions = function() {
+    $('.pagination a').on({
         'click': function(event) {
-            searchPageCallback('element', $(this).attr('target'), '#elements');
+            searchPageCallback($(this).attr('href'));
             return false;
         }
     });

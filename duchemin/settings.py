@@ -162,9 +162,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.contrib.messages.context_processors.messages",
 )
 
-SOLR_SERVER = "http://localhost:8080/duchemin-solr"
-VEXF_SERVER = "http://duchemin-dev.haverford.edu:8080/notation"
-
 SOLR_NUM_SEARCH_RESULTS = 10
 
 SOLR_FACET_FIELDS = [

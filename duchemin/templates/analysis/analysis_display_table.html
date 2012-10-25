@@ -12,7 +12,7 @@
       <td>{{ analysis.phrase_number.phrase_num }}</td>
       <td>{{ analysis.start_measure }}</td>
       <td>{{ analysis.stop_measure }}</td>
-      <td><a href="#" class="view-analysis" anid="{{ analysis.analysis_id }}">View</a> | <a href="#" class="analyses-info-expand" target="analyses-info-{{ forloop.counter }}">Expand</a></td>
+      <td><a href="#" class="view-analysis" anid="{{ analysis.id }}">View</a> | <a href="#" class="analyses-info-expand" target="analyses-info-{{ forloop.counter }}">Expand</a></td>
     </tr>
     <tr id="analyses-info-{{ forloop.counter }}" class="analyses-info">
       <td colspan="5">{% include "analysis/analysis_extended_display_info.html" %}</td>

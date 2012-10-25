@@ -1,21 +1,32 @@
 {% extends "base.html" %}
+{% load bootstrap_pagination %}
 
 {% block wrap %}
-<table class="table table-striped">
-    <tr>
-        <th>Title</th>
-        <th>Composer</th>
-        <th>Book</th>
-        <th>Position in Book</th>
-    </tr>
-    {% for piece in pieces %}
-    <tr>
-        <td><a href="/piece/{{ piece.piece_id }}">{{ piece.title }}</a></td>
-        <td>{{ piece.composer_id }}</td>
-        <td>{{ piece.book_id.title }}</td>
-        <td>{{ piece.book_position }}</td>
-    </tr>
-    {% endfor %}
-</table>
-{% include "browse-paginator.html" with paginator=pieces %}
+<div class="row-fluid">
+    <div class="span12">
+        <div class="show-heading row-fluid">
+            <hgroup class="show-title page-title span8">
+              <h1>Pieces</h1>
+            </hgroup>
+
+            <table class="table table-striped table-bordered table-hover">
+                <tr>
+                    <th>Title</th>
+                    <th>Composer</th>
+                    <th>Book</th>
+                    <th>Position in Book</th>
+                </tr>
+                {% for piece in pieces %}
+                <tr>
+                    <td><a href="/piece/{{ piece.piece_id }}">{{ piece.title }}</a></td>
+                    <td>{{ piece.composer_id }}</td>
+                    <td>{{ piece.book_id.title }}</td>
+                    <td>{{ piece.book_position }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            {% bootstrap_paginate pieces range=10 %}
+        </div>
+    </div>
+</div>
 {% endblock %}

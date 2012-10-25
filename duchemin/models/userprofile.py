@@ -10,7 +10,7 @@ class DCUserProfile(models.Model):
     class Meta:
         app_label = "duchemin"
 
-    user = models.ForeignKey(User, unique=True)
+    user = models.OneToOneField(User, db_index=True)
     favourited_piece = models.ManyToManyField(DCPiece, blank=True, db_index=True)
     favourited_analysis = models.ManyToManyField(DCAnalysis, blank=True, db_index=True)
     favourited_reconstruction = models.ManyToManyField(DCReconstruction, blank=True, db_index=True)

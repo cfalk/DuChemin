@@ -135,7 +135,7 @@ def person(request, person_id):
 
 @login_required(login_url="/login/")
 def profile(request):
-    profile = request.user.get_profile()
+    profile = request.user.profile
 
     analyses = None
     reconstructions = None

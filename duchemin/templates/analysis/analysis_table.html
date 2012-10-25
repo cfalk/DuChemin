@@ -1,4 +1,5 @@
-<table class="table table-striped">
+<table class="table table-striped table-bordered table-hover">
+  <thead>
   <tr>
     <th>Piece</th>
     <th>Phrase Number</th>
@@ -6,6 +7,8 @@
     <th>Stop Measure</th>
     <th></th>
   </tr>
+  </thead>
+  <tbody>
   {% for analysis in analyses %}
     <tr>
       <td>{{ analysis.title }}</td>
@@ -18,6 +21,7 @@
       <td colspan="5">{% include "analysis/analysis_extended_info.html" %}</td>
     </tr>
   {% endfor %}
+  </tbody>
 </table>
 <script type="text/javascript">
   $('.analyses-info').hide();

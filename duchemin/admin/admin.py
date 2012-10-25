@@ -15,6 +15,12 @@ from duchemin.models.content_block import DCContentBlock
 
 class DCAnalysisAdmin(admin.ModelAdmin):
     list_display = ['analyst', 'composition_number', 'phrase_number', 'start_measure', 'stop_measure']
+    search_fields = ['analyst__surname', 'composition_number__title']
+
+
+class DCPersonAdmin(admin.ModelAdmin):
+    list_display = ['full_name', 'birth_date', 'death_date', 'active_date', 'alt_spelling']
+    search_fields = ['surname', 'given_name', 'alt_spelling']
 
 
 class DCFilePieceInline(admin.TabularInline):
@@ -28,6 +34,7 @@ class DCPieceAdmin(admin.ModelAdmin):
     inlines = (
         DCFilePieceInline,
     )
+    search_fields = ('book_id__title', 'title', 'print_concordances', 'ms_concordances')
 
 
 class DCFileReconstructionInline(admin.TabularInline):
@@ -62,7 +69,7 @@ admin.site.register(User, UserAdmin)
 admin.site.register(DCUserProfile)
 admin.site.register(DCAnalysis, DCAnalysisAdmin)
 admin.site.register(DCBook)
-admin.site.register(DCPerson)
+admin.site.register(DCPerson, DCPersonAdmin)
 admin.site.register(DCPhrase, DCPhraseAdmin)
 admin.site.register(DCPiece, DCPieceAdmin)
 admin.site.register(DCReconstruction, DCReconstructionAdmin)

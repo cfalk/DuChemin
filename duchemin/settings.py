@@ -125,6 +125,7 @@ INSTALLED_APPS = (
     'django.contrib.flatpages',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
+    'bootstrap-pagination',
     'duchemin',
     'django_extensions',
     'south'
@@ -163,6 +164,7 @@ LOGGING = {
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     "django.contrib.auth.context_processors.auth",
+    "django.core.context_processors.request",
     "django.core.context_processors.debug",
     "django.core.context_processors.media",
     "django.core.context_processors.static",

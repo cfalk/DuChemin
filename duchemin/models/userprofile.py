@@ -16,4 +16,4 @@ class DCUserProfile(models.Model):
     favourited_reconstruction = models.ManyToManyField(DCReconstruction, blank=True, db_index=True)
     person = models.ForeignKey(DCPerson, blank=True, null=True, help_text="Link this account with a DuChemin User", db_index=True)
 
-User.profile = property(lambda u: UserProfile.objects.get_or_create(user=u)[0])
+User.profile = property(lambda u: DCUserProfile.objects.get_or_create(user=u)[0])

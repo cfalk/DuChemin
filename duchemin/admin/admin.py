@@ -59,6 +59,7 @@ class UserAdmin(UserAdmin):
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
 
+admin.site.register(DCUserProfile)
 admin.site.register(DCAnalysis, DCAnalysisAdmin)
 admin.site.register(DCBook)
 admin.site.register(DCPerson)

@@ -62,7 +62,7 @@
                     {% if profile.favourited_reconstruction.count > 0 %}
                     <ul>
                       {% for favourite in favourited_reconstructions %}
-                        <li><a href="/reconstruction/{{ favourite.piece_id }}">{{ favourite.piece.title }} ({{ favourite.reconstructor }})</a></li>
+                        <li><a href="/piece/{{ favourite.piece_id }}">{{ favourite.piece.title }} ({{ favourite.reconstructor }})</a></li>
                       {% endfor %}
                     </ul>
                     {% else %}

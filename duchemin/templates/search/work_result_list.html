@@ -1,5 +1,5 @@
 {% load bootstrap_pagination %}
-<ol class="item-list results-list">
+<ul class="item-list results-list unstyled">
     {% for res in work_results.object_list %}
     <li class="result works-result">
         <h3><a href="/piece/{{ res.piece_id }}">{{ res.title }}</a></h3>
@@ -10,7 +10,7 @@
         </ul>
     </li>
     {% endfor %}
-</ol>
+</ul>
 {% bootstrap_paginate work_results range=10 url_param_name="wpage" %}
 <script type="text/javascript">
     attachPagerActions();

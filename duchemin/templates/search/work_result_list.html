@@ -1,3 +1,4 @@
+{% load bootstrap_pagination %}
 <ol class="item-list results-list">
     {% for res in work_results.object_list %}
     <li class="result works-result">
@@ -10,7 +11,7 @@
     </li>
     {% endfor %}
 </ol>
-{% include "search-paginator.html" with paginator=work_results %}
+{% bootstrap_paginate work_results range=10 url_param_name="wpage" %}
 <script type="text/javascript">
-    worksPagerActions();
+    attachPagerActions();
 </script>

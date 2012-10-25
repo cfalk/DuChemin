@@ -32,8 +32,6 @@ class SolrPaginator(object):
         self.count = int(self.result.numFound)
         self.allow_empty_first_page = allow_empty_first_page
 
-        print self.result.numFound
-
         if 'rows' in self.params:
             self.page_size = int(self.params['rows'])
         elif default_page_size:

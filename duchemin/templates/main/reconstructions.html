@@ -16,7 +16,7 @@
                 </tr>
                 {% for recon in reconstructions %}
                 <tr>
-                    <td><a href="/reconstruction/{{ recon.id }}">{{ recon.piece.title }}</a></td>
+                    <td><a href="/piece/{{ recon.piece.piece_id }}">{{ recon.piece.title }}</a></td>
                     <td><a href="/person/{{ recon.id }}">{{ recon.reconstructor.surname }}</a></td>
                 </tr>
                 {% endfor %}

@@ -3,7 +3,6 @@ from django.http import Http404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 
-from duchemin.helpers.profile import get_or_create_profile
 from duchemin.models.piece import DCPiece
 from duchemin.models.phrase import DCPhrase
 from duchemin.models.analysis import DCAnalysis
@@ -136,7 +135,7 @@ def person(request, person_id):
 
 @login_required(login_url="/login/")
 def profile(request):
-    profile = get_or_create_profile(request)
+    profile = request.user.get_profile()
 
     analyses = None
     reconstructions = None

@@ -10,8 +10,10 @@ class DCUserProfile(models.Model):
     class Meta:
         app_label = "duchemin"
 
-    user = models.OneToOneField(User)
-    favourited_piece = models.ManyToManyField(DCPiece, blank=True)
-    favourited_analysis = models.ManyToManyField(DCAnalysis, blank=True)
-    favourited_reconstruction = models.ManyToManyField(DCReconstruction, blank=True)
-    person = models.ForeignKey(DCPerson, blank=True, null=True, help_text="Link this account with a DuChemin User")
+    user = models.ForeignKey(User, unique=True)
+    favourited_piece = models.ManyToManyField(DCPiece, blank=True, db_index=True)
+    favourited_analysis = models.ManyToManyField(DCAnalysis, blank=True, db_index=True)
+    favourited_reconstruction = models.ManyToManyField(DCReconstruction, blank=True, db_index=True)
+    person = models.ForeignKey(DCPerson, blank=True, null=True, help_text="Link this account with a DuChemin User", db_index=True)
+
+User.profile = property(lambda u: UserProfile.objects.get_or_create(user=u)[0])

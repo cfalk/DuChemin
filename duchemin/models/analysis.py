@@ -12,9 +12,9 @@ class DCAnalysis(models.Model):
         verbose_name_plural = "Analyses"
 
     timestamp = models.CharField(max_length=64, blank=True, null=True)
-    analyst = models.ForeignKey(DCPerson, to_field='person_id')
-    composition_number = models.ForeignKey(DCPiece, to_field='piece_id')
-    phrase_number = models.ForeignKey(DCPhrase, to_field='phrase_id')
+    analyst = models.ForeignKey(DCPerson, to_field='person_id', db_index=True)
+    composition_number = models.ForeignKey(DCPiece, to_field='piece_id', db_index=True)
+    phrase_number = models.ForeignKey(DCPhrase, to_field='phrase_id', db_index=True)
     start_measure = models.IntegerField(blank=True, null=True)
     stop_measure = models.IntegerField(blank=True, null=True)
     cadence = models.CharField(max_length=16, blank=True, null=True)
@@ -52,4 +52,7 @@ class DCAnalysis(models.Model):
     repeat_exact_varied = models.CharField(max_length=16, blank=True, null=True)
 
     def __unicode__(self):
-        return u"{0}, {1}, {2}".format(self.id, self.analyst.surname, self.composition_number.piece_id)
+        return u"{0}".format(self.id)
+
+    # def __unicode__(self):
+    #     return u"{0}, {1}, {2}".format(self.id, self.analyst, self.composition_number)

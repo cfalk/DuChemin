@@ -22,25 +22,46 @@ class JsonResponse(HttpResponse):
 
 @login_required
 def favourite_callback(request, ftype, fid):
+    action = None
+    if 'remove' in request.GET.keys():
+        action = 'remove'
+    else:
+        action = 'add'
+
     user_profile = request.user.get_profile()
+
     success = False
     if ftype == 'piece':
-        # favourite a piece
-        piece = DCPiece.objects.get(pk=fid)
-        user_profile.favourited_piece.add(piece)
-        success = True
+        if action == 'remove':
+            piece = DCPiece.objects.get(pk=fid)
+            user_profile.favourited_piece.remove(piece)
+            success = True
+        else:
+            # favourite a piece
+            piece = DCPiece.objects.get(pk=fid)
+            user_profile.favourited_piece.add(piece)
+            success = True
 
     elif ftype == 'analysis':
-        # favourite an analysis
-        an = DCAnalysis.objects.get(pk=fid)
-        user_profile.favourited_analysis.add(an)
-        success = True
+        if action == 'remove':
+            an = DCAnalysis.objects.get(pk=fid)
+            user_profile.favourited_analysis.remove(an)
+            success = True
+        else:
+            # favourite an analysis
+            an = DCAnalysis.objects.get(pk=fid)
+            user_profile.favourited_analysis.add(an)
+            success = True
 
     elif ftype == 'reconstruction':
-        recon = DCReconstruction.objects.get(pk=fid)
-        user_profile.favourited_reconstruction.add(recon)
-        success = True
-
+        if action == 'remove':
+            recon = DCReconstruction.objects.get(pk=fid)
+            user_profile.favourited_reconstruction.remove(recon)
+            success = True
+        else:
+            recon = DCReconstruction.objects.get(pk=fid)
+            user_profile.favourited_reconstruction.add(recon)
+            success = True
     else:
         pass
 

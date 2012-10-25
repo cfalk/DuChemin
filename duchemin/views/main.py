@@ -52,6 +52,17 @@ def pieces(request):
     pieces = DCPiece.objects.all().order_by('book_id__id', 'book_position')
     paginator = Paginator(pieces, 25)
 
+    is_logged_in = False
+    if request.user.is_authenticated():
+        is_logged_in = True
+        profile = request.user.profile
+        favourite_pieces = profile.favourited_piece.all()
+        for piece in pieces:
+            if piece in favourite_pieces:
+                piece.is_favourite = True
+            else:
+                piece.is_favourite = False
+
     page = request.GET.get('page')
     try:
         all_pieces = paginator.page(page)
@@ -60,7 +71,7 @@ def pieces(request):
     except EmptyPage:
         all_pieces = paginator.page(paginator.num_pages)
 
-    return render(request, 'main/pieces.html', {'pieces': all_pieces})
+    return render(request, 'main/pieces.html', { 'pieces': all_pieces, 'is_logged_in': is_logged_in })
 
 
 def piece(request, piece_id):
@@ -68,6 +79,12 @@ def piece(request, piece_id):
         piece = DCPiece.objects.get(piece_id=piece_id)
     except DCPiece.DoesNotExist:
         raise Http404
+
+    is_favourite = False
+    if request.user.is_authenticated():
+        profile = request.user.profile
+        if profile.favourited_piece.filter(id=piece.id):
+            is_favourite = True
 
     phrases = DCPhrase.objects.filter(piece_id=piece_id).order_by('phrase_num')
     analyses = DCAnalysis.objects.filter(composition_number=piece_id).order_by('start_measure')
@@ -77,7 +94,8 @@ def piece(request, piece_id):
         'piece': piece,
         'phrases': phrases,
         'analyses': analyses,
-        'reconstructions': reconstructions
+        'reconstructions': reconstructions,
+        'is_favourite': is_favourite
     }
     return render(request, 'main/piece.html', data)
 

@@ -71,7 +71,11 @@
             </div><!--/span-->
             <div id="sidebar" class="span4">
               <h3>Favourites</h3>
-              <p><a href="/favourite/piece/{{ piece.id }}" class="add-to-favourites"><i class="icon-star"></i> Add to Favorites</a></p>
+              {% if is_favourite %}
+              <p><a href="/favourite/piece/{{ piece.id }}?remove"><i class="icon-star-empty"></i> Remove from Favourites</a></p>
+              {% else %}
+              <p><a href="/favourite/piece/{{ piece.id }}?add" class="add-to-favourites"><i class="icon-star"></i> Add to Favorites</a></p>
+              {% endif %}
               <h3>Notes</h3>
               <p>Notes go here.</p>
             </div><!--/span-->

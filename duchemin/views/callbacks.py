@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.utils import simplejson
-from django.core import serializers
+from django.conf import settings
 from django.core.paginator import EmptyPage, InvalidPage
 from django.contrib.auth.decorators import login_required
 from duchemin.helpers.solrsearch import DCSolrSearch
@@ -10,15 +10,16 @@ from duchemin.models.piece import DCPiece
 from duchemin.models.analysis import DCAnalysis
 from duchemin.models.reconstruction import DCReconstruction
 
+
 class JsonResponse(HttpResponse):
     def __init__(self, content, mimetype='application/json', status=None, content_type=None):
-        json_serializer = serializers.get_serializer("json")()
         super(JsonResponse, self).__init__(
             content=simplejson.dumps(content),
             mimetype=mimetype,
             status=status,
             content_type=content_type
         )
+
 
 @login_required
 def favourite_callback(request, ftype, fid):
@@ -76,6 +77,8 @@ def result_callback(request, restype):
         return _fetch_work_results(request)
     elif restype == 'element':
         return _fetch_element_results(request)
+    elif restype == 'facet':
+        return _fetch_facet_results(request)
 
 
 def _fetch_work_results(request):
@@ -124,3 +127,19 @@ def _fetch_element_results(request):
         'element_results': element_results
     }
     return render(request, 'search/element_result_list.html', data)
+
+
+def _fetch_facet_results(request):
+    s = DCSolrSearch(request)
+    facet_params = {
+        'facet': 'true',
+        'facet_field': settings.SOLR_FACET_FIELDS,
+        'facet_mincount': 1,
+    }
+    facet_res = s.search(fq=['type:duchemin_analysis'], **facet_params)
+    facets = facet_res.result.facet_counts['facet_fields']
+    filtered_facets = dict([(k, v) for k, v in facets.iteritems() if k in settings.DISPLAY_FACETS])
+    data = {
+        'facet_results': filtered_facets.iteritems()
+    }
+    return render(request, 'search/facets.html', data)

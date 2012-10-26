@@ -223,3 +223,11 @@ SEARCH_PARAM_MAP = {
     'prestype_entry_s_dux2': 'voice_role_dux2',
     'prestype_entry_s_comes2': 'voice_role_com2',
 }
+
+DISPLAY_FACETS = [
+    'composer',
+    'contributor',
+    'cadence_final_tone',
+    'cadence_kind',
+    'cadence_alter'
+]

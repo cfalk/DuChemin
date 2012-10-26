@@ -28,7 +28,7 @@ var fetchInitialResults = function(searchtype, page, target) {
             $(target).append(data);
         }
     });
-}
+};
 
 var searchPageCallback = function(href) {
     var searchtype;
@@ -40,8 +40,8 @@ var searchPageCallback = function(href) {
         searchtype = "work";
         target = "#works";
     } else {
-        // first time caller?
-        // href = href + "&epage=1&wpage=1";
+        searchtype = "work";
+        target = "#works";
     }
 
     href = href.replace("?", "");
@@ -55,7 +55,7 @@ var searchPageCallback = function(href) {
         }
     });
     // return false;
-}
+};
 
 var attachPagerActions = function() {
     $('.pagination a').on({

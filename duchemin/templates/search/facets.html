@@ -1,0 +1,11 @@
+<ul>
+{% for key, value in facet_results %}
+	<li>{{ key }}: 
+		<ul>
+			{% for n, v in value.items %}
+			<li>{{ n }}: {{ v }}</li>
+			{% endfor %}
+		</ul>
+	</li>
+{% endfor %}
+</ul>

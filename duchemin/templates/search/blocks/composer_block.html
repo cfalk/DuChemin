@@ -8,7 +8,11 @@
         <div class="accordion-inner">
             <ul class="column-checklist four-columns">
             {% for composer in composers %}
-            <li><label class="facet-checkbox" for="composer{{ forloop.counter }}"><input type="checkbox" id="composer{{ forloop.counter }}" name="p" value="{{ composer }}" />{{ composer }}</label></li>
+            <li>
+                <label class="checkbox" for="composer{{ forloop.counter }}">
+                    <input type="checkbox" id="composer{{ forloop.counter }}" name="p" value="{{ composer }}" />{{ composer }}
+                </label>
+            </li>
             {% endfor %}
             </ul>
             <br class="stop-columns" />

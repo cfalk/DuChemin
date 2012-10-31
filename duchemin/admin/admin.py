@@ -2,6 +2,8 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
 
+from duchemin.admin.actions import export_as_csv_action
+
 from duchemin.models.analysis import DCAnalysis
 from duchemin.models.book import DCBook
 from duchemin.models.person import DCPerson
@@ -16,15 +18,18 @@ from duchemin.models.content_block import DCContentBlock
 class DCAnalysisAdmin(admin.ModelAdmin):
     list_display = ['analyst', 'composition_number', 'phrase_number', 'start_measure', 'stop_measure']
     search_fields = ['analyst__surname', 'composition_number__title']
+    actions = [export_as_csv_action]
 
 
 class DCPersonAdmin(admin.ModelAdmin):
     list_display = ['full_name', 'birth_date', 'death_date', 'active_date', 'alt_spelling']
     search_fields = ['surname', 'given_name', 'alt_spelling']
+    actions = [export_as_csv_action]
 
 class DCBookAdmin(admin.ModelAdmin):
     list_display = ['title', 'publisher', 'place_publication', 'date', 'volumes', 'num_compositions', 'num_pages', 'location']
     search_fields = ['title']
+    actions = [export_as_csv_action]
 
 class DCFilePieceInline(admin.TabularInline):
     model = DCPiece.attachments.through
@@ -40,6 +45,7 @@ class DCPieceAdmin(admin.ModelAdmin):
     search_fields = ('book_id__title', 'title', 'print_concordances', 'ms_concordances')
     list_display = ('title','book_id', 'book_position', 'composer_id', 'composer_src', 'forces', 'print_concordances', 'ms_concordances')
     ordering = ('book_id__id', 'book_position')
+    actions = [export_as_csv_action]
 
 class DCFileReconstructionInline(admin.TabularInline):
     model = DCReconstruction.attachments.through
@@ -52,11 +58,14 @@ class DCReconstructionAdmin(admin.ModelAdmin):
     inlines = (
         DCFileReconstructionInline,
     )
+    actions = [export_as_csv_action]
 
 
 class DCPhraseAdmin(admin.ModelAdmin):
     list_display = ['phrase_id', 'piece_id', 'phrase_num', 'phrase_start', 'phrase_stop', 'phrase_text']
-
+    list_editable = ['phrase_start', 'phrase_stop']
+    change_list_template = "admin/change_list_pagination_top.html"
+    actions = [export_as_csv_action("Export as CSV", fields=['phrase_id', 'piece_id', 'phrase_num', 'phrase_start', 'phrase_stop', 'phrase_text'])]
 
 class UserProfileInline(admin.StackedInline):
     model = DCUserProfile

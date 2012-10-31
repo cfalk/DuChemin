@@ -5,8 +5,7 @@
         <h3><a href="/piece/{{ res.piece_id }}">{{ res.title }}</a></h3>
         <ul class="item-actions">
             <li><a href=""><i class="icon-file"></i> View Notation</a></li>
-            <li><a href=""><i class="icon-music"></i> Listen (MP3, 1:23)</a></li>
-            <li><a href=""><i class="icon-star"></i> Add to Favorites</a></li>
+            <li>{% include "main/favourites/favourites.html" with is_favourite=res.is_favourite piece_id=res.piece_id %}</li>
         </ul>
     </li>
     {% endfor %}
@@ -14,4 +13,5 @@
 {% bootstrap_paginate work_results range=10 url_param_name="wpage" %}
 <script type="text/javascript">
     attachPagerActions();
+    attachFavouritesAction();
 </script>

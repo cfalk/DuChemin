@@ -1,4 +1,5 @@
 import argparse
+import types
 import os
 import json
 import csv
@@ -111,14 +112,15 @@ def find_phrase_id(phrase_csv, piece_id, phrase_num):
     """ returns a phrase id given a piece and a phrase number """
 
     # if the phrase number is unknown, set it to a special phrase
-    if phrase_num == "xx":
-        return "xx"
+    if phrase_num == 99999:
+        return 99999
 
     for phrase in phrase_csv:
-        if (phrase['piece_id'] == piece_id) and (phrase['phrase_num'] == phrase_num):
+        if (str(phrase['piece_id']).upper() == piece_id.strip().upper()) and (str(phrase['phrase_num']).strip() == phrase_num.strip()):
             return phrase['phrase_id']
 
-    return "xx"
+    print "{0}, {1}".format(piece_id.upper(), phrase_num)
+    return 99999
 
 
 def find_person_id(people_csv, persname):
@@ -133,6 +135,10 @@ def record_cleanup(record):
     for k, v in record.iteritems():
         if v == "":
             record[k] = None
+        if isinstance(v, types.StringType):
+            record[k] = v.strip()
+        else:
+            record[k] = v
     return record
 
 if __name__ == "__main__":
@@ -187,6 +193,8 @@ if __name__ == "__main__":
         if pk == 0:
             continue
         del record[None]
+        record['phrase_id'] = int(record['phrase_id'])
+        record['phrase_num'] = int(record['phrase_num'])
         r = {
             'pk': pk,
             'model': 'duchemin.dcphrase',
@@ -249,7 +257,7 @@ if __name__ == "__main__":
             continue
         # replace the last name with the id.
         record['analyst'] = find_person_id(people_csv, record['analyst'])
-        record['phrase_number'] = find_phrase_id(phrase_csv, record['composition_number'], record['phrase_number'])
+        record['phrase_number'] = find_phrase_id(phrase_csv, record['composition_number'].strip(), record['phrase_number'].strip())
         record['composition_number'] = record['composition_number'].upper()
         if 'flat' in record['cadence_final_tone']:
             record['cadence_final_tone'] = record['cadence_final_tone'].strip()

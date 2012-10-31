@@ -31,11 +31,15 @@
         <dt>Cadence Final Tone</dt>
         <dd>{{ analysis.cadence_final_tone }}</dd>
 
+        {% if analysis.cadence_role_cantz %}
         <dt>Cadence Role (Cantizans)</dt>
         <dd>{{ analysis.cadence_role_cantz|expandvoice }}</dd>
+        {% endif %}
 
+        {% if analysis.cadence_role_tenz %}
         <dt>Cadence Role (Tenorizans)</dt>
         <dd>{{ analysis.cadence_role_tenz|expandvoice }}</dd>
+        {% endif %}
 
         {% if analysis.cadence_alter %}
         <dt>Cadence Altered</dt>

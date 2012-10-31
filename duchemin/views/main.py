@@ -81,7 +81,9 @@ def piece(request, piece_id):
         raise Http404
 
     is_favourite = False
+    is_logged_in = False
     if request.user.is_authenticated():
+        is_logged_in = True
         profile = request.user.profile
         if profile.favourited_piece.filter(id=piece.id):
             is_favourite = True
@@ -95,9 +97,11 @@ def piece(request, piece_id):
         'phrases': phrases,
         'analyses': analyses,
         'reconstructions': reconstructions,
-        'is_favourite': is_favourite
+        'is_favourite': is_favourite,
+        'is_logged_in': is_logged_in
     }
     return render(request, 'main/piece.html', data)
+
 
 def reconstructions(request):
     reconstructions = DCReconstruction.objects.all().order_by('piece__title', 'reconstructor__surname')

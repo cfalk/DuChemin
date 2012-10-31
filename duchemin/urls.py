@@ -35,12 +35,13 @@ if 'django.contrib.admin' in settings.INSTALLED_APPS:
     )
 
     urlpatterns += patterns('duchemin.views.data',
-        url(r'^data/analysis/(?P<anid>[0-9]+)', 'analysis')
+        url(r'^data/analysis/(?P<anid>[0-9]+)', 'analysis'),
+        url(r'^data/phrase/(?P<piece_id>[a-zA-Z0-9_]+)/(?P<phrase_id>[0-9]+)', 'phrase'),
     )
 
     urlpatterns += patterns('duchemin.views.callbacks',
         url(r'^search/results/(?P<restype>[0-9a-zA-Z]+)/$', 'result_callback'),
-        url(r'^favourite/(?P<ftype>[a-zA-Z]+)/(?P<fid>[0-9]+)/$', 'favourite_callback')
+        url(r'^favourite/(?P<ftype>[a-zA-Z]+)/(?P<fid>[a-zA-Z0-9]+)/$', 'favourite_callback'),
     )
 
     urlpatterns += patterns('',

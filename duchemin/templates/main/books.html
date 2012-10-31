@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load bootstrap_pagination %}
 
 {% block wrap %}
 <div class="row-fluid">
@@ -40,7 +41,7 @@
                 </tr>
                 {% endfor %}
             </table>
-            {% include "browse-paginator.html" with paginator=books %}
+            {% bootstrap_paginate books range=10 %}
         </div>
     </div>
 </div>

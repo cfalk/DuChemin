@@ -124,7 +124,7 @@ def _fetch_work_results(request):
 
 def _fetch_element_results(request):
     s = DCSolrSearch(request)
-    el_res = s.search(fq=['type:duchemin_analysis'])
+    el_res = s.search(fq=['type:duchemin_analysis'], sort=['piece_id asc', 'phrase_number asc', 'start_measure asc'])
 
     if el_res.count == 0:
         return render(request, 'search/no_results.html')

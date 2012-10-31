@@ -133,10 +133,11 @@ def find_person_id(people_csv, persname):
 
 def record_cleanup(record):
     for k, v in record.iteritems():
-        if v == "":
-            record[k] = None
         if isinstance(v, types.StringType):
-            record[k] = v.strip()
+            if v == "":
+                record[k] = None
+            else:
+                record[k] = v.strip()
         else:
             record[k] = v
     return record

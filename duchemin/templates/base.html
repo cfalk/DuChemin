@@ -45,84 +45,74 @@
       </div>
     </div>
  -->
-    <div id="utility-nav" class="navbar">
-      <div class="navbar-inner">
-        <div class="container-fluid">
-          {% if user.is_authenticated %}
-            <p class="navbar-text pull-right"><a href="/profile"><i class="icon-user"></i> My Account</a> | <a href="/logout">Logout</a></p>
-          {% else %}
-            <p class="navbar-text pull-right"><a href="/profile"><i class="icon-user"></i> Login</a></p>
-          {% endif %}
-        </div>
+  <div id="utility-nav" class="navbar">
+    <div class="navbar-inner">
+      <div class="container-fluid">
+        {% if user.is_authenticated %}
+          <p class="navbar-text pull-right"><a href="/profile"><i class="icon-user"></i> My Account</a> | <a href="/logout">Logout</a></p>
+        {% else %}
+          <p class="navbar-text pull-right"><a href="/profile"><i class="icon-user"></i> Login</a></p>
+        {% endif %}
       </div>
     </div>
+  </div>
 
-    <div id="title-container" class="container-fluid">
-      <div class="row-fluid">
-        <div class="span12">
-          <hgroup class="span8">
-            <h1 id="main-title"><a href="/"><span class="main-title-pre">Lost Voices:</span> Du Chemin</a></h1>
-            <h2 id="tagline">Companion resource to The Chansons of Nicholas Du Chemin (1549-1568), hosted by the Centre d’Études Supérieures de la Renaissance in Tours, France.</h2>
-          </hgroup>
-          <a id="les-livres-link" class="btn btn-large btn-inverse" href="#"><i class="icon-book icon-white"></i> Explore <em>Les Livres</em></a>
-        </div>
+  <div id="title-container" class="container-fluid">
+    <div class="row-fluid">
+      <div class="span12">
+        <hgroup class="span8">
+          <h1 id="main-title"><a href="/"><span class="main-title-pre">Lost Voices:</span> Du Chemin</a></h1>
+          <h2 id="tagline">Companion resource to The Chansons of Nicholas Du Chemin (1549-1568), hosted by the Centre d’Études Supérieures de la Renaissance in Tours, France.</h2>
+        </hgroup>
+        <a id="les-livres-link" class="btn btn-large btn-inverse" href="http://ricercar.cesr.univ-tours.fr/3-programmes/EMN/duchemin/"><i class="icon-book icon-white"></i> Explore <em>Les Livres</em></a>
       </div>
     </div>
+  </div>
 
-    <div id="main-nav" class="navbar">
-      <div class="navbar-inner">
-        <div class="container-fluid">
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <div class="nav-collapse">
-            <ul class="nav">
-              <li class="dropdown top-level"><a href="#" class="dropdown-toggle" data-toggle="dropdown">The Project <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                  <li><a href="/about">About</a></li>
-                  <li><a href="/about/people">People</a></li>
-                  <li><a href="/about/history">History</a></li>
-                </ul>
-              </li>
-              <li class="dropdown top-level"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Browse <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                  <li><a href="/books">Books</a></li>
-                  <li><a href="/pieces">Pieces</a></li>
-                  <li><a href="/people">People</a></li>
-                </ul>
-              </li>
-              <li class="top-level"><a href="/reconstructions">Reconstructions</a></li>
-            </ul>
-            <form class="navbar-search pull-right" action="/search" method="get">
-              <input type="text" class="nav-search-query span2" placeholder="Search" name="q">
-              <a href="/search" class="advanced-link">Advanced search &raquo;</a>
-            </form>
-          </div><!--/.nav-collapse -->
-        </div>
+  <div id="main-nav" class="navbar">
+    <div class="navbar-inner">
+      <div class="container-fluid">
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </a>
+        <div class="nav-collapse">
+          <ul class="nav">
+            <li class="dropdown top-level"><a href="#" class="dropdown-toggle" data-toggle="dropdown">The Project <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="/about">About</a></li>
+                <li><a href="/about/people">People</a></li>
+                <li><a href="/about/history">History</a></li>
+              </ul>
+            </li>
+            <li class="dropdown top-level"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Browse <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="/books">Books</a></li>
+                <li><a href="/pieces">Pieces</a></li>
+                <li><a href="/people">People</a></li>
+              </ul>
+            </li>
+            <li class="top-level"><a href="/reconstructions">Reconstructions</a></li>
+          </ul>
+          <form class="navbar-search pull-right" action="/search" method="get">
+            <input type="text" class="nav-search-query span2" placeholder="Search" name="q">
+            <a href="/search" class="advanced-link">Advanced search &raquo;</a>
+          </form>
+        </div><!--/.nav-collapse -->
       </div>
     </div>
+  </div>
 
-    <div id="main" class="container-fluid">
-      {% block wrap %}
+  <div id="main" class="container-fluid">
+    {% block wrap %}
 
-      {% endblock %}
-      <hr>
+    {% endblock %}
+    <hr />
 
-      <footer id="footer">
-        <div class="row-fluid">
-          <h2>Created through the generous support of</h2>
-        </div><!--/row-->
-        <div class="row-fluid">
-          <h3 class="span4"><a href="#">Funder 1</a></h3>
-          <h3 class="span4"><a href="#">Funder 2</a></h3>
-          <h3 class="span4"><a href="#">Funder 3</a></h3>
-        </div><!--/row-->
-        <hr>
-        <p class="copyright">&copy; Copyright goes here 2012</p>
-      </footer>
-
-    </div><!--/.fluid-container-->
+    <footer id="footer">
+      <p class="copyright">&copy; Copyright goes here 2012</p>
+    </footer>
+  </div><!--/.fluid-container-->
 </body>
 </html>

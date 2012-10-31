@@ -33,7 +33,7 @@ class Migration(SchemaMigration):
             ('date', self.gf('django.db.models.fields.CharField')(max_length=64, null=True, blank=True)),
             ('volumes', self.gf('django.db.models.fields.CharField')(max_length=64, null=True, blank=True)),
             ('part_st_id', self.gf('django.db.models.fields.CharField')(max_length=16, null=True, blank=True)),
-            ('part_tb_id', self.gf('django.db.models.fields.CharField')(max_length=16, null=True, blank=True)),
+            ('part_sb_id', self.gf('django.db.models.fields.CharField')(max_length=16, null=True, blank=True)),
             ('num_compositions', self.gf('django.db.models.fields.CharField')(max_length=16, null=True, blank=True)),
             ('num_pages', self.gf('django.db.models.fields.CharField')(max_length=16, null=True, blank=True)),
             ('location', self.gf('django.db.models.fields.CharField')(max_length=16, null=True, blank=True)),
@@ -77,9 +77,9 @@ class Migration(SchemaMigration):
         # Adding model 'DCPhrase'
         db.create_table('duchemin_dcphrase', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('phrase_id', self.gf('django.db.models.fields.CharField')(unique=True, max_length=16, db_index=True)),
+            ('phrase_id', self.gf('django.db.models.fields.IntegerField')(unique=True, db_index=True)),
             ('piece_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['duchemin.DCPiece'], to_field='piece_id')),
-            ('phrase_num', self.gf('django.db.models.fields.CharField')(max_length=4, null=True, blank=True)),
+            ('phrase_num', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
             ('phrase_start', self.gf('django.db.models.fields.CharField')(max_length=4, null=True, blank=True)),
             ('phrase_stop', self.gf('django.db.models.fields.CharField')(max_length=4, null=True, blank=True)),
             ('phrase_text', self.gf('django.db.models.fields.CharField')(max_length=255, null=True, blank=True)),
@@ -180,6 +180,17 @@ class Migration(SchemaMigration):
         ))
         db.create_unique('duchemin_dcuserprofile_favourited_reconstruction', ['dcuserprofile_id', 'dcreconstruction_id'])
 
+        # Adding model 'DCContentBlock'
+        db.create_table('duchemin_dccontentblock', (
+            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('title', self.gf('django.db.models.fields.CharField')(max_length=255)),
+            ('body', self.gf('django.db.models.fields.TextField')()),
+            ('published', self.gf('django.db.models.fields.BooleanField')(default=False)),
+            ('content_type', self.gf('django.db.models.fields.CharField')(default='block', max_length=32)),
+            ('position', self.gf('django.db.models.fields.IntegerField')(default=1)),
+        ))
+        db.send_create_signal('duchemin', ['DCContentBlock'])
+
 
     def backwards(self, orm):
         # Deleting model 'DCPerson'
@@ -220,6 +231,9 @@ class Migration(SchemaMigration):
 
         # Removing M2M table for field favourited_reconstruction on 'DCUserProfile'
         db.delete_table('duchemin_dcuserprofile_favourited_reconstruction')
+
+        # Deleting model 'DCContentBlock'
+        db.delete_table('duchemin_dccontentblock')
 
 
     models = {
@@ -312,14 +326,23 @@ class Migration(SchemaMigration):
             'location': ('django.db.models.fields.CharField', [], {'max_length': '16', 'null': 'True', 'blank': 'True'}),
             'num_compositions': ('django.db.models.fields.CharField', [], {'max_length': '16', 'null': 'True', 'blank': 'True'}),
             'num_pages': ('django.db.models.fields.CharField', [], {'max_length': '16', 'null': 'True', 'blank': 'True'}),
+            'part_sb_id': ('django.db.models.fields.CharField', [], {'max_length': '16', 'null': 'True', 'blank': 'True'}),
             'part_st_id': ('django.db.models.fields.CharField', [], {'max_length': '16', 'null': 'True', 'blank': 'True'}),
-            'part_tb_id': ('django.db.models.fields.CharField', [], {'max_length': '16', 'null': 'True', 'blank': 'True'}),
             'place_publication': ('django.db.models.fields.CharField', [], {'max_length': '64', 'null': 'True', 'blank': 'True'}),
             'publisher': ('django.db.models.fields.CharField', [], {'max_length': '64', 'null': 'True', 'blank': 'True'}),
             'remarks': ('django.db.models.fields.CharField', [], {'max_length': '128', 'null': 'True', 'blank': 'True'}),
             'rism': ('django.db.models.fields.CharField', [], {'max_length': '16', 'null': 'True', 'blank': 'True'}),
             'title': ('django.db.models.fields.CharField', [], {'db_index': 'True', 'max_length': '128', 'null': 'True', 'blank': 'True'}),
             'volumes': ('django.db.models.fields.CharField', [], {'max_length': '64', 'null': 'True', 'blank': 'True'})
+        },
+        'duchemin.dccontentblock': {
+            'Meta': {'object_name': 'DCContentBlock'},
+            'body': ('django.db.models.fields.TextField', [], {}),
+            'content_type': ('django.db.models.fields.CharField', [], {'default': "'block'", 'max_length': '32'}),
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'position': ('django.db.models.fields.IntegerField', [], {'default': '1'}),
+            'published': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'title': ('django.db.models.fields.CharField', [], {'max_length': '255'})
         },
         'duchemin.dcfile': {
             'Meta': {'object_name': 'DCFile'},
@@ -340,10 +363,10 @@ class Migration(SchemaMigration):
             'surname': ('django.db.models.fields.CharField', [], {'db_index': 'True', 'max_length': '64', 'null': 'True', 'blank': 'True'})
         },
         'duchemin.dcphrase': {
-            'Meta': {'object_name': 'DCPhrase'},
+            'Meta': {'ordering': "['piece_id', 'phrase_num']", 'object_name': 'DCPhrase'},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'phrase_id': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '16', 'db_index': 'True'}),
-            'phrase_num': ('django.db.models.fields.CharField', [], {'max_length': '4', 'null': 'True', 'blank': 'True'}),
+            'phrase_id': ('django.db.models.fields.IntegerField', [], {'unique': 'True', 'db_index': 'True'}),
+            'phrase_num': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
             'phrase_start': ('django.db.models.fields.CharField', [], {'max_length': '4', 'null': 'True', 'blank': 'True'}),
             'phrase_stop': ('django.db.models.fields.CharField', [], {'max_length': '4', 'null': 'True', 'blank': 'True'}),
             'phrase_text': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
@@ -373,9 +396,9 @@ class Migration(SchemaMigration):
         },
         'duchemin.dcuserprofile': {
             'Meta': {'object_name': 'DCUserProfile'},
-            'favourited_analysis': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['duchemin.DCAnalysis']", 'symmetrical': 'False', 'blank': 'True'}),
-            'favourited_piece': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['duchemin.DCPiece']", 'symmetrical': 'False', 'blank': 'True'}),
-            'favourited_reconstruction': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['duchemin.DCReconstruction']", 'symmetrical': 'False', 'blank': 'True'}),
+            'favourited_analysis': ('django.db.models.fields.related.ManyToManyField', [], {'db_index': 'True', 'to': "orm['duchemin.DCAnalysis']", 'symmetrical': 'False', 'blank': 'True'}),
+            'favourited_piece': ('django.db.models.fields.related.ManyToManyField', [], {'db_index': 'True', 'to': "orm['duchemin.DCPiece']", 'symmetrical': 'False', 'blank': 'True'}),
+            'favourited_reconstruction': ('django.db.models.fields.related.ManyToManyField', [], {'db_index': 'True', 'to': "orm['duchemin.DCReconstruction']", 'symmetrical': 'False', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'person': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['duchemin.DCPerson']", 'null': 'True', 'blank': 'True'}),
             'user': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['auth.User']", 'unique': 'True'})

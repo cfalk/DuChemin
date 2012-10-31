@@ -173,7 +173,8 @@ SOLR_FACET_FIELDS = [
     'cadence_kind',
     'text_treatment',
     'repeat_kind',
-    'book_id_title'
+    'book_id_title',
+    'book_title'
 ]
 
 # The mapping between the search form parameters and the
@@ -224,10 +225,13 @@ SEARCH_PARAM_MAP = {
     'prestype_entry_s_comes2': 'voice_role_com2',
 }
 
-DISPLAY_FACETS = [
-    'composer',
-    'contributor',
-    'cadence_final_tone',
-    'cadence_kind',
-    'cadence_alter'
-]
+DISPLAY_FACETS = {
+    'composer': ("p", "Composer"),
+    'contributor': ("r", "Analyst"),
+    'cadence_final_tone': ("f", "Cadence Final Tone"),
+    'cadence_kind': ("k", "Cadence Kind"),
+    'cadence_alter': ("m", "Cadence Alter"),
+    'repeat_kind': ("lf", "Repeat Kind"),
+    'book_id_title': ("b", "Book Title"),
+    'text_treatment': ("t", "Text Treatment")
+}

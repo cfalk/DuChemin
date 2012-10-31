@@ -908,9 +908,9 @@
     <!-- analysis fields -->
     <field name="analysis_id" type="int" indexed="true" stored="true" />
     <field name="contributor" type="string" indexed="true" stored="true" />
-    <field name="phrase_number" type="string" indexed="true" stored="true" />
-    <field name="start_measure" type="string" indexed="true" stored="true" />
-    <field name="stop_measure" type="string" indexed="true" stored="true" />
+    <field name="phrase_number" type="int" indexed="true" stored="true" />
+    <field name="start_measure" type="int" indexed="true" stored="true" />
+    <field name="stop_measure" type="int" indexed="true" stored="true" />
     <field name="is_cadence" type="boolean" indexed="true" stored="true" />
     <field name="cadence_kind" type="string" indexed="true" stored="true" />
     <field name="cadence_alter" type="string" indexed="true" stored="true" multiValued="true" />

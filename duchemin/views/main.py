@@ -87,7 +87,7 @@ def piece(request, piece_id):
             is_favourite = True
 
     phrases = DCPhrase.objects.filter(piece_id=piece_id).order_by('phrase_num')
-    analyses = DCAnalysis.objects.filter(composition_number=piece_id).order_by('start_measure')
+    analyses = DCAnalysis.objects.filter(composition_number=piece_id).order_by('phrase_number__phrase_num', 'start_measure')
     reconstructions = DCReconstruction.objects.filter(piece=piece_id).order_by('piece')
 
     data = {
@@ -100,8 +100,8 @@ def piece(request, piece_id):
     return render(request, 'main/piece.html', data)
 
 def reconstructions(request):
-    reconstructions = DCReconstruction.objects.all().order_by('piece__title')
-    paginator = Paginator(reconstructions, 10)
+    reconstructions = DCReconstruction.objects.all().order_by('piece__title', 'reconstructor__surname')
+    paginator = Paginator(reconstructions, 25)
     page = request.GET.get('page')
     try:
         all_r = paginator.page(page)

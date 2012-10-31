@@ -218,6 +218,7 @@ class SolrPage(object):
         self.result = result
         self.number = number
         self.paginator = paginator
+        self.object_list = [SolrResponseObject(**s) for s in self.result]
 
     def __repr__(self):
         return '<Page %s of %s>' % (self.number, self.paginator.num_pages)
@@ -252,10 +253,6 @@ class SolrPage(object):
 
     def count(self, value):
         return sum([1 for v in self if v == value])
-
-    @property
-    def object_list(self):
-        return [SolrResponseObject(**s) for s in self.result]
 
     def has_next(self):
         return self.number < self.paginator.num_pages

@@ -7,7 +7,7 @@ DATABASES = {
         'HOST': 'localhost',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '5432',                      # Set to empty string for default. Not used with sqlite3.
     }
-}}
+}
 
 SOLR_SERVER = "http://duchemin-dev.haverford.edu:8080/duchemin-solr"
 VEXF_SERVER = "http://duchemin-dev.haverford.edu:8080/notation"

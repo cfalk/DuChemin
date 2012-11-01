@@ -1,6 +1,15 @@
 {% extends "base.html" %}
 {% load bootstrap_pagination %}
 
+{% block header %}
+<script src="{{ STATIC_URL }}js/favourites.js"></script>
+<script type="text/javascript">
+    $(document).ready(function (){
+        attachFavouritesAction();
+    });
+</script>
+{% endblock %}
+
 {% block wrap %}
 <div class="row-fluid">
     <div class="span12">

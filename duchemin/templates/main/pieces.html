@@ -27,11 +27,7 @@
                     <td>{{ piece.book_position }}</td>
                     {% if is_logged_in %}
                     <td>
-                        {% if piece.is_favourite %}
-                        <a href="/favourite/piece/{{ piece.id }}?remove">Remove from favourites</a>
-                        {% else %}
-                        <a href="/favourite/piece/{{ piece.id }}?add">Add to favourites</a>
-                        {% endif %}
+                        {% include "favourites/favourites.html" with is_favourite=piece.is_favourite piece_id=piece.piece_id %}
                     </td>
                     {% endif %}
                 </tr>

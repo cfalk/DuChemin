@@ -48,7 +48,8 @@ if __name__ == "__main__":
             'book_id': int(piece.book_id.book_id),
             'book_id_title': "{0}_{1}".format(piece.book_id.book_id, piece.book_id.title),
             'title': piece.title,
-            'composer': composer_name
+            'composer': composer_name,
+            'pdf_link': piece.pdf_link
         }
 
         all_pieces.append(d)

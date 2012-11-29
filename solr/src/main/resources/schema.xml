@@ -904,6 +904,7 @@
     <field name="book_id_title" type="string" indexed="true" stored="false" />
     <field name="title" type="string" indexed="true" stored="true" />
     <field name="composer" type="string" indexed="true" stored="true" />
+    <field name="pdf_link" type="string" indexed="true" stored="true" />
 
     <!-- analysis fields -->
     <field name="analysis_id" type="int" indexed="true" stored="true" />

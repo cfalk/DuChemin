@@ -31,8 +31,8 @@
                 {% for piece in pieces %}
                 <tr>
                     <td><a href="/piece/{{ piece.piece_id }}">{{ piece.title }}</a></td>
-                    <td>{{ piece.composer_id }}</td>
-                    <td>{{ piece.book_id.title }}</td>
+                    <td><a href="/person/{{ piece.composer_id.person_id }}">{{ piece.composer_id.full_name }}</a></td>
+                    <td><a href="/book/{{ piece.book_id.id }}">{{ piece.book_id.title }}</a></td>
                     <td>{{ piece.book_position }}</td>
                     {% if is_logged_in %}
                     <td>

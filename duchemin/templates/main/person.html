@@ -5,6 +5,9 @@
 {% if person.alt_spelling %}
 <em>({{ person.alt_spelling }})</em>
 {% endif %}
+{% if analyses %}
+    <small>(Analyst)</small>
+{% endif %}
 </h1>
 <h2>
 {% if person.birth_date %}
@@ -42,4 +45,11 @@
 {% endfor %}
 </table>
 {% endif %}
+
+
+{% if analyses %}
+<h2>Analyses</h2>
+    {% include "analysis/analysis_display_table.html" %}
+{% endif %}
+
 {% endblock %}

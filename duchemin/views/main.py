@@ -127,9 +127,10 @@ def reconstruction(request, recon_id):
     }
     return render(request, 'main/reconstruction.html', data)
 
+
 def people(request):
     people = DCPerson.objects.all().order_by('surname')
-    paginator = Paginator(people, 10)
+    paginator = Paginator(people, 20)
     page = request.GET.get('page')
     try:
         all_people = paginator.page(page)
@@ -140,6 +141,7 @@ def people(request):
 
     return render(request, 'main/people.html', {'people': all_people})
 
+
 def person(request, person_id):
     try:
         person = DCPerson.objects.get(person_id=person_id)
@@ -147,10 +149,12 @@ def person(request, person_id):
         raise Http404
 
     pieces = DCPiece.objects.filter(composer_id=person.person_id)
+    analyses = DCAnalysis.objects.filter(analyst=person.person_id)
 
     data = {
         'person': person,
-        'pieces': pieces
+        'pieces': pieces,
+        'analyses': analyses
     }
     return render(request, 'main/person.html', data)
 

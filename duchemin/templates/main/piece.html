@@ -23,7 +23,7 @@
           <div class="show-heading row-fluid">
             <hgroup class="show-title page-title span8">
               <h1>{{ piece.title }}</h1>
-              <h2>{{ piece.composer_id.full_name }}</h2>
+              <h2><a href="/person/{{ piece.composer_id.person_id }}">{{ piece.composer_id.full_name }}</a></h2>
               <h3>{{ piece.piece_id }}</h3>
             </hgroup>
             
@@ -32,8 +32,7 @@
                 <dt>Source:</dt>
                 <dd><a href="/book/{{ piece.book_id.book_id }}">{{ piece.book_id.title }}</a></dd>
                 <dt>View:</dt>
-                <dd><a href="#">Complete Modern Edition</a></dd>
-                <dd><a href="#">Translation</a></dd>
+                <dd><a href="{{ piece.pdf_link }}">Complete Modern Edition</a></dd>
               </dl>
             </div>
           </div>
@@ -43,18 +42,19 @@
               <table class="table table-noborders">
                 <thead>
                   <tr>
-                    <th>Measure</th>
+                    <th>Phrase Number</th>
+                    <th>Measures</th>
                     <th>Rhyme</th>
                     <th>Phrase</th>
-                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
                 {% for phrase in phrases %}
                   <tr>
+                    <td>{{ phrase.phrase_num }}</td>
                     <td>
                     {% if phrase.phrase_start %}
-                      {{ phrase.phrase_start }}&ndash;{{ phrase.phrase_stop }}
+                      <a href="#" class="view-phrase" phid="{{ piece.piece_id }}/{{ phrase.phrase_id }}">{{ phrase.phrase_start }}&ndash;{{ phrase.phrase_stop }}</a>
                     {% endif %}
                     </td>
                     <td>
@@ -64,9 +64,6 @@
                     </td>
                     <td class="line-text">
                       {{ phrase.phrase_text }}
-                    </td>
-                    <td>
-                      <a href="#" class="view-phrase" phid="{{ piece.piece_id }}/{{ phrase.phrase_id }}">View</a>
                     </td>
                   </tr>
                 {% endfor %}
@@ -98,22 +95,19 @@
                   <table class="table">
                     <thead>
                       <tr>
-                        <th>Analyst</th>
+                        <th>Measures</th>
                         <th>Phrase Number</th>
-                        <th>Start Measure</th>
-                        <th>Stop Measure</th>
+                        <th>Analyst</th>
                         <th></th>
                       </tr>
                     </thead>
                     <tbody>
                     {% for analysis in analyses %}
                       <tr>
-                        <td>{{ analysis.analyst }}</td>
+                        <td><a href="#" class="view-analysis" anid="{{ analysis.id }}">{{ analysis.start_measure }}&ndash;{{ analysis.stop_measure }}</a></td>
                         <td>{{ analysis.phrase_number.phrase_num }}</td>
-                        <td>{{ analysis.start_measure }}</td>
-                        <td>{{ analysis.stop_measure }}</td>
-                        <td>
-                          <a href="#" class="view-analysis" anid="{{ analysis.id }}">View</a> | 
+                        <td>{{ analysis.analyst }}</td>
+                        <td> 
                           <a href="#" class="analyses-info-expand" target="analyses-info-{{ forloop.counter }}">Expand</a>
                         </td>
                       </tr>

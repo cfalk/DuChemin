@@ -20,6 +20,7 @@ class DCPiece(models.Model):
     forces = models.CharField(max_length=16, blank=True, null=True)
     print_concordances = models.CharField(max_length=128, blank=True, null=True)
     ms_concordances = models.CharField(max_length=128, blank=True, null=True)
+    pdf_link = models.URLField(max_length=255, blank=True, null=True)
     attachments = models.ManyToManyField(DCFile, blank=True, null=True)
 
     def __unicode__(self):

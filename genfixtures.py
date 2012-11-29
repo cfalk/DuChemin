@@ -78,6 +78,7 @@ piece_fieldnames = [
     'forces',
     'print_concordances',
     'ms_concordances',
+    'pdf_link'
 ]
 
 book_fieldnames = [
@@ -128,6 +129,8 @@ def find_person_id(people_csv, persname):
     for person in people_csv:
         if person['surname'].lower() == persname.lower():
             return person['person_id']
+
+    print "Could not find ", persname
     return None
 
 
@@ -150,9 +153,9 @@ if __name__ == "__main__":
 
     people = os.path.join(args.input_directory, "People.csv")
     analyses = os.path.join(args.input_directory, "Analyses_revised.csv")
-    pieces = os.path.join(args.input_directory, "Pieces.csv")
+    pieces = os.path.join(args.input_directory, "Pieces_revised.csv")
     books = os.path.join(args.input_directory, "Books.csv")
-    phrases = os.path.join(args.input_directory, "Phrases.csv")
+    phrases = os.path.join(args.input_directory, "Phrases_revised.csv")
     reconstructions = os.path.join(args.input_directory, "Reconstructions.csv")
 
     fixtures = []
@@ -220,6 +223,7 @@ if __name__ == "__main__":
     for pk, record in enumerate(pieces_csv):
         if pk == 0:
             continue
+
         record['composer_id'] = find_person_id(people_csv, record['composer_id'])
         record['book_position'] = int(record['book_position'].strip())
 
@@ -228,6 +232,7 @@ if __name__ == "__main__":
             'model': 'duchemin.dcpiece',
             'fields': record_cleanup(record)
         }
+
         pieces_json.append(r)
     fixtures.extend(pieces_json)
 

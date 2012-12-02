@@ -30,7 +30,7 @@
       event.preventDefault();
       tgt = "#" + $(this).attr('target');
       $(tgt).toggle();
-      tag = $(this).text() == "Expand" ? "Collapse" : "Expand";
+      tag = $(this).text() == "Details" ? "Collapse Details" : "Details";
       $(this).text(tag);
       return false;
     }

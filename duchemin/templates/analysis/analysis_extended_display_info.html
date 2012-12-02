@@ -8,12 +8,12 @@
 
         {% if analysis.composition_number.book_id.title %}
         <dt>Book Title</dt>
-        <dd>{{ analysis.composition_number.book_id.title }}</dd>
+        <dd><a href="/book/{{ analysis.composition_number.book_id.book_id }}">{{ analysis.composition_number.book_id.title }}</a></dd>
         {% endif %}
 
         {% if analysis.composition_number.composer %}
         <dt>Composer</dt>
-        <dd>{{ analysis.composition_number.composer }}</dd>
+        <dd><a href="/person/{{ analysis.composition_number.composer.person_id }}">{{ analysis.composition_number.composer }}</a></dd>
         {% endif %}
 
         <dt>Is Cadence?</dt>

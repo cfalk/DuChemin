@@ -8,7 +8,7 @@
 
         {% if analysis.book_title %}
         <dt>Book Title</dt>
-        <dd>{{ analysis.book_title }}</dd>
+        <dd><a href="/book/{{ analysis.book_id }}">{{ analysis.book_title }}</a></dd>
         {% endif %}
 
         {% if analysis.composer %}

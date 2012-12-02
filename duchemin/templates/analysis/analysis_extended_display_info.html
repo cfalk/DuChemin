@@ -156,13 +156,7 @@
 
         {% if analysis.other_contrapuntal %}
         <dt>Other Counterpoint</dt>
-        <dd>
-            <ul>
-            {% for cp in analysis.other_contrapuntal %}
-                <li>{{ cp }}</li>
-            {% endfor %}
-            </ul>
-        </dd>
+        <dd>{{ analysis.other_contrapuntal }}</dd>
         {% endif %}
 
         {% if analysis.text_treatment %}

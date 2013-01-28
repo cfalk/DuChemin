@@ -190,6 +190,13 @@ if __name__ == "__main__":
             'fields': record_cleanup(record)
         }
         people_json.append(r)
+    people_json.append({
+        'pk': pk + 1,
+        'model': 'duchemin.dcperson',
+        'fields': {
+                'person_id': '999'
+            }
+        })
     fixtures.extend(people_json)
 
     phrase_json = []
@@ -234,6 +241,15 @@ if __name__ == "__main__":
         }
 
         pieces_json.append(r)
+    pieces_json.append({
+        'pk': pk + 1,
+        'model': 'duchemin.dcpiece',
+        'fields': {
+            'piece_id': 'DC9999',
+            'book_id': '99',
+            'composer_id': '999'
+            }
+        })
     fixtures.extend(pieces_json)
 
     recon_json = []

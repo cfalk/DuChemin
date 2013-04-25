@@ -16,7 +16,7 @@ from duchemin.models.content_block import DCContentBlock
 
 
 class DCAnalysisAdmin(admin.ModelAdmin):
-    list_display = ['analyst', 'composition_number', 'phrase_number', 'start_measure', 'stop_measure']
+    list_display = ["id", 'analyst', 'composition_number', 'phrase_number', 'start_measure', 'stop_measure']
     search_fields = ['analyst__surname', 'composition_number__title']
     actions = [export_as_csv_action]
 
@@ -26,10 +26,12 @@ class DCPersonAdmin(admin.ModelAdmin):
     search_fields = ['surname', 'given_name', 'alt_spelling']
     actions = [export_as_csv_action]
 
+
 class DCBookAdmin(admin.ModelAdmin):
     list_display = ['title', 'publisher', 'place_publication', 'date', 'volumes', 'num_compositions', 'num_pages', 'location']
     search_fields = ['title']
     actions = [export_as_csv_action]
+
 
 class DCFilePieceInline(admin.TabularInline):
     model = DCPiece.attachments.through

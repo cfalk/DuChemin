@@ -51,6 +51,8 @@ class DCAnalysis(models.Model):
     comment = models.TextField(blank=True, null=True)
     repeat_exact_varied = models.CharField(max_length=16, blank=True, null=True)
 
+    needs_review = models.BooleanField(default=False)
+
     def __unicode__(self):
         return u"{0}".format(self.id)
 

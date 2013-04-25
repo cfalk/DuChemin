@@ -18,6 +18,7 @@ from duchemin.models.content_block import DCContentBlock
 class DCAnalysisAdmin(admin.ModelAdmin):
     list_display = ["id", 'analyst', 'composition_number', 'phrase_number', 'start_measure', 'stop_measure']
     search_fields = ["id", 'analyst__surname', 'composition_number__title']
+    list_filter = ('needs_review',)
     actions = [export_as_csv_action]
 
 

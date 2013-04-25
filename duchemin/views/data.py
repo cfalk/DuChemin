@@ -5,6 +5,7 @@ import httplib2
 from duchemin.models.analysis import DCAnalysis
 from duchemin.models.phrase import DCPhrase
 
+
 # These methods are wrapped here to allow for cross-site
 # calls without running in to the browser same-origin policies.
 def analysis(request, anid):
@@ -21,9 +22,16 @@ def analysis(request, anid):
 
     return HttpResponse(content)
 
+
 def phrase(request, piece_id, phrase_id):
+    if piece_id.endswith("_r"):
+        prefix = "RECON"
+        piece_id = piece_id[0:-2]  # remove the "_r"
+    else:
+        prefix = "{0}_XML".format(piece_id[0:4])
+
     phrase = DCPhrase.objects.get(phrase_id=phrase_id)
-    location = "{0}_XML/{1}.xml".format(piece_id[0:4], piece_id)
+    location = "{0}/{1}.xml".format(prefix, piece_id)
     start_meas = phrase.phrase_start
     end_meas = phrase.phrase_stop
 
@@ -31,4 +39,3 @@ def phrase(request, piece_id, phrase_id):
     h = httplib2.Http()
     resp, content = h.request(req_url, "GET")
     return HttpResponse(content)
-

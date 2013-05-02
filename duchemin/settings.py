@@ -118,7 +118,8 @@ INSTALLED_APPS = (
     'bootstrap-pagination',
     'duchemin',
     'django_extensions',
-    'south'
+    'south',
+    'crispy_forms'
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )

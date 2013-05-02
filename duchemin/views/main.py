@@ -2,7 +2,9 @@ from django.shortcuts import render
 from django.http import Http404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
 
+from duchemin.forms.analysis_form import AnalysisForm
 from duchemin.models.piece import DCPiece
 from duchemin.models.phrase import DCPhrase
 from duchemin.models.analysis import DCAnalysis
@@ -71,7 +73,7 @@ def pieces(request):
     except EmptyPage:
         all_pieces = paginator.page(paginator.num_pages)
 
-    return render(request, 'main/pieces.html', { 'pieces': all_pieces, 'is_logged_in': is_logged_in })
+    return render(request, 'main/pieces.html', {'pieces': all_pieces, 'is_logged_in': is_logged_in})
 
 
 def piece(request, piece_id):
@@ -82,8 +84,10 @@ def piece(request, piece_id):
 
     is_favourite = False
     is_logged_in = False
+    is_staff = False
     if request.user.is_authenticated():
         is_logged_in = True
+        is_staff = request.user.is_staff
         profile = request.user.profile
         if profile.favourited_piece.filter(id=piece.id):
             is_favourite = True
@@ -98,9 +102,24 @@ def piece(request, piece_id):
         'analyses': analyses,
         'reconstructions': reconstructions,
         'is_favourite': is_favourite,
-        'is_logged_in': is_logged_in
+        'is_logged_in': is_logged_in,
+        'is_staff': is_staff
     }
     return render(request, 'main/piece.html', data)
+
+
+def add_analysis(request, piece_id):
+    # return render(request, 'main/add_analysis.html', {})
+    print "Adding analysis for {0}".format(piece_id)
+    if request.method == "POST":
+        form_data = AnalysisForm(request.POST, piece_id=piece_id)
+        if form_data.is_valid():
+            #process data in form.cleaned_data()
+            return HttpResponseRedirect('piece/' + piece_id)
+    else:
+        form_data = AnalysisForm(piece_id)
+        phrases = DCPhrase.objects.filter(piece_id=piece_id).order_by('phrase_num')
+    return render(request, 'main/add_analysis.html', {'form': form_data})
 
 
 def reconstructions(request):
@@ -116,10 +135,11 @@ def reconstructions(request):
 
     return render(request, 'main/reconstructions.html', {'reconstructions': all_r})
 
+
 def reconstruction(request, recon_id):
     try:
         recon = DCReconstruction.objects.get(pk=recon_id)
-    except DCReconstructions.DoesNotExist:
+    except DCReconstruction.DoesNotExist:
         raise Http404
 
     data = {

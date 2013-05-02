@@ -32,7 +32,7 @@
                 <dt>Source:</dt>
                 <dd><a href="/book/{{ piece.book_id.book_id }}">{{ piece.book_id.title }}</a></dd>
                 <dt>View:</dt>
-                <dd><a href="{{ piece.pdf_link }}">Complete Modern Edition</a></dd>
+                <dd><a href="{{ piece.pdf_link }}" target="_blank">Complete Modern Edition</a></dd>
               </dl>
             </div>
           </div>
@@ -106,7 +106,14 @@
             <div class="span12">
               {% if analyses %}
               <div class="analysis-display">
-                  <h3>Analyses</h3>
+                  <div class="span10">
+                    <h3>Analyses</h3>
+                  </div>
+                  <div class="span2">
+                    {% if is_staff %}
+                      <a href="/piece/{{ piece.piece_id }}/add-analysis/" class="btn btn-small btn-block">Add New Analysis</a>
+                    {% endif %}
+                  </div>
                   <table class="table">
                     <thead>
                       <tr>

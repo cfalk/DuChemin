@@ -108,20 +108,6 @@ def piece(request, piece_id):
     return render(request, 'main/piece.html', data)
 
 
-def add_analysis(request, piece_id):
-    # return render(request, 'main/add_analysis.html', {})
-    print "Adding analysis for {0}".format(piece_id)
-    if request.method == "POST":
-        form_data = AnalysisForm(request.POST, piece_id=piece_id)
-        if form_data.is_valid():
-            #process data in form.cleaned_data()
-            return HttpResponseRedirect('piece/' + piece_id)
-    else:
-        form_data = AnalysisForm(piece_id)
-        phrases = DCPhrase.objects.filter(piece_id=piece_id).order_by('phrase_num')
-    return render(request, 'main/add_analysis.html', {'form': form_data})
-
-
 def reconstructions(request):
     reconstructions = DCReconstruction.objects.all().order_by('piece__title', 'reconstructor__surname')
     paginator = Paginator(reconstructions, 25)
@@ -200,5 +186,43 @@ def profile(request):
     }
     return render(request, 'main/profile.html', data)
 
+
 def login(request):
     return render(request, 'main/login.html')
+
+
+@login_required(login_url="/login/")
+def add_analysis(request, piece_id):
+    # return render(request, 'main/add_analysis.html', {})
+    print "Adding analysis for {0}".format(piece_id)
+    piece = DCPiece.objects.get(piece_id=piece_id)
+    if request.method == "POST":
+        form_data = AnalysisForm(request.POST)
+        if form_data.is_valid():
+            #process data in form.cleaned_data()
+            earlier_phrase = form_data.cleaned_data.get('earlier_phrase', None)
+            if earlier_phrase:
+                form_data.cleaned_data['earlier_phrase'] = earlier_phrase.phrase_num
+
+            cadence_alter = form_data.cleaned_data.get('cadence_alter', None)
+            if cadence_alter:
+                if "Other" in cadence_alter:
+                    cadence_alter = [c for c in cadence_alter if c != "Other"]
+                    cadence_alter.append(form_data.cleaned_data.get('cadence_alter_other', None))
+                    del form_data.cleaned_data['cadence_alter_other']
+                form_data.cleaned_data['cadence_alter'] = ", ".join(cadence_alter)
+
+            # more form cleaning here.
+
+            analysis = DCAnalysis(**form_data.cleaned_data)
+            analysis.save()
+
+            return HttpResponseRedirect('piece/' + piece_id)
+    else:
+        form_data = AnalysisForm()
+        phrases_for_piece = DCPhrase.objects.filter(piece_id=piece_id).order_by('phrase_num')
+        form_data.fields['phrase_number'].queryset = phrases_for_piece
+        form_data.fields['earlier_phrase'].queryset = phrases_for_piece
+        # phrases = DCPhrase.objects.filter(piece_id=piece_id).order_by('phrase_num')
+    return render(request, 'main/add_analysis.html', {'form': form_data, 'piece': piece})
+

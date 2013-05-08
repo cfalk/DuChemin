@@ -17,7 +17,6 @@ CADENCE_ALTER_CHOICES = [("Displaced", "Displaced"),
                          ("Inverted", "Inverted"),
                          ("Incomplete", "Incomplete"),
                          ("Evaded", "Evaded"),
-                         ("Doubtful", "Doubtful"),
                          ("Other", "Other")]
 
 FOUR_VOICES = [("S", "S"),

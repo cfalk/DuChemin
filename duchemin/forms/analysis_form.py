@@ -26,8 +26,9 @@ FOUR_VOICES = [("S", "S"),
                ("B", "B"),
                ("", "")]
 
-CONTRAPUNTAL_CHOICES = [("", ""),
-                        ("Invertible Counterpoint", "Invertible Counterpoint"),
+FORMULA_CHOICES = [("Romanesca", "Romanesca")]
+
+CONTRAPUNTAL_CHOICES = [("Invertible Counterpoint", "Invertible Counterpoint"),
                         ("Stretto Fuga", "Stretto Fuga"),
                         ("Other", "Other")]
 
@@ -45,6 +46,19 @@ REPEAT_CHOICES = [("", ""),
                   ("Da Capo", "Da Capo"),
                   ("Final Repeat", "Final Repeat"),
                   ("Other", "Other")]
+
+PRESENTATION_TYPE_CHOICES = [("", ""),
+                             ("FI", "FI"),
+                             ("ID", "ID"),
+                             ("PEn", "PEn"),
+                             ("PEn Tonal", "PEn Tonal"),
+                             ("PEn Stacked", "PEn Stacked"),
+                             ("NIM", "NIM"),
+                             ("HR Dactyll", "HR Dactyll"),
+                             ("HR Simple", "HR Simple"),
+                             ("HR Stagger", "HR Stagger"),
+                             ("HR Dance", "HR Dance"),
+                             ("HR Fauxbourdon", "HR Fauxbourdon")]
 
 
 class AnalysisForm(forms.Form):
@@ -137,8 +151,8 @@ class AnalysisForm(forms.Form):
     voices_p3_lo = forms.ChoiceField(required=False, choices=FOUR_VOICES, widget=forms.RadioSelect, label="Parallel 3rd Lower")
     voices_53_up = forms.ChoiceField(required=False, choices=FOUR_VOICES, widget=forms.RadioSelect, label="5/3 Upper")
     voices_53_lo = forms.ChoiceField(required=False, choices=FOUR_VOICES, widget=forms.RadioSelect, label="5/3 Lower")
-    other_formulas = forms.CharField(required=False)
-    other_pres_type = forms.CharField(required=False, label="Does this seem to be a conventional texture or presentation type?", help_text="If no type, leave blank and skip to next section.")
+    other_formulas = forms.ChoiceField(required=False, choices=FORMULA_CHOICES, widget=forms.CheckboxSelectMultiple, help_text="Use as many combinations as apply, indicating which voices.")
+    other_pres_type = forms.ChoiceField(required=False, choices=PRESENTATION_TYPE_CHOICES, label="Does this seem to be a conventional texture or presentation type?", help_text="If no type, leave blank and skip to next section.")
     voice_role_up1_nim = forms.ChoiceField(required=False, choices=FOUR_VOICES, widget=forms.RadioSelect, label="Upper Voice 1 (NIM)")
     voice_role_lo1_nim = forms.ChoiceField(required=False, choices=FOUR_VOICES, widget=forms.RadioSelect, label="Lower Voice 1 (NIM)")
     voice_role_up2_nim = forms.ChoiceField(required=False, choices=FOUR_VOICES, widget=forms.RadioSelect, label="Upper Voice 2 (NIM)")
@@ -152,7 +166,7 @@ class AnalysisForm(forms.Form):
     voice_role_fourth = forms.ChoiceField(required=False, choices=FOUR_VOICES, widget=forms.RadioSelect, label="@4")
     voice_role_above = forms.ChoiceField(required=False, choices=FOUR_VOICES, widget=forms.RadioSelect, label="Above")
     voice_role_below = forms.ChoiceField(required=False, choices=FOUR_VOICES, widget=forms.RadioSelect, label="Below")
-    other_contrapuntal = forms.ChoiceField(required=False, choices=CONTRAPUNTAL_CHOICES, widget=forms.RadioSelect, label="Other Features?")
+    other_contrapuntal = forms.ChoiceField(required=False, choices=CONTRAPUNTAL_CHOICES, widget=forms.CheckboxSelectMultiple, label="Other Features?")
     other_contrapuntal_other = forms.CharField(required=False, label="If Other, Please Specify:")
     text_treatment = forms.ChoiceField(required=False, choices=TEXT_TREATMENT_CHOICES)
     text_treatment_other = forms.CharField(required=False, label="If Other, Please Specify:")

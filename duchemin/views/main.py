@@ -1,3 +1,4 @@
+import datetime
 from django.shortcuts import render
 from django.http import Http404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -197,26 +198,57 @@ def add_observation(request, piece_id):
     piece = DCPiece.objects.get(piece_id=piece_id)
     if request.method == "POST":
         form_data = AnalysisForm(request.POST)
-        if form_data.is_valid():
-            #process data in form.cleaned_data()
-            earlier_phrase = form_data.cleaned_data.get('earlier_phrase', None)
-            if earlier_phrase:
-                form_data.cleaned_data['earlier_phrase'] = earlier_phrase.phrase_num
+        if not form_data.is_valid():
+            return "Error"
 
-            cadence_alter = form_data.cleaned_data.get('cadence_alter', None)
-            if cadence_alter:
-                if "Other" in cadence_alter:
-                    cadence_alter = [c for c in cadence_alter if c != "Other"]
-                    cadence_alter.append(form_data.cleaned_data.get('cadence_alter_other', None))
-                    del form_data.cleaned_data['cadence_alter_other']
-                form_data.cleaned_data['cadence_alter'] = ", ".join(cadence_alter)
+        print form_data.cleaned_data
 
-            # more form cleaning here.
+        #process data in form.cleaned_data()
+        earlier_phrase = form_data.cleaned_data.get('earlier_phrase', None)
+        if earlier_phrase:
+            form_data.cleaned_data['earlier_phrase'] = earlier_phrase.phrase_num
 
-            analysis = DCAnalysis(**form_data.cleaned_data)
-            analysis.save()
+        cadence_alter = form_data.cleaned_data.get('cadence_alter', None)
+        if cadence_alter:
+            if "Other" in cadence_alter:
+                cadence_alter = [c for c in cadence_alter if c != "Other"]
+                cadence_alter.append(form_data.cleaned_data.get('cadence_alter_other', None))
+            form_data.cleaned_data['cadence_alter'] = ", ".join(cadence_alter)
+        else:
+            form_data.cleaned_data['cadence_alter'] = ""
+        del form_data.cleaned_data['cadence_alter_other']
 
-            return HttpResponseRedirect('piece/' + piece_id)
+        other_contrapuntal = form_data.cleaned_data.get('other_features', None)
+        if other_contrapuntal:
+            if "Other" in other_contrapuntal:
+                other_contrapuntal = [c for c in other_contrapuntal if c != "Other"]
+                other_contrapuntal.append(form_data.cleaned_data.get('other_contrapuntal_other', None))
+            form_data.cleaned_data['other_contrapuntal'] = ", ".join(other_contrapuntal)
+        else:
+            form_data.cleaned_data['other_contrapuntal'] = ""
+
+        del form_data.cleaned_data['other_contrapuntal_other']
+
+        text_treatment = form_data.cleaned_data.get('text_treatment', None)
+        if text_treatment == "Other":
+            other_description = form_data.cleaned_data.get("text_treatment_other", None)
+            if not other_description:
+                # raise a form validation error
+                pass
+            text_treatment = other_description
+        del form_data.cleaned_data['text_treatment_other']
+
+        form_data.cleaned_data['composition_number'] = piece
+        form_data.cleaned_data['analyst'] = request.user.profile.person
+        form_data.cleaned_data['needs_review'] = True
+        tstamp = datetime.datetime.now()
+        form_data.cleaned_data['timestamp'] = tstamp.strftime("%d/%m/%Y %H:%M:%S")
+
+        # more form cleaning here.
+        analysis = DCAnalysis(**form_data.cleaned_data)
+        analysis.save()
+
+        return HttpResponseRedirect('/piece/' + piece_id)
     else:
         form_data = AnalysisForm()
         phrases_for_piece = DCPhrase.objects.filter(piece_id=piece_id).order_by('phrase_num')

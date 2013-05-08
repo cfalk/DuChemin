@@ -192,9 +192,8 @@ def login(request):
 
 
 @login_required(login_url="/login/")
-def add_analysis(request, piece_id):
+def add_observation(request, piece_id):
     # return render(request, 'main/add_analysis.html', {})
-    print "Adding analysis for {0}".format(piece_id)
     piece = DCPiece.objects.get(piece_id=piece_id)
     if request.method == "POST":
         form_data = AnalysisForm(request.POST)
@@ -224,5 +223,5 @@ def add_analysis(request, piece_id):
         form_data.fields['phrase_number'].queryset = phrases_for_piece
         form_data.fields['earlier_phrase'].queryset = phrases_for_piece
         # phrases = DCPhrase.objects.filter(piece_id=piece_id).order_by('phrase_num')
-    return render(request, 'main/add_analysis.html', {'form': form_data, 'piece': piece})
+    return render(request, 'main/add_observation.html', {'form': form_data, 'piece': piece})
 

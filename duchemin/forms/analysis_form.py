@@ -67,7 +67,7 @@ class AnalysisForm(forms.Form):
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Fieldset(
-                'DuChemin Analysis Form',
+                'DuChemin Observation Form',
                 'phrase_number',
                 'start_measure',
                 'stop_measure'

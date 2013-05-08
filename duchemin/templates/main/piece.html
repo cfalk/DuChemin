@@ -107,11 +107,11 @@
               {% if analyses %}
               <div class="analysis-display">
                   <div class="span10">
-                    <h3>Analyses</h3>
+                    <h3>Observations</h3>
                   </div>
                   <div class="span2">
                     {% if is_staff %}
-                      <a href="/piece/{{ piece.piece_id }}/add-analysis/" class="btn btn-small btn-block">Add New Analysis</a>
+                      <a href="/piece/{{ piece.piece_id }}/add-observation/" class="btn btn-small btn-block">Add New Observation</a>
                     {% endif %}
                   </div>
                   <table class="table">
@@ -142,7 +142,7 @@
                 </div>
                 {% else %}
                     {% if is_staff %}
-                      <a href="/piece/{{ piece.piece_id }}/add-analysis/" class="btn btn-small btn-block">Add New Analysis</a>
+                      <a href="/piece/{{ piece.piece_id }}/add-observation/" class="btn btn-small btn-block">Add New Observation</a>
                     {% endif %}
                 {% endif %}
               </div>

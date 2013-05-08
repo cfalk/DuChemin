@@ -1,6 +1,9 @@
 {% load expandvoice %}
 <div>
     <dl>
+        <dt>Analysis ID</dt>
+        <dd>{{ analysis.id }}</dd>
+
         {% if analysis.analyst %}
         <dt>Analyst</dt>
         <dd>{{ analysis.analyst }}</dd>

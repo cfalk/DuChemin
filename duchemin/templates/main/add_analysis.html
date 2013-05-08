@@ -10,7 +10,7 @@
     {% crispy form %}
 </div>
 <div class="span8">
-    {% if piece.pdf_link != "" %}
+    {% if piece.pdf_link %}
     <iframe src="{{ piece.pdf_link }}" width="100%" height="800px" />
     {% else %}
     <p>Attach a PDF to this piece to see it appear here.</p>

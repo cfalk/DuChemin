@@ -119,8 +119,6 @@ class AnalysisForm(forms.Form):
                     InlineRadios('voice_role_un_oct'),
                     InlineRadios('voice_role_fifth'),
                     InlineRadios('voice_role_fourth'),
-                    InlineRadios('voice_role_above'),
-                    InlineRadios('voice_role_below')
                 ),
                 'other_contrapuntal',
                 'other_contrapuntal_other'),
@@ -174,8 +172,6 @@ class AnalysisForm(forms.Form):
     voice_role_un_oct = forms.ChoiceField(required=False, choices=FOUR_VOICES, widget=forms.RadioSelect, label="@1 or 8")
     voice_role_fifth = forms.ChoiceField(required=False, choices=FOUR_VOICES, widget=forms.RadioSelect, label="@5")
     voice_role_fourth = forms.ChoiceField(required=False, choices=FOUR_VOICES, widget=forms.RadioSelect, label="@4")
-    voice_role_above = forms.ChoiceField(required=False, choices=FOUR_VOICES, widget=forms.RadioSelect, label="Above")
-    voice_role_below = forms.ChoiceField(required=False, choices=FOUR_VOICES, widget=forms.RadioSelect, label="Below")
     other_contrapuntal = forms.ChoiceField(required=False, choices=CONTRAPUNTAL_CHOICES, widget=forms.CheckboxSelectMultiple, label="Other Features?")
     other_contrapuntal_other = forms.CharField(required=False, label="If Other, Please Specify:")
     text_treatment = forms.ChoiceField(required=False, choices=TEXT_TREATMENT_CHOICES)

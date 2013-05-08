@@ -4,18 +4,14 @@
 {% block wrap %}
 
 <div class="row">
-<div class="span4">
-    <p>Analyst: {{ request.user.username }}</p>
-    <p>Piece: {{ piece.title }} ({{ piece.piece_id }})</p>
-    {% crispy form %}
-</div>
-<div class="span8">
     {% if piece.pdf_link %}
-    <iframe src="{{ piece.pdf_link }}" width="100%" height="800px" />
-    {% else %}
-    <p>Attach a PDF to this piece to see it appear here.</p>
+        <p><a href="{{ piece.pdf_link }}">Download the PDF copy of this piece</a></p>
     {% endif %}
-</div>
+    <div class="span12">
+        <p>Analyst: {{ request.user.username }}</p>
+        <p>Piece: {{ piece.title }} ({{ piece.piece_id }})</p>
+        {% crispy form %}
+    </div>
 </div>
 
 {% endblock %}

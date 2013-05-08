@@ -26,6 +26,15 @@ FOUR_VOICES = [("S", "S"),
                ("B", "B"),
                ("", "")]
 
+FINAL_TONE_CHOICES = [("", ""),
+                      ("A", "A"),
+                      ("B-flat", "B-flat"),
+                      ("C", "C"),
+                      ("D", "D"),
+                      ("E", "E"),
+                      ("F", "F"),
+                      ("G", "G")]
+
 FORMULA_CHOICES = [("Romanesca", "Romanesca")]
 
 CONTRAPUNTAL_CHOICES = [("Invertible Counterpoint", "Invertible Counterpoint"),
@@ -146,7 +155,7 @@ class AnalysisForm(forms.Form):
     cadence_alter_other = forms.CharField(required=False, label="If Other, Please Specify:")
     cadence_role_cantz = forms.ChoiceField(required=False, choices=FOUR_VOICES, widget=forms.RadioSelect, label="Cantizans")
     cadence_role_tenz = forms.ChoiceField(required=False, choices=FOUR_VOICES, widget=forms.RadioSelect, label="Tenorizans")
-    cadence_final_tone = forms.CharField(required=False)
+    cadence_final_tone = forms.ChoiceField(required=False, choices=FINAL_TONE_CHOICES)
     voices_p6_up = forms.ChoiceField(required=False, choices=FOUR_VOICES, widget=forms.RadioSelect, label="Parallel 6th Upper")
     voices_p6_lo = forms.ChoiceField(required=False, choices=FOUR_VOICES, widget=forms.RadioSelect, label="Parallel 6th Lower")
     voices_p3_up = forms.ChoiceField(required=False, choices=FOUR_VOICES, widget=forms.RadioSelect, label="Parallel 3rd Upper")

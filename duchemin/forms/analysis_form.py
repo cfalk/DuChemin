@@ -118,10 +118,12 @@ class AnalysisForm(forms.Form):
                 'other_contrapuntal_other'),
             Fieldset(
                 'Text Treatment',
+                HTML("<p>Use COMMENT to Elaborate if needed. ENJAMBEMENT tag goes with LEADING phrase. OVERLAP tag goes with FOLLOWING phrase.</p>"),
                 'text_treatment',
                 'text_treatment_other'),
             Fieldset(
                 'Musical Form',
+                HTML("<p>Any pattern of large-scale repetition or return? In case of PHRASE repetition, the START/STOP measures refer to the entire phrase. Use COMMENT to explain VARIED.</p>"),
                 'repeat_kind',
                 'earlier_phrase',
                 'repeat_exact_varied'),
@@ -171,6 +173,6 @@ class AnalysisForm(forms.Form):
     text_treatment = forms.ChoiceField(required=False, choices=TEXT_TREATMENT_CHOICES)
     text_treatment_other = forms.CharField(required=False, label="If Other, Please Specify:")
     repeat_kind = forms.ChoiceField(required=False, choices=REPEAT_CHOICES)
-    earlier_phrase = forms.ModelChoiceField(required=False, queryset=DCPhrase.objects.all())
+    earlier_phrase = forms.ModelChoiceField(required=False, queryset=DCPhrase.objects.all(), label="To which earlier phrase does the CURRENT phrase correspond?")
     comment = forms.CharField(widget=forms.Textarea, required=False)
-    repeat_exact_varied = forms.ChoiceField(required=False, choices=[("None", "None"), ("Exact", "Exact"), ("Varied", "Varied")])
+    repeat_exact_varied = forms.ChoiceField(required=False, choices=[("", ""), ("Exact", "Exact"), ("Varied", "Varied")], label="Exact or Varied?")

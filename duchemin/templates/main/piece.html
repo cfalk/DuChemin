@@ -140,6 +140,10 @@
                     </tbody>
                   </table>
                 </div>
+                {% else %}
+                    {% if is_staff %}
+                      <a href="/piece/{{ piece.piece_id }}/add-analysis/" class="btn btn-small btn-block">Add New Analysis</a>
+                    {% endif %}
                 {% endif %}
               </div>
           </div><!--/row-->

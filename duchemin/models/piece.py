@@ -1,4 +1,6 @@
 from django.db import models
+from django.dispatch import receiver
+from django.db.models.signals import post_save, post_delete
 
 from duchemin.models.book import DCBook
 from duchemin.models.person import DCPerson
@@ -20,8 +22,56 @@ class DCPiece(models.Model):
     forces = models.CharField(max_length=16, blank=True, null=True)
     print_concordances = models.CharField(max_length=128, blank=True, null=True)
     ms_concordances = models.CharField(max_length=128, blank=True, null=True)
-    pdf_link = models.URLField(max_length=255, blank=True, null=True)
+    # pdf_link = models.URLField(max_length=255, blank=True, null=True)
     attachments = models.ManyToManyField(DCFile, blank=True, null=True)
+
+    pdf_link = "http://ricercar.cesr.univ-tours.fr/3-programmes/EMN/duchemin/sources/15507-01/15507-01-pdf-moderne.pdf"
 
     def __unicode__(self):
         return u"{0}".format(self.title)
+
+
+@receiver(post_save, sender=DCPiece)
+def solr_index(sender, instance, created, **kwargs):
+    import uuid
+    from django.conf import settings
+    import solr
+
+    solrconn = solr.SolrConnection(settings.SOLR_SERVER)
+    record = solrconn.query("type:duchemin_piece piece_id:{0}".format(instance.id))
+    if record:
+        # the record already exists, so we'll remove it first.
+        solrconn.delete(record.results[0]['id'])
+
+    piece = instance
+
+    composer_name = ""
+    if piece.composer_id.given_name != "":
+        composer_name = u"{0}, {1}".format(piece.composer_id.surname, piece.composer_id.given_name)
+    else:
+        composer_name = u"{0}".format(piece.composer_id.surname)
+
+    d = {
+        'type': 'duchemin_piece',
+        'id': str(uuid.uuid4()),
+        'piece_id': piece.piece_id,
+        'book_title': piece.book_id.title,
+        'book_id': int(piece.book_id.book_id),
+        'book_id_title': "{0}_{1}".format(piece.book_id.book_id, piece.book_id.title),
+        'title': piece.title,
+        'composer': composer_name,
+        'pdf_link': piece.pdf_link
+    }
+    solrconn.add(**d)
+    solrconn.commit()
+
+
+@receiver(post_delete, sender=DCPiece)
+def solr_delete(sender, instance, **kwargs):
+    from django.conf import settings
+    import solr
+    solrconn = solr.SolrConnection(settings.SOLR_SERVER)
+    record = solrconn.query("type:duchemin_piece book_id:{0}".format(instance.id))
+    if record:
+        # the record already exists, so we'll remove it first.
+        solrconn.delete(record.results[0]['id'])

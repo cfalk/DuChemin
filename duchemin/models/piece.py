@@ -22,10 +22,8 @@ class DCPiece(models.Model):
     forces = models.CharField(max_length=16, blank=True, null=True)
     print_concordances = models.CharField(max_length=128, blank=True, null=True)
     ms_concordances = models.CharField(max_length=128, blank=True, null=True)
-    # pdf_link = models.URLField(max_length=255, blank=True, null=True)
+    pdf_link = models.URLField(max_length=255, blank=True, null=True)
     attachments = models.ManyToManyField(DCFile, blank=True, null=True)
-
-    pdf_link = "http://ricercar.cesr.univ-tours.fr/3-programmes/EMN/duchemin/sources/15507-01/15507-01-pdf-moderne.pdf"
 
     def __unicode__(self):
         return u"{0}".format(self.title)

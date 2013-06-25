@@ -1,6 +1,6 @@
 import datetime
 from django.shortcuts import render
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
@@ -199,9 +199,7 @@ def add_observation(request, piece_id):
     if request.method == "POST":
         form_data = AnalysisForm(request.POST)
         if not form_data.is_valid():
-            return "Error"
-
-        print form_data.cleaned_data
+            return HttpResponse(status=403)
 
         #process data in form.cleaned_data()
         earlier_phrase = form_data.cleaned_data.get('earlier_phrase', None)

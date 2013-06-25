@@ -90,7 +90,7 @@ def solr_index(sender, instance, created, **kwargs):
     else:
         contributor_name = u"{0}".format(analysis.analyst.surname)
 
-    if analysis.cadence == "Yes":
+    if analysis.cadence in ("Yes", "True"):
         cadence = True
     else:
         cadence = False

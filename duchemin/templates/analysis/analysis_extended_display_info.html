@@ -20,15 +20,15 @@
         {% endif %}
 
         <dt>Is Cadence?</dt>
-        {{ analysis.is_cadence }}
-        {% if analysis.is_cadence == "Yes" or analysis.is_cadence == "True" %}
+        {{ analysis.cadence }}
+        {% if analysis.cadence == "Yes" or analysis.cadence == "True" %}
         <dd>Yes</dd>
         {% else %}
         <dd>No</dd>
         {% endif %}
 
         {# Cadence Info #}
-        {% if analysis.is_cadence == "Yes" or analysis.is_cadence == "True"  %}
+        {% if analysis.cadence == "Yes" or analysis.cadence == "True"  %}
         <dt>Cadence Kind</dt>
         <dd>{{ analysis.cadence_kind }}</dd>
 

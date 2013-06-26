@@ -199,7 +199,7 @@ def add_observation(request, piece_id):
     if request.method == "POST":
         form_data = AnalysisForm(request.POST)
         if not form_data.is_valid():
-            return HttpResponse(status=403)
+            return render(request, 'main/add_observation.html', {'form': form_data, 'piece': piece})
 
         #process data in form.cleaned_data()
         earlier_phrase = form_data.cleaned_data.get('earlier_phrase', None)
@@ -216,7 +216,8 @@ def add_observation(request, piece_id):
             form_data.cleaned_data['cadence_alter'] = ""
         del form_data.cleaned_data['cadence_alter_other']
 
-        other_contrapuntal = form_data.cleaned_data.get('other_features', None)
+        other_contrapuntal = form_data.cleaned_data.get('other_contrapuntal', None)
+        print "Other: ", other_contrapuntal
         if other_contrapuntal:
             if "Other" in other_contrapuntal:
                 other_contrapuntal = [c for c in other_contrapuntal if c != "Other"]
@@ -226,6 +227,10 @@ def add_observation(request, piece_id):
             form_data.cleaned_data['other_contrapuntal'] = ""
 
         del form_data.cleaned_data['other_contrapuntal_other']
+
+        other_formulas = form_data.cleaned_data.get('other_formulas', None)
+        if other_formulas:
+            form_data.cleaned_data['other_formulas'] = "".join(other_formulas)  # right now this is only one item, Romanesca.
 
         text_treatment = form_data.cleaned_data.get('text_treatment', None)
         if text_treatment == "Other":
@@ -254,4 +259,3 @@ def add_observation(request, piece_id):
         form_data.fields['earlier_phrase'].queryset = phrases_for_piece
         # phrases = DCPhrase.objects.filter(piece_id=piece_id).order_by('phrase_num')
     return render(request, 'main/add_observation.html', {'form': form_data, 'piece': piece})
-

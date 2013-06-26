@@ -34,7 +34,7 @@ FINAL_TONE_CHOICES = [("", ""),
                       ("F", "F"),
                       ("G", "G")]
 
-FORMULA_CHOICES = [("Romanesca", "Romanesca")]
+FORMULA_CHOICES = [("Romanesca", "Romanesca"), ]
 
 CONTRAPUNTAL_CHOICES = [("Invertible Counterpoint", "Invertible Counterpoint"),
                         ("Stretto Fuga", "Stretto Fuga"),
@@ -159,7 +159,7 @@ class AnalysisForm(forms.Form):
     voices_p3_lo = forms.TypedChoiceField(required=False, choices=FOUR_VOICES, widget=forms.RadioSelect, label="Parallel 3rd Lower", empty_value=None)
     voices_53_up = forms.TypedChoiceField(required=False, choices=FOUR_VOICES, widget=forms.RadioSelect, label="5/3 Upper", empty_value=None)
     voices_53_lo = forms.TypedChoiceField(required=False, choices=FOUR_VOICES, widget=forms.RadioSelect, label="5/3 Lower", empty_value=None)
-    other_formulas = forms.TypedChoiceField(required=False, choices=FORMULA_CHOICES, widget=forms.CheckboxSelectMultiple, help_text="Use as many combinations as apply, indicating which voices.", empty_value=None)
+    other_formulas = forms.MultipleChoiceField(required=False, choices=FORMULA_CHOICES, widget=forms.CheckboxSelectMultiple, help_text="Use as many combinations as apply, indicating which voices.")
     other_pres_type = forms.TypedChoiceField(required=False, choices=PRESENTATION_TYPE_CHOICES, label="Does this seem to be a conventional texture or presentation type?", help_text="If no type, leave blank and skip to next section.", empty_value=None)
     voice_role_up1_nim = forms.TypedChoiceField(required=False, choices=FOUR_VOICES, widget=forms.RadioSelect, label="Upper Voice 1 (NIM)", empty_value=None)
     voice_role_lo1_nim = forms.TypedChoiceField(required=False, choices=FOUR_VOICES, widget=forms.RadioSelect, label="Lower Voice 1 (NIM)", empty_value=None)
@@ -172,7 +172,7 @@ class AnalysisForm(forms.Form):
     voice_role_un_oct = forms.TypedChoiceField(required=False, choices=FOUR_VOICES, widget=forms.RadioSelect, label="@1 or 8", empty_value=None)
     voice_role_fifth = forms.TypedChoiceField(required=False, choices=FOUR_VOICES, widget=forms.RadioSelect, label="@5", empty_value=None)
     voice_role_fourth = forms.TypedChoiceField(required=False, choices=FOUR_VOICES, widget=forms.RadioSelect, label="@4", empty_value=None)
-    other_contrapuntal = forms.TypedChoiceField(required=False, choices=CONTRAPUNTAL_CHOICES, widget=forms.CheckboxSelectMultiple, label="Other Features?", empty_value=None)
+    other_contrapuntal = forms.MultipleChoiceField(required=False, choices=CONTRAPUNTAL_CHOICES, widget=forms.CheckboxSelectMultiple, label="Other Features?")
     other_contrapuntal_other = forms.CharField(required=False, label="If Other, Please Specify:")
     text_treatment = forms.TypedChoiceField(required=False, choices=TEXT_TREATMENT_CHOICES, empty_value=None)
     text_treatment_other = forms.CharField(required=False, label="If Other, Please Specify:")

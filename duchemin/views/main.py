@@ -231,6 +231,8 @@ def add_observation(request, piece_id):
         other_formulas = form_data.cleaned_data.get('other_formulas', None)
         if other_formulas:
             form_data.cleaned_data['other_formulas'] = "".join(other_formulas)  # right now this is only one item, Romanesca.
+        else:
+            form_data.cleaned_data['other_formulas'] = ""
 
         text_treatment = form_data.cleaned_data.get('text_treatment', None)
         if text_treatment == "Other":

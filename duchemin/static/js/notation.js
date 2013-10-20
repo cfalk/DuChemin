@@ -25,7 +25,7 @@ function attachPhraseClickEvents() {
     $('.view-phrase').on({
         'click': function(event) {
             $("#analysis-modal").remove();
-            modal = $("<div />", {
+            var modal = $("<div />", {
                 "id": "analysis-modal"
             }).appendTo("body");
 
@@ -47,6 +47,8 @@ function ajaxRenderPhrase(pid) {
         url: '/data/phrase/' + pid,
         dataType: 'json',
         success: function(data, status, xhr) {
+            var modal = $("#analysis-modal");
+
             $("<div />", {
                 "id": "analysis-modal-body"
             }).appendTo(modal);
@@ -65,8 +67,8 @@ function ajaxRenderAnalysis(anid) {
         url: '/data/analysis/' + anid,
         dataType: 'json',
         success: function(data, status, xhr) {
-            console.log("Render analysis");
-            console.log(data);
+            var modal = $("#analysis-modal");
+
             $("<div />", {
                 "id": "analysis-modal-body"
             }).appendTo(modal);

@@ -3,6 +3,7 @@ function doRender(anid) {
         url: "http://duchemin-dev.haverford.edu/notation/" + pieceId + "/" + startMeas + "/" + endMeas,
         dataType: 'json',
         success: function(data, status, xhr) {
+            console.log(data);
             modal = $("<div />", {
                 "id": "myModal"
             }).appendTo("body");

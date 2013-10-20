@@ -65,6 +65,8 @@ function ajaxRenderAnalysis(anid) {
         url: '/data/analysis/' + anid,
         dataType: 'json',
         success: function(data, status, xhr) {
+            console.log("Render analysis");
+            console.log(data);
             $("<div />", {
                 "id": "analysis-modal-body"
             }).appendTo(modal);

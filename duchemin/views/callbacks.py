@@ -1,15 +1,19 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse,HttpResponseServerError
 from django.utils import simplejson
+from django.utils.timezone import utc
 from django.utils.datastructures import SortedDict
 from django.conf import settings
 from django.core.paginator import EmptyPage, InvalidPage
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from duchemin.helpers.solrsearch import DCSolrSearch
+from datetime import datetime
 
 from duchemin.models.piece import DCPiece
 from duchemin.models.analysis import DCAnalysis
 from duchemin.models.reconstruction import DCReconstruction
+from duchemin.models.comment import DCComment
 
 
 class JsonResponse(HttpResponse):
@@ -73,6 +77,49 @@ def favourite_callback(request, ftype, fid):
         'content': ftype + "/" + fid
     }
     return JsonResponse(data)
+
+
+# Callback function to handle returning comments as JSON arrays
+# and add new comments using AJAX POST data
+@login_required
+def discussion_callback(request):
+
+    # TODO: Add csrf_token support to protect from cross-site exploits
+
+    # assuming GET means get comments; POST means add a new one
+    if request.method == u'GET':
+        get = request.GET
+        if get.has_key('piece_id') and get.has_key('last_update'):
+            piece_id = get['piece_id']
+            last_update = float(get['last_update'])
+            last_ts = datetime.utcfromtimestamp(last_update).replace(tzinfo=utc)
+
+            # only return the queryset of objects for this piece newer than
+            # the last timestamp (sent from AJAX callback)
+            comments = DCComment.objects.filter(
+                piece = DCPiece.objects.get(piece_id=piece_id),
+                time__gt = last_ts
+                )
+            comment_array = []
+            for comment in comments.values():
+
+                # display_time is what the user sees; epoch_time is to track
+                # what they have already been sent
+                dt = comment['time']
+                display_time = dt.strftime("%d/%m/%y %H:%M")
+                epoch_time = dt.strftime("%s")
+
+                comment_array.append({
+                    'text' : u"{}".format(comment['text']),
+                    'display_time' : u"{}".format(display_time),
+                    'epoch_time' : u"{}".format(epoch_time),
+                    'author' : u"{}".format(
+                        User.objects.get(id=comment['author_id'])),
+                })
+            return HttpResponse(simplejson.dumps(comment_array),
+                mimetype='application/json')
+        else:
+            return HttpResponseServerError("Missing critical GET attributes")
 
 
 def result_callback(request, restype):

@@ -42,6 +42,7 @@ if 'django.contrib.admin' in settings.INSTALLED_APPS:
     urlpatterns += patterns('duchemin.views.callbacks',
         url(r'^search/results/(?P<restype>[0-9a-zA-Z]+)/$', 'result_callback'),
         url(r'^favourite/(?P<ftype>[a-zA-Z]+)/(?P<fid>[a-zA-Z0-9]+)/$', 'favourite_callback'),
+        url(r'^discussion/$', 'discussion_callback'),
     )
 
     urlpatterns += patterns('',

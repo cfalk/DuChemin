@@ -1,0 +1,40 @@
+<!-- Loading this from external .js file wasn't working -->
+<script type="text/javascript">
+    $(function (){
+
+        // First fetch has timestamp 0, so it gets everything
+        var last_update = 0;
+        updateDiscussion();
+
+        function updateDiscussion() {
+            $.ajax({
+                type: "GET",
+                url: "/discussion/",
+                cache: false,
+                data: {
+                    'piece_id': '{{ piece_id }}',
+                    'last_update': last_update,
+                    },
+                dataType: 'json',
+                success: function (json) {
+                $.each(json, function(i,item) {
+
+                    // TODO: Make this prettier
+                    var comment = '<div class="comment"><div class="author">'
+                        + item.author + ": " + item.display_time
+                        + '</div><div class="text">' + item.text + '</div>';
+
+                    $('#discussion-block').prepend(comment);
+
+                    // Update the epoch_time each refresh to reduce return
+                    last_update = item.epoch_time;
+                    });
+                },
+            });
+            setTimeout(updateDiscussion, 10000);
+        }
+    });
+
+</script>
+
+<div id="discussion-block"></div>

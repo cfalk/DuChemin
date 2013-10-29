@@ -13,6 +13,7 @@ from duchemin.models.reconstruction import DCReconstruction
 from duchemin.models.userprofile import DCUserProfile
 from duchemin.models.file import DCFile
 from duchemin.models.content_block import DCContentBlock
+from duchemin.models.comment import DCComment
 
 
 class DCAnalysisAdmin(admin.ModelAdmin):
@@ -91,3 +92,4 @@ admin.site.register(DCPiece, DCPieceAdmin)
 admin.site.register(DCReconstruction, DCReconstructionAdmin)
 admin.site.register(DCFile)
 admin.site.register(DCContentBlock)
+admin.site.register(DCComment)

@@ -99,6 +99,7 @@ def piece(request, piece_id):
 
     data = {
         'piece': piece,
+        'piece_id' : piece_id,
         'phrases': phrases,
         'analyses': analyses,
         'reconstructions': reconstructions,

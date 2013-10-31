@@ -6,7 +6,7 @@ class DCComment(models.Model):
 
     piece = models.ForeignKey(DCPiece, related_name="comments")
     author = models.ForeignKey(User, related_name="comments")
-    time = models.DateTimeField()
+    time = models.DateTimeField(auto_now=True)
     text = models.TextField()
 
     def __unicode__(self):

@@ -88,31 +88,27 @@ def discussion_callback(request):
 
     # assuming GET means get comments; POST means add a new one
     if request.method == u'GET':
-        get = request.GET
-        if get.has_key('piece_id') and get.has_key('last_update'):
-            piece_id = get['piece_id']
-            last_update = float(get['last_update'])
-            last_ts = datetime.utcfromtimestamp(last_update).replace(tzinfo=utc)
+        get_data = request.GET
+        if get_data.has_key('piece_id') and get_data.has_key('last_update'):
+            piece_id = get_data['piece_id']
+            last_update = get_data['last_update']
 
             # only return the queryset of objects for this piece newer than
-            # the last timestamp (sent from AJAX callback)
+            # the last id (sent from AJAX callback). This assumes a sequential
+            # addition of comments, incrementing the id every time
             comments = DCComment.objects.filter(
                 piece = DCPiece.objects.get(piece_id=piece_id),
-                time__gt = last_ts
+                id__gt = last_update
                 )
             comment_array = []
             for comment in comments.values():
 
-                # display_time is what the user sees; epoch_time is to track
-                # what they have already been sent
-                dt = comment['time']
-                display_time = dt.strftime("%d/%m/%y %H:%M")
-                epoch_time = dt.strftime("%s")
+                display_time = comment['time'].strftime("%d/%m/%y %H:%M")
 
                 comment_array.append({
+                    'id' : u"{}".format(comment['id']),
                     'text' : u"{}".format(comment['text']),
                     'display_time' : u"{}".format(display_time),
-                    'epoch_time' : u"{}".format(epoch_time),
                     'author' : u"{}".format(
                         User.objects.get(id=comment['author_id'])),
                 })
@@ -120,6 +116,16 @@ def discussion_callback(request):
                 mimetype='application/json')
         else:
             return HttpResponseServerError("Missing critical GET attributes")
+    elif request.method == u'POST':
+        post_data = request.POST
+        if post_data.has_key('piece_id') and post_data.has_key('text'):
+            piece = DCPiece.objects.get(piece_id=post_data['piece_id'])
+            comment = DCComment(author = request.user,
+                piece = piece,text = post_data['text'])
+            comment.save()
+            return HttpResponse("OK!")
+        else:
+            return HttpResponseServerError("Missing critical POST attributes")
 
 
 def result_callback(request, restype):

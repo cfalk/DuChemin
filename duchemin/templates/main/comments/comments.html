@@ -2,7 +2,7 @@
 <script type="text/javascript">
     $(function (){
 
-        // First fetch has timestamp 0, so it gets everything
+        // First fetch has id 0, so it gets everything
         var last_update = 0;
         updateDiscussion();
 
@@ -14,27 +14,44 @@
                 data: {
                     'piece_id': '{{ piece_id }}',
                     'last_update': last_update,
-                    },
+                    },                    
                 dataType: 'json',
                 success: function (json) {
-                $.each(json, function(i,item) {
+                    $.each(json, function(i,item) {
 
-                    // TODO: Make this prettier
-                    var comment = '<div class="comment"><div class="author">'
-                        + item.author + ": " + item.display_time
-                        + '</div><div class="text">' + item.text + '</div>';
+                        //TODO: Make this prettier
+                        var comment = '<div class="comment"><div class="author">'
+                            + item.author + ": " + item.display_time
+                            + '</div><div class="text">' + item.text + '</div>';
 
-                    $('#discussion-block').prepend(comment);
-
-                    // Update the epoch_time each refresh to reduce return
-                    last_update = item.epoch_time;
+                        $('#discussion-block').prepend(comment);
+                        // Update the epoch_time each refresh to reduce return
+                        last_update = item.id;
                     });
                 },
             });
-            setTimeout(updateDiscussion, 10000);
+            setTimeout(updateDiscussion, 2000);
         }
+        
     });
-
 </script>
 
 <div id="discussion-block"></div>
+<br>
+<form id="comment-form">
+    <input name="text" type="text"/>
+    <input type="hidden" name="piece_id" value="{{ piece_id }}"/>
+    <input type="submit" name="comment-submit" value="Comment"/>
+</form>
+
+<script type="text/javascript">
+    $( "#comment-form" ).submit(function( event ){
+    	var form = $(this);
+        $.ajax({
+        	type: "POST",
+        	url: "/discussion/",
+        	data: form.serialize()
+        });
+        event.preventDefault();
+    });
+</script>

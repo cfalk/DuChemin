@@ -1,5 +1,16 @@
 {% extends "base.html" %}
 
+{% block header %}
+    {% if is_logged_in %}
+    <script type="text/javascript" src="{{ STATIC_URL }}js/comments.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function (){
+        	startCommentFeed();
+        });
+    </script>
+    {% endif %}
+{% endblock %}
+
 {% block wrap %}
 
       <div class="row-fluid">
@@ -26,6 +37,12 @@
                 {% include "main/blocks/news.html" with block=block %}
               {% endfor %}
             </div><!--/span-->
+            {% if is_logged_in %}
+            <div class="span4">
+              <h2>Current Discussion</h2>
+              <div id="discussion-block"></div>
+            </div><!--/span-->
+            {% endif %}
           </div><!--/row-->
         </div><!--/span-->
       </div><!--/row-->

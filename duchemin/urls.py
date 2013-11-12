@@ -27,7 +27,7 @@ if 'django.contrib.admin' in settings.INSTALLED_APPS:
         url(r'^reconstruction/(?P<reconstruction_id>[0-9]+)', 'reconstruction'),
 
         url(r'^people/$', 'people'),
-        url(r'^person/(?P<person_id>[a-zA-Z0-9]+)', 'person')
+        url(r'^person/(?P<person_id>[a-zA-Z0-9]+)', 'person'),
     )
 
     urlpatterns += patterns('duchemin.views.search',

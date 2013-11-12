@@ -89,33 +89,43 @@ def discussion_callback(request):
     # assuming GET means get comments; POST means add a new one
     if request.method == u'GET':
         get_data = request.GET
-        if get_data.has_key('piece_id') and get_data.has_key('last_update'):
-            piece_id = get_data['piece_id']
-            last_update = get_data['last_update']
-
-            # only return the queryset of objects for this piece newer than
-            # the last id (sent from AJAX callback). This assumes a sequential
-            # addition of comments, incrementing the id every time
-            comments = DCComment.objects.filter(
-                piece = DCPiece.objects.get(piece_id=piece_id),
-                id__gt = last_update
-                )
+        if get_data.has_key('last_update'):
+            comments = ""
             comment_array = []
+            last_update = get_data['last_update']
+            if get_data.has_key('piece_id'):
+                piece_id = get_data['piece_id']
+
+    
+                # only return the queryset of objects for this piece newer than
+                # the last id (sent from AJAX callback). This assumes a sequential
+                # addition of comments, incrementing the id every time
+                comments = DCComment.objects.filter(
+                    piece = DCPiece.objects.get(piece_id=piece_id),
+                    id__gt = last_update
+                    )
+
+            else:
+                    # if no piece_id was included, return everything
+                    comments = DCComment.objects.filter(id__gt = last_update)
+                    
             for comment in comments.values():
-
                 display_time = comment['time'].strftime("%d/%m/%y %H:%M")
-
+                current_piece = DCPiece.objects.get(id=comment['piece_id'])
                 comment_array.append({
                     'id' : u"{}".format(comment['id']),
                     'text' : u"{}".format(comment['text']),
                     'display_time' : u"{}".format(display_time),
                     'author' : u"{}".format(
                         User.objects.get(id=comment['author_id'])),
+                    'piece_id' : u"{}".format(current_piece.piece_id)
                 })
             return HttpResponse(simplejson.dumps(comment_array),
                 mimetype='application/json')
         else:
             return HttpResponseServerError("Missing critical GET attributes")
+        
+    # If accessed using a POST, assume we are adding a new discussion
     elif request.method == u'POST':
         post_data = request.POST
         if post_data.has_key('piece_id') and post_data.has_key('text'):

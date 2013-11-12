@@ -19,10 +19,14 @@ def home(request):
     front_page_blocks = DCContentBlock.objects.filter(published=True, content_type="block").order_by('position')
     front_page_blocks = front_page_blocks[0:3]
     news_blocks = DCContentBlock.objects.filter(published=True, content_type="news").order_by('position')
+    is_logged_in = False
+    if request.user.is_authenticated():
+        is_logged_in = True
     data = {
         'user': request.user,
         'front_page_blocks': front_page_blocks,
-        'news_blocks': news_blocks
+        'news_blocks': news_blocks,
+        'is_logged_in': is_logged_in
     }
     return render(request, 'main/home.html', data)
 

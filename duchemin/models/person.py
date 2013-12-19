@@ -6,6 +6,7 @@ class DCPerson(models.Model):
         app_label = "duchemin"
         verbose_name = "Person"
         verbose_name_plural = "People"
+        ordering = ['surname']
 
     person_id = models.CharField(max_length=16, unique=True, null=True, db_index=True)
     surname = models.CharField(max_length=64, blank=True, null=True, db_index=True)

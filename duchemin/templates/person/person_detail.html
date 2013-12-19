@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block wrap %}
+<h1>{{ content.full_name }}
+{% if content.alt_spelling %}
+<em>({{ content.alt_spelling }})</em>
+{% endif %}
+{% if analyses %}
+    <small>(Analyst)</small>
+{% endif %}
+</h1>
+<h2>
+{% if content.birth_date %}
+    b. {{ content.birth_date }}
+{% else %}
+    b. ????
+{% endif %}
+&ndash;
+{% if content.death_date %}
+    d. {{ content.death_date }}
+{% else %}
+    d. ????
+{% endif %}
+{% if content.active_date %}
+    (c. {{ content.active_date }})
+{% endif %}
+</h2>
+
+{% if content.remarks %}
+<p>{{ content.remarks}}</p>
+{% endif %}
+
+{% if pieces %}
+<h2>Pieces</h2>
+<table class="table table-striped">
+<tr>
+    <th>Piece Name</th>
+    <th>Book</th>
+</tr>
+{% for piece in pieces %}
+<tr>
+    <td><a href="/piece/{{ piece.piece_id }}">{{ piece.title }}</a></td>
+    <td><a href="/book/{{ piece.book_id.book_id }}">{{ piece.book_id.title }}</a></td>
+</tr>
+{% endfor %}
+</table>
+{% endif %}
+
+
+{% if content.analyses %}
+<h2>Analyses</h2>
+    {% include "analysis/analysis_display_table.html" %}
+{% endif %}
+
+{% endblock %}

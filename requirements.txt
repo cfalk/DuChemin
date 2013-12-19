@@ -4,6 +4,7 @@ Werkzeug==0.8.3
 django-bootstrap-pagination==0.1.10
 django-crispy-forms==1.2.8
 django-extensions==0.9
+djangorestframework==2.3.10
 httplib2==0.7.6
 ipython==0.13
 lxml==3.0.1

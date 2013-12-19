@@ -31,10 +31,10 @@ def home(request):
     return render(request, 'main/home.html', data)
 
 
-def book(request, book_id):
+def book(request, pk):
     try:
-        book = DCBook.objects.get(book_id=book_id)
-        pieces = DCPiece.objects.filter(book_id=book_id).order_by('book_position')
+        book = DCBook.objects.get(book_id=pk)
+        pieces = DCPiece.objects.filter(book_id=pk).order_by('book_position')
     except DCBook.DoesNotExist:
         raise Http404
     return render(request, 'main/book.html', {'book': book, 'pieces': pieces})
@@ -81,9 +81,10 @@ def pieces(request):
     return render(request, 'main/pieces.html', {'pieces': all_pieces, 'is_logged_in': is_logged_in})
 
 
-def piece(request, piece_id):
+def piece(request, pk):
+    # note: this is not the *actual* pk, it's the piece_id. This field name just makes REST Framework happy.
     try:
-        piece = DCPiece.objects.get(piece_id=piece_id)
+        piece = DCPiece.objects.get(piece_id=pk)
     except DCPiece.DoesNotExist:
         raise Http404
 
@@ -97,13 +98,13 @@ def piece(request, piece_id):
         if profile.favourited_piece.filter(id=piece.id):
             is_favourite = True
 
-    phrases = DCPhrase.objects.filter(piece_id=piece_id).order_by('phrase_num')
-    analyses = DCAnalysis.objects.filter(composition_number=piece_id).order_by('phrase_number__phrase_num', 'start_measure')
-    reconstructions = DCReconstruction.objects.filter(piece=piece_id).order_by('piece')
+    phrases = DCPhrase.objects.filter(piece_id=pk).order_by('phrase_num')
+    analyses = DCAnalysis.objects.filter(composition_number=pk).order_by('phrase_number__phrase_num', 'start_measure')
+    reconstructions = DCReconstruction.objects.filter(piece=pk).order_by('piece')
 
     data = {
         'piece': piece,
-        'piece_id' : piece_id,
+        'piece_id' : pk,
         'phrases': phrases,
         'analyses': analyses,
         'reconstructions': reconstructions,

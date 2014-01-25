@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block wrap %}
+{{ content }}
 <h1>{{ person.full_name }}
 {% if person.alt_spelling %}
 <em>({{ person.alt_spelling }})</em>
@@ -30,7 +31,7 @@
 <p>{{ person.remarks}}</p>
 {% endif %}
 
-{% if pieces %}
+{% if content.pieces %}
 <h2>Pieces</h2>
 <table class="table table-striped">
 <tr>
@@ -47,7 +48,7 @@
 {% endif %}
 
 
-{% if analyses %}
+{% if content.analyses %}
 <h2>Analyses</h2>
     {% include "analysis/analysis_display_table.html" %}
 {% endif %}

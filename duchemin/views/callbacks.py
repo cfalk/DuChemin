@@ -18,7 +18,7 @@ from duchemin.models.comment import DCComment
 
 
 class JsonResponse(HttpResponse):
-    def __init__(self, content, content_type='application/json', status=None, content_type=None):
+    def __init__(self, content, content_type='application/json', status=None):
         super(JsonResponse, self).__init__(
             content=json.dumps(content),
             status=status,

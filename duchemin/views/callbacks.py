@@ -18,10 +18,10 @@ from duchemin.models.comment import DCComment
 
 
 class JsonResponse(HttpResponse):
-    def __init__(self, content, mimetype='application/json', status=None, content_type=None):
+    def __init__(self, content, content_type='application/json', status=None, content_type=None):
         super(JsonResponse, self).__init__(
             content=json.dumps(content),
-            mimetype=mimetype,
+            content_type=mimetype,
             status=status,
             content_type=content_type
         )

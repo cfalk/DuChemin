@@ -1,6 +1,7 @@
 from django.shortcuts import render
+import json
+
 from django.http import HttpResponse,HttpResponseServerError
-from django.utils import simplejson
 from django.utils.timezone import utc
 from django.utils.datastructures import SortedDict
 from django.conf import settings
@@ -19,7 +20,7 @@ from duchemin.models.comment import DCComment
 class JsonResponse(HttpResponse):
     def __init__(self, content, mimetype='application/json', status=None, content_type=None):
         super(JsonResponse, self).__init__(
-            content=simplejson.dumps(content),
+            content=json.dumps(content),
             mimetype=mimetype,
             status=status,
             content_type=content_type
@@ -120,8 +121,7 @@ def discussion_callback(request):
                         User.objects.get(id=comment['author_id'])),
                     'piece_id' : u"{}".format(current_piece.piece_id)
                 })
-            return HttpResponse(simplejson.dumps(comment_array),
-                mimetype='application/json')
+            return JsonResponse(comment_array)
         else:
             return HttpResponseServerError("Missing critical GET attributes")
         

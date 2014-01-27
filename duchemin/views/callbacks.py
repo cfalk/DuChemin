@@ -21,7 +21,6 @@ class JsonResponse(HttpResponse):
     def __init__(self, content, content_type='application/json', status=None, content_type=None):
         super(JsonResponse, self).__init__(
             content=json.dumps(content),
-            content_type=mimetype,
             status=status,
             content_type=content_type
         )

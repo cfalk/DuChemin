@@ -155,10 +155,15 @@ def people(request):
 
 
 def person(request, person_id):
-    try:
-        person = DCPerson.objects.get(person_id=person_id)
-    except DCPerson.DoesNotExist:
-        raise Http404
+    if person_id:
+        try:
+            person = DCPerson.objects.get(person_id=person_id)
+        except DCPerson.DoesNotExist:
+            # If a lookup of the numeric name returns nothing, try the surname
+            try:
+                person = DCPerson.objects.get(surname__iexact=person_id)
+            except DCPerson.DoesNotExist:
+                raise Http404
 
     pieces = DCPiece.objects.filter(composer_id=person.person_id)
     analyses = DCAnalysis.objects.filter(analyst=person.person_id)
@@ -168,6 +173,7 @@ def person(request, person_id):
         'pieces': pieces,
         'analyses': analyses
     }
+    print person.surname
     return render(request, 'main/person.html', data)
 
 

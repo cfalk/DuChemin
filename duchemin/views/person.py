@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404
 from rest_framework import generics
 from rest_framework.renderers import JSONRenderer
 
@@ -21,6 +22,17 @@ class PersonDetail(generics.RetrieveAPIView):
     model = DCPerson
     serializer_class = DCPersonDetailSerializer
     renderer_classes = (JSONRenderer, PersonDetailHTMLRenderer)
+
+    def get_object(self):
+        url_arg = self.kwargs['pk']
+        person = DCPerson.objects.filter(person_id=url_arg)
+        if not person.exists():
+            person = DCPerson.objects.filter(surname__iexact=url_arg)
+
+        obj = get_object_or_404(person)
+        self.check_object_permissions(self.request, obj)
+        return obj
+
 
 # def people(request):
 #     people = DCPerson.objects.all().order_by('surname')

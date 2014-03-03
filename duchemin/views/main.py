@@ -168,6 +168,7 @@ def person(request, person_id):
         'pieces': pieces,
         'analyses': analyses
     }
+    print person.surname
     return render(request, 'main/person.html', data)
 
 

@@ -189,10 +189,12 @@ def profile(request):
     data = {
         'user': request.user,
         'profile': profile,
+        'favourited_pieces': profile.favourited_piece.iterator(),
+        'favourited_analyses': profile.favourited_analysis.iterator(),
+        'favourited_reconstructions': profile.favourited_reconstruction.iterator(),
         'my_analyses': analyses,
         'my_reconstructions': reconstructions
     }
-    
     return render(request, 'main/profile.html', data)
 
 

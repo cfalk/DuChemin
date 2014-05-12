@@ -21,10 +21,9 @@ class Command(BaseCommand):
       raise CommandError("Piece not found with that piece_id.")
 
     #Verify that the specified type is added.
-    try:
-      if arg[2].lower() in {"mp3", "mei", "pdf"}:
-        ext = arg[2].lower()
-    except:
+    if arg[2].lower() in {"mp3", "mei", "pdf"}:
+      ext = arg[2].lower()
+    else:
       raise CommandError("Illegal file type! Choices are: MP3, MEI, PDF.")
       
     try:
